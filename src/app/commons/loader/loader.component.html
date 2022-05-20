@@ -1,0 +1,10 @@
+<div class="overlay" *ngIf="isLoading | async">
+  <mat-progress-spinner
+    class="spinner"
+    mode="indeterminate"
+    [value]="value"
+    aria-label="Cargando"
+    diameter="100">
+  </mat-progress-spinner>
+  <div class="txt-cargando">Cargando...</div>
+</div>

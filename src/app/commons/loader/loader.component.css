@@ -1,0 +1,41 @@
+.overlay {
+    position:fixed;
+    display:block;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background-color:rgba(74,74,74,.8);
+    z-index:99999;
+}
+
+.spinner {
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%); */
+
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 225px;
+  right: 0;
+}
+
+.txt-cargando {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  color: #fff;
+  font-size: 20pt;
+  transform: translate(-50%, -50%);
+}
+
+.overlay ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #fff;
+}

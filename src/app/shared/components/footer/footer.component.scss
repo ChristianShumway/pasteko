@@ -1,0 +1,23 @@
+footer {
+  position: fixed;
+  bottom: 2rem;
+  padding: 0 1rem;
+  left: 0;
+  right: 0;
+  &.wrap-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .btn {
+    padding: 1rem;
+    .mat-icon {
+      font-size: 36px;
+      width: 36px;
+      height: 36px;
+    }
+    &:last-child {
+      padding: 24px  1rem;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<nav class="container-nav">
+  <ul>
+    <li
+    class="wrap-item item"
+    [routerLink]="['/productos', option?.idLinea]"
+    routerLinkActive="active"
+    *ngFor="let option of options">
+      <span class="name">{{option?.descripcion}}</span>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,11 @@
+<section class="main-container">
+  <app-header [title]="title"></app-header>
+  <article class="wrap-options-menu">
+    <app-option-menu
+      class="item-menu"
+      *ngFor="let option of optionsMenu; index as i"
+      [item]="option"
+      (click) = 'goToProducts(option)'>
+    </app-option-menu>
+  </article>
+</section>
