@@ -7,7 +7,7 @@
   .wrap-top__logo {
     img {
       vertical-align: bottom;
-      max-width: 125px;
+      max-width: 160px;
     }
   }
   .wrap-top__text {
@@ -16,9 +16,10 @@
     align-self: center;
     padding-right: 1rem;
     p {
-      color: #eeda39;
-      font-size: 8rem;
+      color: var(--main-color);
+      font-size: 6rem;
       margin-bottom: 0;
+      font-family: 'ItcDemi', sans-serif;
     }
   }
 }
