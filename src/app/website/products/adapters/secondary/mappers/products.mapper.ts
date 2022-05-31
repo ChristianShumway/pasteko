@@ -19,7 +19,8 @@ export class ProductsMappers {
         codigo: p.codigo,
         descripcion: p.descripcion,
         linea: p.linea,
-        imagen: p.imagen
+        imagen: p.imagen,
+        count: 0
       });
     });
 

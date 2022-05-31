@@ -1,0 +1,36 @@
+.wrap-product__option {
+  height: inherit;
+  display: grid;
+  justify-items: center;
+  position: relative;
+  padding: .5rem 0;
+  .option__img {
+    max-width: 95px;
+  }
+  .option__name {
+    color: var(--main-color);
+    text-transform: capitalize;
+    margin: 0.5rem 0;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .option__detail {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    font-weight: bold;
+    padding: 0.5rem;
+    font-family: 'Gotham', sans-serif !important;
+    font-size: 1rem;
+    &.position {
+      position: absolute;
+      right: 2rem;
+      top: .5rem;
+    }
+  }
+  .option__count {
+    width: 90%;
+  }
+}

@@ -12,9 +12,9 @@
     list-style: none;
     overflow-y: auto;
     overflow-x: hidden;
-    height: 700px;
+    height: calc(100vh - 350px);
     .wrap-item {
-      width: 180px;
+      width: 160px;
       height: 60px;
       display: flex;
       place-items: center;

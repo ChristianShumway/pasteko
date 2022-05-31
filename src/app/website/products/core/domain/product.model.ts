@@ -3,4 +3,5 @@ export interface ProductModel {
   descripcion: string;
   linea: string;
   imagen: string;
+  count?: number;
 }

@@ -1,7 +1,19 @@
 <section class="main-container">
   <app-header [title]="title"></app-header>
   <article class="wrap-options">
-    HOLA
+    <div class="wrap-options__tabs">
+      <div class="tab active">
+        <span>Pastes Salados</span>
+      </div>
+      <div class="tab right inactive">
+        <span>Pastes Dulces</span>
+      </div>
+    </div>
+    <div class="wrap-options__products">
+      <div class="products-grid">
+        <app-product *ngFor="let product of productsList" [product]="product"></app-product>
+      </div>
+    </div>
   </article>
 </section>
 

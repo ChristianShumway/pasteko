@@ -1,7 +1,8 @@
-import { switchMap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { ProductsPrimaryInterface } from '../../../core/ports/primary/products.primary.interface';
+import { ProductModel } from './../../../core/domain/product.model';
 
 @Component({
   selector: 'app-products',
@@ -11,6 +12,7 @@ import { ProductsPrimaryInterface } from '../../../core/ports/primary/products.p
 export class ProductsComponent implements OnInit {
   title: string = 'Menú';
   idCategoria: string | null = null ;
+  productsList: ProductModel[] = [];
 
   constructor(
     private usecase: ProductsPrimaryInterface,
@@ -29,7 +31,8 @@ export class ProductsComponent implements OnInit {
       }))
     ).subscribe(
       response => {
-        console.log(response)
+        console.log(response);
+        this.productsList = response;
       },
       error => console.log(error)
     )

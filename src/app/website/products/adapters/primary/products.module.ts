@@ -8,16 +8,22 @@ import { ProductsService } from '../secondary/apirest/products.service';
 import { ProductsPrimaryInterface } from '../../core/ports/primary/products.primary.interface';
 import { ProductsSecondaryInterface } from '../../core/ports/secondary/products.secondary.interface';
 import { ProductsUsecase } from '../../core/usecases/products.usecase';
+import { ProductComponent } from './product/product.component';
+import { CounterComponent } from './counter/counter.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     ProductsComponent,
+    ProductComponent,
+    CounterComponent,
   ],
   imports: [
     CommonModule,
     ProductsRoutingModule,
     SharedModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: ProductsPrimaryInterface, useClass: ProductsUsecase},
