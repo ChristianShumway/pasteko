@@ -10,7 +10,7 @@ import { ProductModel } from './../../../core/domain/product.model';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  title: string = 'Menú';
+  title: string = '';
   idCategoria: string | null = null ;
   productsList: ProductModel[] = [];
 
@@ -27,6 +27,7 @@ export class ProductsComponent implements OnInit {
     this.route.paramMap.pipe(
       switchMap( ((params: ParamMap) => {
         this.idCategoria = params.get('idCategory');
+        this.title = this.idCategoria === '18' ?  'Paquetekos' : 'Menú';
         return this.usecase.getProducts(this.idCategoria);
       }))
     ).subscribe(

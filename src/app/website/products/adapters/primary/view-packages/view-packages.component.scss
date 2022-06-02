@@ -1,0 +1,73 @@
+.wrap-packages {
+  padding: 2rem 2rem 2rem 11rem;
+  height: calc(100vh - 360px);
+  position: relative;
+  overflow-y: auto;
+  .package {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 4rem;
+    &:nth-child(even){
+      flex-direction: row-reverse;
+      .package__content {
+        text-align: right;
+      }
+    }
+    .package__content {
+      width: 60%;
+      .package__content--name {
+        color: var(--main-color);
+        font-family: 'ItcDemi', sans-serif;
+        font-size: 1.8rem;
+        margin-bottom: 1.3rem;
+      }
+      .content {
+        color: #fff;
+        .content__product {
+          font-family: 'ItcDemi', sans-serif;
+          margin-bottom: 0.5rem;
+          .content__product--name {
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-bottom: 0;
+            font-size: 1.5rem;
+            span {
+              font-size: 0.8rem;
+            }
+          }
+          .content__product--description {
+            font-size: 0.7rem;
+            margin: 0;
+          }
+        }
+      }
+    }
+    .package__amounts {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 40%;
+      .amount__price {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--secondary-color);
+        background-color: var(--main-color);
+        margin: 0;
+        border-radius: 50%;
+        padding: 1.3rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 1.2rem;
+        font-family: 'Gotham', sans-serif
+      }
+      .amount__total {
+        width: 90%;
+      }
+    }
+  }
+}

@@ -11,6 +11,8 @@ import { ProductsUsecase } from '../../core/usecases/products.usecase';
 import { ProductComponent } from './product/product.component';
 import { CounterComponent } from './counter/counter.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ViewProductsComponent } from './view-products/view-products.component';
+import { ViewPackagesComponent } from './view-packages/view-packages.component';
 
 
 @NgModule({
@@ -18,6 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProductsComponent,
     ProductComponent,
     CounterComponent,
+    ViewProductsComponent,
+    ViewPackagesComponent,
   ],
   imports: [
     CommonModule,
