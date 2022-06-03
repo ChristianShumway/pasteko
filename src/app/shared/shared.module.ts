@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { MaterialUiModule } from '../material-ui/material-ui.module';
 import { HeaderComponent } from './components/header/header.component';
 import { MenuNavComponent } from './components/menu-nav/menu-nav.component';
-import { RouterModule } from '@angular/router';
 import { FooterComponent } from './components/footer/footer.component';
-import { MaterialUiModule } from '../material-ui/material-ui.module';
+import { CounterComponent } from './counter/counter.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     MenuNavComponent,
-    FooterComponent
+    FooterComponent,
+    CounterComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { MaterialUiModule } from '../material-ui/material-ui.module';
   exports: [
     HeaderComponent,
     MenuNavComponent,
-    FooterComponent
+    FooterComponent,
+    CounterComponent
   ]
 })
 export class SharedModule { }

@@ -9,7 +9,6 @@ import { ProductsPrimaryInterface } from '../../core/ports/primary/products.prim
 import { ProductsSecondaryInterface } from '../../core/ports/secondary/products.secondary.interface';
 import { ProductsUsecase } from '../../core/usecases/products.usecase';
 import { ProductComponent } from './product/product.component';
-import { CounterComponent } from './counter/counter.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ViewProductsComponent } from './view-products/view-products.component';
 import { ViewPackagesComponent } from './view-packages/view-packages.component';
@@ -19,7 +18,6 @@ import { ViewPackagesComponent } from './view-packages/view-packages.component';
   declarations: [
     ProductsComponent,
     ProductComponent,
-    CounterComponent,
     ViewProductsComponent,
     ViewPackagesComponent,
   ],
