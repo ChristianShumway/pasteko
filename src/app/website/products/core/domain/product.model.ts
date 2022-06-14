@@ -1,7 +1,9 @@
 export interface ProductModel {
+  cantidadPedida: number;
   codigo: string;
   descripcion: string;
-  linea: string;
+  existencia: number
   imagen: string;
-  count?: number;
+  linea: string;
+  precio: number;
 }

@@ -17,10 +17,11 @@ export class ProductsUsecase extends ProductsPrimaryInterface {
 
   /**
   * @param id id de la línea a cargar
+  * @param  idVenta id de la venta en curso
   * @returns Array con productos de la línea
   */
-  getProducts(id: string): Observable<ProductModel[]> {
-    return this.secondary.getProducts(id);
+  getProducts(id: string, idVenta?: number): Observable<ProductModel[]> {
+    return this.secondary.getProducts(id, idVenta);
   }
 
 }

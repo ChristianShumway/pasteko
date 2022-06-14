@@ -1,0 +1,124 @@
+.wrap__main {
+  padding: 0 8rem;
+  margin: 0;
+  margin: 4rem 0 0;
+  height: calc(100vh - 360px);
+  position: relative;
+  .wrap__order {
+    position: relative;
+    padding: 2rem;
+    background-color: var(--dark-color);
+    border-radius: 2rem;
+    height: -webkit-fill-available;
+    box-sizing: border-box;
+    height: 100%;
+    box-shadow: 4px 4px 8px 0px rgba(0,0,0,0.8);
+    .order__products {
+      max-height: 475px;
+      overflow-y: auto;
+      margin-bottom: 3rem;
+      padding: 0 1rem 0;
+      .grid-order {
+        display: grid;
+        grid-template-columns: 2fr 2fr 1fr 0.5fr;
+        gap: 1rem;
+      }
+      .order__products--title {
+        color: #fff;
+        margin-bottom: 1rem;
+        .tr {
+          font-family: "ItcDemi", sans-serif;
+          font-size: 1.5rem;
+          &:first-child {
+            padding-left: 0.5rem;
+          }
+
+        }
+      }
+      .order__products--description {
+        color: var(--main-color);
+        &:not(:last-child) {
+          margin-bottom: 2rem;
+        }
+        .td {
+          font-family: "ItcDemi", sans-serif;
+          font-size: 1.2rem;
+          align-self: center;
+          &:first-child {
+            width: 80%;
+          }
+        }
+        .btn-delete {
+          background: #31343D;
+          box-shadow: 4px 4px 8px 0px rgb(0 0 0 / 80%);
+          border: none;
+          color: var(--main-color);
+          padding: 0.5rem;
+          border-radius: 0.25rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+    .order__detail {
+      color: var(--main-color);
+      font-family: "ItcDemi", sans-serif;
+      .detail__total {
+        text-align: right;
+        margin-bottom: 2rem;
+        p {
+          font-size: 1.5rem;
+          text-transform: uppercase;
+          margin: 0;
+        }
+      }
+      .detail__ordername {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 2rem;
+        .text {
+          display: flex;
+          justify-content: right;
+          p {
+            margin: 0;
+            font-size: 1.2rem;
+            text-align: right;
+            width: 80%;
+          }
+        }
+      }
+      .detail__email {
+        display: grid;
+        justify-items: center;
+        p {
+          font-size: 1.2rem;
+          text-align: center;
+          margin-bottom: 1rem;
+        }
+        input {
+          width: 85%;
+        }
+      }
+      input[type="text"],
+      input[type="email"] {
+        border: 0;
+        background-color: #31343D;
+        color: #fff;
+        width: 100%;
+        height: 3rem;
+        box-shadow: 4px 4px 8px 0px rgb(0 0 0 / 80%);
+        font-size: 1.3rem;
+        padding: 0 1rem;
+        font-family: "ItcDemi", sans-serif;
+        box-sizing: border-box;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}

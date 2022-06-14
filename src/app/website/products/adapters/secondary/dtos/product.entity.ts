@@ -1,8 +1,11 @@
 export interface ProductEntity {
+  cantidadPedida: number;
   codigo: string;
   descripcion: string;
-  linea: string;
+  existencia: number
   imagen: string;
+  linea: string;
+  precio: number;
 }
 
 export interface ResultProductEntity {

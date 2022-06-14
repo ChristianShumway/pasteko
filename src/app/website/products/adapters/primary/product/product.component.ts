@@ -20,7 +20,7 @@ export class ProductComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.countProduct = new FormControl(this.productItem?.count, [Validators.minLength(0)])
+    this.countProduct = new FormControl(this.productItem?.cantidadPedida, [Validators.minLength(0)])
     this.countProduct.valueChanges.subscribe({
       next: response  => {
         console.log(response);

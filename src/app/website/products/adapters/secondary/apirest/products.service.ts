@@ -21,10 +21,13 @@ export class ProductsService extends ProductsSecondaryInterface {
     super();
   }
 
-  getProducts(id: string): Observable<ProductModel[]> {
-    const req = `${environment.apiUrl}/dashboard/getProductoByLinea/${id}`;
+  getProducts(idLinea: string, idVenta: number = 0): Observable<ProductModel[]> {
+    const req = `${environment.apiUrl}/dashboard/getProductoByLinea/${idLinea}/${idVenta}`;
     return this.http.get<ResultProductEntity>(req).pipe(
-      map( result => this.mappers.mapFromProducts(result.response))
+      map( result => {
+        sessionStorage.setItem('idPedido', `${result?.pk}`);
+        return this.mappers.mapFromProducts(result.response);
+      })
     );
   }
 

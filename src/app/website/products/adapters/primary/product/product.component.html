@@ -1,6 +1,6 @@
 <div class="wrap-product__option" >
   <img class="option__img" src="assets/menu/pastes/1.png" alt="paste" />
   <p class="option__name">{{productItem?.descripcion | lowercase }}</p>
-  <app-counter [formControl]="countProduct" class="option__count"></app-counter>
+  <app-counter [stock]="productItem?.existencia" [formControl]="countProduct" class="option__count"></app-counter>
   <a class="option__detail position btn-primary"> i </a>
 </div>

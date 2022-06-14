@@ -16,11 +16,13 @@ export class ProductsMappers {
 
     params.forEach( p => {
       products.push({
+        cantidadPedida: p.cantidadPedida,
         codigo: p.codigo,
         descripcion: p.descripcion,
-        linea: p.linea,
+        existencia: p.existencia,
         imagen: p.imagen,
-        count: 0
+        linea: p.linea,
+        precio: p.precio,
       });
     });
 
