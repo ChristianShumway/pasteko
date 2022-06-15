@@ -1,3 +1,4 @@
+import { ProductEntity } from 'src/app/website/products/adapters/secondary/dtos/product.entity';
 export interface OrderDetailtEntity {
   estatus: string;
   mensaje: string;
@@ -25,5 +26,6 @@ export interface ProductOrderEntity {
   idVenta: number;
   impuesto: number;
   precio: number;
+  viewProducto: ProductEntity;
 }
 

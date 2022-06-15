@@ -17,11 +17,11 @@ export class ProductOrderComponent implements OnInit {
   @Output() productSelected = new EventEmitter<ProductOrderModel>();
   @Output() deleteProduct = new EventEmitter<ProductOrderModel>();
   countProduct!: FormControl;
-  productItem!: ProductOrderModel;
 
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.productOrder)
     this.countProduct = new FormControl(this.productOrder?.cantidad);
     this.countProduct.valueChanges.subscribe({
       next: response  => {
@@ -33,6 +33,7 @@ export class ProductOrderComponent implements OnInit {
 
   deleteProductOrder(product: ProductOrderModel) {
     product.cantidad = 0;
+    console.log(product)
     this.deleteProduct.emit(product);
   }
 

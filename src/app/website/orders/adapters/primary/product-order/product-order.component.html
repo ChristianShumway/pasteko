@@ -1,8 +1,8 @@
 <div class="order__products--description grid-order">
   <div class="td">
-    <app-counter [stock]="productOrder?.cantidad" [formControl]="countProduct" class="option__count"></app-counter>
+    <app-counter [stock]="productOrder?.viewProducto?.existencia" [formControl]="countProduct" class="option__count"></app-counter>
   </div>
-  <div class="td">{{productOrder?.codigo}}</div>
+  <div class="td">{{productOrder?.viewProducto?.descripcion | lowercase}}</div>
   <div class="td">{{productOrder.precio * productOrder.cantidad | currency}}</div>
   <div class="td"><button class="btn-delete" (click)="deleteProductOrder(productOrder)">
     <mat-icon>delete</mat-icon>

@@ -1,3 +1,4 @@
+import { ProductModel } from "src/app/website/products/core/domain/product.model";
 export interface OrderDetailtModel {
   estatus: string;
   mensaje: string;
@@ -25,4 +26,5 @@ export interface ProductOrderModel {
   idVenta: number;
   impuesto: number;
   precio: number;
+  viewProducto: ProductModel;
 }

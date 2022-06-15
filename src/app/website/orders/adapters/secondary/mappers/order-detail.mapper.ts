@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ResponseOrderDetailtEntity } from '../dtos/order-detail.entity';
 import { ProductOrderModel, ResponseOrderDetailtModel } from '../../../core/domain/order-detail.model';
+import { ProductModel } from './../../../../products/core/domain/product.model';
 
 @Injectable({
 	providedIn: 'root',
@@ -22,7 +23,8 @@ export class OrderDetailMappers {
         idSalida: p.idSalida,
         idVenta: p.idVenta,
         impuesto: p.impuesto,
-        precio: p.precio
+        precio: p.precio,
+        viewProducto: p.viewProducto
       });
     });
 

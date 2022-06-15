@@ -46,12 +46,12 @@ export class OrderComponent implements OnInit {
     });
   }
 
-  onGetProductSelected(product: ProductOrderModel) {
-    console.log(product);
-    this.getAmountTotal();
-  }
+  // onGetProductSelected(product: ProductOrderModel) {
+  //   console.log(product);
+  //   this.getAmountTotal();
+  // }
 
-  onDeleteProductOrder(product: ProductOrderModel) {
+  onGetProductSelected(product: ProductOrderModel) {
     console.log(product);
     const productToSave: SaleProductModel = {
       idSalida: product.idSalida,
@@ -61,10 +61,10 @@ export class OrderComponent implements OnInit {
       viewProducto: {
         cantidadPedida: product.cantidad,
         codigo: product.codigo,
-        descripcion: product.codigo,
-        existencia: product.cantidad,
+        descripcion: product.viewProducto?.descripcion,
+        existencia: product.viewProducto?.existencia,
         idSalida: product.idSalida,
-        imagen: '',
+        imagen: product?.viewProducto?.imagen,
         linea: product.codigo,
         precio: product.precio
       },

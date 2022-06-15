@@ -8,10 +8,13 @@
           <div class="tr">Especialidad</div>
           <div class="tr">Total</div>
         </div>
+        <div class="order__products--notfound" *ngIf="productsOrder.length === 0">
+          <h1>No se han agregado productos al pedido.</h1>
+        </div>
         <app-product-order
           *ngFor="let product of productsOrder"
           (productSelected) = onGetProductSelected($event)
-          (deleteProduct) = onDeleteProductOrder($event)
+          (deleteProduct) = onGetProductSelected($event)
           [product]="product"
         >
         </app-product-order>
