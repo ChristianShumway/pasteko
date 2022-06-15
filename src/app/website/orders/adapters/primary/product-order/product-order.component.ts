@@ -15,6 +15,7 @@ export class ProductOrderComponent implements OnInit {
     }
   }
   @Output() productSelected = new EventEmitter<ProductOrderModel>();
+  @Output() deleteProduct = new EventEmitter<ProductOrderModel>();
   countProduct!: FormControl;
   productItem!: ProductOrderModel;
 
@@ -28,6 +29,11 @@ export class ProductOrderComponent implements OnInit {
         this.productSelected.emit(this.productOrder);
       }
     });
+  }
+
+  deleteProductOrder(product: ProductOrderModel) {
+    product.cantidad = 0;
+    this.deleteProduct.emit(product);
   }
 
 }

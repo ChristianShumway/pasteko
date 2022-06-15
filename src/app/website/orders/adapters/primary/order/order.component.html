@@ -11,13 +11,14 @@
         <app-product-order
           *ngFor="let product of productsOrder"
           (productSelected) = onGetProductSelected($event)
+          (deleteProduct) = onDeleteProductOrder($event)
           [product]="product"
         >
         </app-product-order>
       </div>
       <div class="order__detail">
         <div class="detail__total">
-          <p>Total <span>$119.00</span></p>
+          <p>Total <span>{{amount | currency}}</span></p>
         </div>
         <div class="detail__ordername">
           <div class="text">
