@@ -1,0 +1,10 @@
+<div class="order__products--description grid-order">
+  <div class="td">
+    <app-counter [stock]="productOrder?.cantidad" [formControl]="countProduct" class="option__count"></app-counter>
+  </div>
+  <div class="td">{{productOrder?.codigo}}</div>
+  <div class="td">{{productOrder.precio * productOrder.cantidad}}</div>
+  <div class="td"><button class="btn-delete">
+    <mat-icon>delete</mat-icon>
+  </button></div>
+</div>

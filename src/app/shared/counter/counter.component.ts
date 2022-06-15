@@ -36,7 +36,6 @@ export class CounterComponent implements OnInit, ControlValueAccessor {
   }
 
   sub() {
-    console.log(this.currentValue)
     this.currentValue = this.currentValue - 1;
     this.onTouch();
     this.onChange(this.currentValue);

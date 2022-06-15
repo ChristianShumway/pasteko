@@ -9,7 +9,11 @@
   </div>
   <div class="wrap-options__products">
     <div class="products-grid">
-      <app-product *ngFor="let product of productsList" [product]="product"></app-product>
+      <app-product
+        *ngFor="let product of productsList"
+        (productSelected) = onGetProductSelected($event)
+        [product]="product">
+      </app-product>
     </div>
   </div>
 </article>

@@ -1,6 +1,6 @@
-import { ProductModel } from './../../../core/domain/product.model';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { ProductModel } from './../../../core/domain/product.model';
 
 @Component({
   selector: 'app-product',
@@ -14,7 +14,8 @@ export class ProductComponent implements OnInit {
     if(data) {
       this.productItem = data;
     }
-  };
+  }
+  @Output() productSelected = new EventEmitter<ProductModel>();
 
 
   constructor() { }
@@ -23,7 +24,8 @@ export class ProductComponent implements OnInit {
     this.countProduct = new FormControl(this.productItem?.cantidadPedida, [Validators.minLength(0)])
     this.countProduct.valueChanges.subscribe({
       next: response  => {
-        console.log(response);
+        this.productItem.cantidadPedida = response;
+        this.productSelected.emit(this.productItem);
       }
     });
   }

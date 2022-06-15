@@ -7,10 +7,16 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialUiModule } from 'src/app/material-ui/material-ui.module';
 
 import { OrderComponent } from './order/order.component';
+import { SalePrimaryInterface } from '../../core/ports/primary/sale.primary.interface';
+import { SaleSecondaryInterface } from '../../core/ports/secondary/sale.secondary.interface';
+import { SalesUsecase } from '../../core/usecases/sale.usecase';
+import { SaleService } from '../secondary/apirest/sale.service';
+import { ProductOrderComponent } from './product-order/product-order.component';
 
 @NgModule({
   declarations: [
-    OrderComponent
+    OrderComponent,
+    ProductOrderComponent
   ],
   imports: [
     CommonModule,
@@ -18,6 +24,10 @@ import { OrderComponent } from './order/order.component';
     SharedModule,
     ReactiveFormsModule,
     MaterialUiModule
+  ],
+  providers: [
+    { provide: SalePrimaryInterface, useClass: SalesUsecase},
+    { provide: SaleSecondaryInterface, useClass: SaleService}
   ]
 })
 export class OrdersModule { }

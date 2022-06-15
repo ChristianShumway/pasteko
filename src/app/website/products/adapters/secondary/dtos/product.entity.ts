@@ -2,7 +2,8 @@ export interface ProductEntity {
   cantidadPedida: number;
   codigo: string;
   descripcion: string;
-  existencia: number
+  existencia: number;
+  idSalida: number;
   imagen: string;
   linea: string;
   precio: number;

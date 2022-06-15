@@ -1,6 +1,10 @@
 <section class="main-container">
   <app-header [title]="title"></app-header>
-  <app-view-products [products]="productsList" *ngIf="idCategoria !== '18'"></app-view-products>
+  <app-view-products
+    [products]="productsList"
+    (product)="onProductSelected($event)"
+    *ngIf="idCategoria !== '18'">
+  </app-view-products>
   <app-view-packages *ngIf="idCategoria === '18'"></app-view-packages>
 </section>
 

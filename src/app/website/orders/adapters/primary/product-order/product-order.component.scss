@@ -1,0 +1,29 @@
+.order__products--description {
+  color: var(--main-color);
+  margin-bottom: 1.5rem;
+  .td {
+    font-family: "ItcDemi", sans-serif;
+    font-size: 1.2rem;
+    align-self: center;
+    &:first-child {
+      width: 80%;
+    }
+  }
+  .btn-delete {
+    background: #31343D;
+    box-shadow: 4px 4px 8px 0px rgb(0 0 0 / 80%);
+    border: none;
+    color: var(--main-color);
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.grid-order {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 0.5fr;
+  gap: 1rem;
+}
