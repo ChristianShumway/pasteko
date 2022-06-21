@@ -17,12 +17,15 @@ import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LoaderComponent } from './commons/loader/loader.component';
+import { MessageComponent } from './commons/message/message.component';
+import { DialogMessage } from './commons/dialog';
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
     NotFoundComponent,
-    LoaderComponent
+    LoaderComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +37,7 @@ import { LoaderComponent } from './commons/loader/loader.component';
     MaterialUiModule
   ],
   providers: [
+    DialogMessage,
     LoaderService,
     { provide: Window, useValue: window },
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },

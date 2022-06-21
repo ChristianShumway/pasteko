@@ -37,3 +37,17 @@ body {
   background-position: center center;
   background-size: cover;
 }
+
+.mat-dialog-container {
+  background-color: var(--main-color);
+  color: var(--secondary-color);
+  border-radius: 1rem !important;
+}
+
+.mat-accept {
+  color: var(--third-color);
+}
+
+.mat-close {
+  color: #fff;
+}

@@ -31,4 +31,9 @@ export abstract class ProductsPrimaryInterface {
   */
   abstract deleteIdPedido(): void
 
+  /**
+  * @returns total productos seleccionados
+  */
+  abstract watchStorage(): Observable<any>;
+
 }

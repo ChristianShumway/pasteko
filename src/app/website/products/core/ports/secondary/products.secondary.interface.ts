@@ -32,4 +32,9 @@ export abstract class ProductsSecondaryInterface {
   */
   abstract deleteIdPedido(): void
 
+  /**
+  * @returns total productos seleccionados
+  */
+  abstract watchStorage(): Observable<any>;
+
 }

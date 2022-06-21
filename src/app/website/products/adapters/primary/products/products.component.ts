@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { ProductsPrimaryInterface } from '../../../core/ports/primary/products.primary.interface';
 import { ProductModel } from './../../../core/domain/product.model';
 import { SaleProductModel } from './../../../core/domain/sale-product.model';
+import { ProductSharedService } from 'src/app/core/services/products.service';
 
 @Component({
   selector: 'app-products',
@@ -18,6 +19,7 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private usecase: ProductsPrimaryInterface,
+    private _ps: ProductSharedService,
     private route: ActivatedRoute
   ) { }
 
@@ -39,7 +41,7 @@ export class ProductsComponent implements OnInit {
       switchMap( ((params: ParamMap) => {
         this.idCategoria = params.get('idCategory');
         this.title = this.idCategoria === '18' ?  'Paquetekos' : 'Menú';
-        return this.usecase.getProducts(this.idCategoria, this.idPedido);
+        return this._ps.getProducts(this.idCategoria, this.idPedido);
       }))
     ).subscribe(
       response => {

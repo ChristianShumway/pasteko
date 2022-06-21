@@ -1,6 +1,15 @@
 <footer class="wrap-footer">
   <a class="btn btn-primary" (click)="goBack()"><mat-icon aria-hidden="false">arrow_back</mat-icon></a>
-  <a class="btn btn-primary" (click)="deleteSale()"><mat-icon aria-hidden="false">delete</mat-icon></a>
+  <a
+    class="btn btn-primary"
+    [ngClass]="{'empty': total === 0}"
+    (click)="total > 0 && deleteSale()">
+    <mat-icon aria-hidden="false">delete</mat-icon>
+  </a>
   <a class="btn btn-primary" routerLink="/pedido"> <mat-icon aria-hidden="false">shopping_cart</mat-icon></a>
-  <a class="btn btn-primary"> Solicitar Pedido</a>
+  <a
+    class="btn btn-primary"
+    [ngClass]="{'empty': total === 0}">
+    Solicitar Pedido
+  </a>
 </footer>

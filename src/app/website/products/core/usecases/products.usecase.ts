@@ -47,4 +47,11 @@ export class ProductsUsecase extends ProductsPrimaryInterface {
     return this.secondary.deleteIdPedido();
   }
 
+   /**
+  * @returns total productos seleccionados
+  */
+  watchStorage(): Observable<any> {
+    return this.secondary.watchStorage();
+  }
+
 }

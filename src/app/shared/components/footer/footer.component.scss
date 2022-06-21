@@ -12,6 +12,10 @@ footer {
   }
   .btn {
     padding: 1rem;
+    &.empty {
+      opacity: .5;
+      cursor: none;
+    }
     .mat-icon {
       font-size: 36px;
       width: 36px;

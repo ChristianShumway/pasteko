@@ -19,7 +19,7 @@
         >
         </app-product-order>
       </div>
-      <div class="order__detail">
+      <div class="order__detail" *ngIf="productsOrder.length > 0">
         <div class="detail__total">
           <p>Total <span>{{amount | currency}}</span></p>
         </div>

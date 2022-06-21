@@ -14,13 +14,14 @@ import { SalePrimaryInterface } from '../website/orders/core/ports/primary/sale.
 import { SalesUsecase } from '../website/orders/core/usecases/sale.usecase';
 import { SaleSecondaryInterface } from '../website/orders/core/ports/secondary/sale.secondary.interface';
 import { SaleService } from '../website/orders/adapters/secondary/apirest/sale.service';
-
+import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
 @NgModule({
   declarations: [
     HeaderComponent,
     MenuNavComponent,
     FooterComponent,
-    CounterComponent
+    CounterComponent,
+    MessageDialogComponent
   ],
   imports: [
     CommonModule,
@@ -31,13 +32,14 @@ import { SaleService } from '../website/orders/adapters/secondary/apirest/sale.s
     HeaderComponent,
     MenuNavComponent,
     FooterComponent,
-    CounterComponent
+    CounterComponent,
+    MessageDialogComponent
   ],
   providers: [
     { provide: ProductsPrimaryInterface, useClass: ProductsUsecase},
     { provide: ProductsSecondaryInterface, useClass: ProductsService},
     { provide: SalePrimaryInterface, useClass: SalesUsecase},
-    { provide: SaleSecondaryInterface, useClass: SaleService}
+    { provide: SaleSecondaryInterface, useClass: SaleService},
   ]
 })
 export class SharedModule { }

@@ -1,7 +1,7 @@
 import { ProductEntity } from './../dtos/product.entity';
 import { Injectable } from '@angular/core';
 import { ProductsSecondaryInterface } from '../../../core/ports/secondary/products.secondary.interface';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { ProductModel } from '../../../core/domain/product.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProductsMappers } from '../mappers/products.mapper';
@@ -15,13 +15,16 @@ import { SaleProductModel, ResponseSaleModel } from '../../../core/domain/sale-p
 })
 export class ProductsService extends ProductsSecondaryInterface {
   private mappers = new ProductsMappers();
-  private cart = new BehaviorSubject <number>(0);
-  cart$ = this.cart.asObservable();
+  private cartStorage = new BehaviorSubject<number>(0);
 
   constructor(
   private http: HttpClient
   ) {
     super();
+  }
+
+  watchStorage(): Observable<any> {
+    return this.cartStorage.asObservable();
   }
 
   getIdPedido(): Observable<number | null> {
@@ -37,7 +40,6 @@ export class ProductsService extends ProductsSecondaryInterface {
     return this.http.get<ResultProductEntity>(req).pipe(
       map( result => {
         sessionStorage.setItem('idPedido', `${idPedido}`);
-        this.getTotalAcount(result?.response);
         return this.mappers.mapFromProducts(result?.response);
       })
     );
@@ -56,17 +58,6 @@ export class ProductsService extends ProductsSecondaryInterface {
 
   deleteIdPedido() {
     sessionStorage.removeItem('idPedido');
-  }
-
-  getTotalAcount(products: ProductEntity[]){
-    let total = 0;
-    products.forEach( product => {
-      if(product?.cantidadPedida > 0) {
-        total +=  product?.cantidadPedida;
-      }
-    });
-    console.log(total);
-    this.cart.next(total);
   }
 
 }
