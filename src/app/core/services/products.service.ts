@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { ProductsMappers } from 'src/app/website/products/adapters/secondary/mappers/products.mapper';
 import { ProductEntity, ResultProductEntity } from 'src/app/website/products/adapters/secondary/dtos/product.entity';
 import { ProductModel } from 'src/app/website/products/core/domain/product.model';
+import { OrderDetailtEntity } from 'src/app/website/orders/adapters/secondary/dtos/order-detail.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ import { ProductModel } from 'src/app/website/products/core/domain/product.model
 export class ProductSharedService {
   private mappers = new ProductsMappers();
   private cartStorage = new BehaviorSubject<number>(0);
+  private orderReadyStorage = new BehaviorSubject<boolean>(false);
 
   constructor(
   private http: HttpClient
@@ -21,6 +23,10 @@ export class ProductSharedService {
 
   watchStorage(): Observable<any> {
     return this.cartStorage.asObservable();
+  }
+
+  watchOrderReadyStorage(): Observable<any> {
+    return this.orderReadyStorage.asObservable();
   }
 
   getIdPedido(): Observable<number | null> {
@@ -31,28 +37,38 @@ export class ProductSharedService {
     return of (null);
   }
 
-  getProducts(idLinea: string | null, idPedido: number = 0): Observable<ProductModel[]> {
-    const req = `${environment.apiUrl}/dashboard/getProductoByLinea/${idLinea}/${idPedido}`;
-    return this.http.get<ResultProductEntity>(req).pipe(
+  getTotalProducts(idPedido: number = 0): Observable<number> {
+    const req = `${environment.apiUrl}/venta/getVentaByIdVenta/${idPedido}`;
+    return this.http.get<OrderDetailtEntity>(req).pipe(
       map( result => {
-        sessionStorage.setItem('idPedido', `${idPedido}`);
-        this.getTotalAcount(result?.response);
-        this.watchStorage();
-        return this.mappers.mapFromProducts(result?.response);
+        let total = 0;
+        result?.response?.detalle.forEach( product => {
+          if(product?.cantidad > 0) {
+            total +=  product?.cantidad;
+          }
+        })
+        this.cartStorage.next(total);
+        return total;
       })
     );
   }
 
-
-  getTotalAcount(products: ProductEntity[]){
-    let total = 0;
-    products.forEach( product => {
-      if(product?.cantidadPedida > 0) {
-        total +=  product?.cantidadPedida;
-      }
-    });
-    // console.log(total)
-    this.cartStorage.next(total);
+  validateInputs(nameValid: boolean, emailValid: boolean): Observable<boolean> {
+    if(nameValid && emailValid) {
+      this.orderReadyStorage.next(true);
+      return of (true);
+    } else {
+      this.orderReadyStorage.next(false);
+      return of (false);
+    }
   }
 
 }
+
+
+// getCurrentSale(idPedido: number): Observable<ResponseOrderDetailtModel> {
+//   return this.http.get<OrderDetailtEntity>(`${environment.apiUrl}/venta/getVentaByIdVenta/${idPedido}`)
+//   .pipe(
+//     map( data => this.mappers.mapFromProducts(data.response))
+//   );
+// }

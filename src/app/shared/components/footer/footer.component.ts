@@ -15,6 +15,7 @@ export class FooterComponent implements OnInit {
   idPedido: number = 0;
   total: number = 0;
   totalSession: string | null = null;
+  dataOrderValid: boolean = false;
 
   constructor(
     private location: Location,
@@ -27,11 +28,19 @@ export class FooterComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrent();
+    this.getStatusOrder();
   }
 
   getCurrent() {
     this._ps.watchStorage().subscribe({
       next: response => this.total = response,
+      error: error => console.warn(error)
+    })
+  }
+
+  getStatusOrder() {
+    this._ps.watchOrderReadyStorage().subscribe({
+      next: response => this.dataOrderValid = response,
       error: error => console.warn(error)
     })
   }
@@ -66,6 +75,10 @@ export class FooterComponent implements OnInit {
         }
       }
     );
+  }
+
+  saveOrder() {
+    console.log('saver order');
   }
 
 }

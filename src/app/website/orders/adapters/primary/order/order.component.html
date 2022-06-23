@@ -27,11 +27,19 @@
           <div class="text">
             <p>Pedido a Nombre de:</p>
           </div>
-          <input type="text" placeholder="Nombre" />
+          <input
+          type="text"
+          [ngClass]="{'error' : nameField?.invalid && nameField?.touched}"
+          [formControl]="nameField"
+          placeholder="Nombre" />
         </div>
         <div class="detail__email">
           <p>Ingresa tu correo para descuentos y cupones</p>
-          <input type="email" placeholder="Correo Electrónico" />
+          <input
+            type="email"
+            [ngClass]="{'error' : emailField?.invalid && emailField?.touched}"
+            [formControl] = "emailField"
+            placeholder="Correo Electrónico" />
         </div>
       </div>
     </div>

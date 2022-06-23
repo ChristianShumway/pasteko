@@ -9,7 +9,8 @@
   <a class="btn btn-primary" routerLink="/pedido"> <mat-icon aria-hidden="false">shopping_cart</mat-icon></a>
   <a
     class="btn btn-primary"
-    [ngClass]="{'empty': total === 0}">
+    [ngClass]="{'empty': total === 0 || !dataOrderValid}"
+    (click)="(total > 0 && dataOrderValid) && saveOrder()">
     Solicitar Pedido
   </a>
 </footer>

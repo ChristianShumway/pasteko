@@ -41,15 +41,22 @@ export class ProductsComponent implements OnInit {
       switchMap( ((params: ParamMap) => {
         this.idCategoria = params.get('idCategory');
         this.title = this.idCategoria === '18' ?  'Paquetekos' : 'Menú';
-        return this._ps.getProducts(this.idCategoria, this.idPedido);
+        return this.usecase.getProducts(this.idCategoria, this.idPedido);
       }))
     ).subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
         this.productsList = response;
+        if(this.idPedido !== 0) {
+          this.getTotalAcount();
+        }
       },
       error => console.log(error)
     )
+  }
+
+  getTotalAcount() {
+    return this._ps.getTotalProducts(this.idPedido).subscribe();
   }
 
   onProductSelected(product: ProductModel) {
@@ -66,8 +73,6 @@ export class ProductsComponent implements OnInit {
         console.log(response);
         this.idPedido = response?.pk;
         this.getProducts();
-        // const index = this.productsList.findIndex(product => product.codigo === response.response.codigo);
-        // this.productsList.splice(index, 1, response.response);
       },
       error: error => console.warn(error)
     });

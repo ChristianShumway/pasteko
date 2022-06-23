@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { ProductSharedService } from 'src/app/core/services/products.service';
 import { SalePrimaryInterface } from 'src/app/website/orders/core/ports/primary/sale.primary.interface';
 import { ProductModel } from 'src/app/website/products/core/domain/product.model';
 import { SaleProductModel } from 'src/app/website/products/core/domain/sale-product.model';
@@ -15,15 +17,22 @@ export class OrderComponent implements OnInit {
   title: string = 'Pedido';
   productsOrder: ProductOrderModel[] = [];
   amount: number = 0;
+  nameField: FormControl = new FormControl('', Validators.required);
+  emailField: FormControl = new FormControl('', [Validators.required, Validators.email]);
+  nameFieldValid: boolean = false;
+  emailFieldValid: boolean = false;
 
   constructor(
     private usesase: SalePrimaryInterface,
-    private ppi: ProductsPrimaryInterface
+    private ppi: ProductsPrimaryInterface,
+    private _ps: ProductSharedService
   ) { }
 
   ngOnInit(): void {
     this.getidPedido();
     this.getCurrentSale();
+    this.getValidation();
+    this.eventValuesInputs();
   }
 
   getidPedido() {
@@ -40,16 +49,16 @@ export class OrderComponent implements OnInit {
       next: response => {
         this.productsOrder = response.detalle;
         this.getAmountTotal();
-        console.log(this.productsOrder);
+        this.getTotalAcount();
+        // console.log(this.productsOrder);
       },
       error: error => console.warn(error)
     });
   }
 
-  // onGetProductSelected(product: ProductOrderModel) {
-  //   console.log(product);
-  //   this.getAmountTotal();
-  // }
+  getTotalAcount() {
+    return this._ps.getTotalProducts(this.idPedido).subscribe();
+  }
 
   onGetProductSelected(product: ProductOrderModel) {
     console.log(product);
@@ -87,5 +96,21 @@ export class OrderComponent implements OnInit {
       this.amount += amountProduct;
     });
   }
+
+  eventValuesInputs() {
+    this.nameField.valueChanges.subscribe( () => {
+      this.nameFieldValid = this.nameField.valid ? true : false;
+      this.getValidation();
+    });
+    this.emailField.valueChanges.subscribe( () => {
+      this.emailFieldValid = this.emailField.valid ? true : false;
+      this.getValidation();
+    });
+  }
+
+  getValidation() {
+    this._ps.validateInputs(this.nameFieldValid, this.emailFieldValid).subscribe();
+  }
+
 
 }
