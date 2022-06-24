@@ -64,11 +64,3 @@ export class ProductSharedService {
   }
 
 }
-
-
-// getCurrentSale(idPedido: number): Observable<ResponseOrderDetailtModel> {
-//   return this.http.get<OrderDetailtEntity>(`${environment.apiUrl}/venta/getVentaByIdVenta/${idPedido}`)
-//   .pipe(
-//     map( data => this.mappers.mapFromProducts(data.response))
-//   );
-// }

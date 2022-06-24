@@ -63,7 +63,7 @@ export class FooterComponent implements OnInit {
                   if(rsp.noEstatus === 5) {
                     this.ppi.deleteIdPedido();
                     this.router.navigateByUrl('/');
-                    this.dialog.showDialogSuccess('Pedido eliminado');
+                    this.dialog.showDialogSuccess('Pedido eliminado correctamente');
                   } else {
                     this.dialog.showDialogError('¡Algo salio mal!, consulte a su administrador');
                   }
@@ -79,6 +79,10 @@ export class FooterComponent implements OnInit {
 
   saveOrder() {
     console.log('saver order');
+  }
+
+  ngOnDestroy(): void {
+    window.location.reload();
   }
 
 }

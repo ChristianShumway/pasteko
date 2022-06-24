@@ -15,13 +15,15 @@ import { SalesUsecase } from '../website/orders/core/usecases/sale.usecase';
 import { SaleSecondaryInterface } from '../website/orders/core/ports/secondary/sale.secondary.interface';
 import { SaleService } from '../website/orders/adapters/secondary/apirest/sale.service';
 import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
+import { TimerComponent } from './components/timer/timer.component';
 @NgModule({
   declarations: [
     HeaderComponent,
     MenuNavComponent,
     FooterComponent,
     CounterComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    TimerComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { MessageDialogComponent } from './components/message-dialog/message-dial
     MenuNavComponent,
     FooterComponent,
     CounterComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    TimerComponent
   ],
   providers: [
     { provide: ProductsPrimaryInterface, useClass: ProductsUsecase},

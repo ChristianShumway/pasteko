@@ -21,7 +21,6 @@ export class SaleService extends SaleSecondaryInterface {
   }
 
   deleteSale(idPedido: number): Observable<any> {
-    console.log(idPedido);
     return this.http.get<any>(`${environment.apiUrl}/venta/delteProcutoVenta/${idPedido}`);
   }
 
