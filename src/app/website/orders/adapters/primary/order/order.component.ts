@@ -109,8 +109,11 @@ export class OrderComponent implements OnInit {
   }
 
   getValidation() {
-    this._ps.validateInputs(this.nameFieldValid, this.emailFieldValid).subscribe();
+    this._ps.validateInputs(
+      this.nameFieldValid,
+      this.nameField.value,
+      this.emailFieldValid,
+      this.emailField.value).subscribe();
   }
-
 
 }

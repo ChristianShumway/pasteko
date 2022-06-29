@@ -1,14 +1,12 @@
 // import { ProductEntity } from './../dtos/product.entity';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { EventEmitter, Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ProductsMappers } from 'src/app/website/products/adapters/secondary/mappers/products.mapper';
-import { ProductEntity, ResultProductEntity } from 'src/app/website/products/adapters/secondary/dtos/product.entity';
-import { ProductModel } from 'src/app/website/products/core/domain/product.model';
 import { OrderDetailtEntity } from 'src/app/website/orders/adapters/secondary/dtos/order-detail.entity';
-
+import { Subscription } from 'rxjs/internal/Subscription';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +14,9 @@ export class ProductSharedService {
   private mappers = new ProductsMappers();
   private cartStorage = new BehaviorSubject<number>(0);
   private orderReadyStorage = new BehaviorSubject<boolean>(false);
+  private dataPurchaseStorage = new BehaviorSubject<object>({});
+
+  purchase$ = this.dataPurchaseStorage.asObservable();
 
   constructor(
   private http: HttpClient
@@ -53,9 +54,10 @@ export class ProductSharedService {
     );
   }
 
-  validateInputs(nameValid: boolean, emailValid: boolean): Observable<boolean> {
+  validateInputs(nameValid: boolean, name: string, emailValid: boolean, email: string): Observable<boolean> {
     if(nameValid && emailValid) {
       this.orderReadyStorage.next(true);
+      this.dataPurchaseStorage.next({name, email});
       return of (true);
     } else {
       this.orderReadyStorage.next(false);

@@ -29,6 +29,10 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'compra',
+    loadChildren: () => import('./website/purchase/adapters/primary/purchase.module').then(m => m.PurchaseModule)
+  },
+  {
     path: '**',
     component: NotFoundComponent
   }

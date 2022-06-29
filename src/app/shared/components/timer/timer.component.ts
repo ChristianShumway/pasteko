@@ -12,7 +12,7 @@ import { SaleService } from 'src/app/website/orders/adapters/secondary/apirest/s
 })
 export class TimerComponent implements OnInit {
   timer: number = 0;
-  timeLimit: number = 60;
+  timeLimit: number = 300;
   timeAdd: number = 30;
   idPedido: number = 0;
 
@@ -50,7 +50,7 @@ export class TimerComponent implements OnInit {
 
   showAlerts() {
     if(this.timer === 0) {
-      this.dialog.showDialogWarn('Tienes 1 minuto para realizar tu pedido');
+      this.dialog.showDialogWarn('Tienes 5 minutos para realizar tu pedido');
       this.closeDialog();
     }
     if(this.timer === this.timeLimit - 10) {

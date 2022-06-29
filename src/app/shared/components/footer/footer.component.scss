@@ -12,6 +12,7 @@ footer {
   }
   .btn {
     padding: 1rem;
+    position: relative;
     &.empty {
       opacity: .5;
       cursor: none;
@@ -23,6 +24,21 @@ footer {
     }
     &:last-child {
       padding: 1.5rem  2rem;
+    }
+    .bullet {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      width: 1.2rem;
+      height: 1.2rem;
+      border-radius: 50%;
+      &.design {
+        background-color: var(--main-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+      }
     }
   }
 }

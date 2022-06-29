@@ -27,7 +27,10 @@ import { ProductOrderComponent } from './product-order/product-order.component';
   ],
   providers: [
     { provide: SalePrimaryInterface, useClass: SalesUsecase},
-    { provide: SaleSecondaryInterface, useClass: SaleService}
+    { provide: SaleSecondaryInterface, useClass: SaleService},
+  ],
+  exports: [
+    OrderComponent
   ]
 })
 export class OrdersModule { }

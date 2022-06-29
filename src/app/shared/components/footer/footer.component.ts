@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ProductsPrimaryInterface } from 'src/app/website/products/core/ports/primary/products.primary.interface';
 import { DialogMessage } from 'src/app/commons/dialog';
 import { ProductSharedService } from 'src/app/core/services/products.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-footer',
@@ -16,6 +17,7 @@ export class FooterComponent implements OnInit {
   total: number = 0;
   totalSession: string | null = null;
   dataOrderValid: boolean = false;
+  dataPurchase: object = {};
 
   constructor(
     private location: Location,
@@ -32,10 +34,11 @@ export class FooterComponent implements OnInit {
   }
 
   getCurrent() {
-    this._ps.watchStorage().subscribe({
+    this._ps.watchStorage()
+    .subscribe({
       next: response => this.total = response,
       error: error => console.warn(error)
-    })
+    });
   }
 
   getStatusOrder() {
@@ -78,7 +81,21 @@ export class FooterComponent implements OnInit {
   }
 
   saveOrder() {
-    console.log('saver order');
+    const dialogRef = this.dialog.showDialogConfirm('¿Deseas confirmar tu pedido?');
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if(result) {
+          this._ps.purchase$.subscribe({
+            next: response => {
+              this.dataPurchase = response;
+              this.router.navigateByUrl('/compra');
+            },
+            error: error => console.warn(error)
+          })
+          console.log(this.dataPurchase);
+        }
+      }
+    )
   }
 
   ngOnDestroy(): void {
