@@ -1,5 +1,6 @@
 export enum TypeDialog {
   ERROR = 'error',
   WARN = 'warn',
-  SUCCESS = 'success'
+  SUCCESS = 'success',
+  CONFIRM = 'confirm'
 }

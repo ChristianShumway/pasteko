@@ -49,7 +49,7 @@ export class DialogMessage {
 
     showDialogConfirm(mensaje: string) {
       let dialogConfig: MatDialogConfig = new MatDialogConfig();
-      dialogConfig.data = { header : mensaje, type:'confirm', confirm: true };
+      dialogConfig.data = { header : mensaje, type: TypeDialog.CONFIRM, confirm: true };
       dialogConfig.autoFocus = false;
       dialogConfig.role = 'alertdialog';
       dialogConfig.width = 'auto';

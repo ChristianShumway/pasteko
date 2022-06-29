@@ -18,9 +18,9 @@ export class OrderComponent implements OnInit {
   productsOrder: ProductOrderModel[] = [];
   amount: number = 0;
   nameField: FormControl = new FormControl('', Validators.required);
-  emailField: FormControl = new FormControl('', [Validators.required, Validators.email]);
+  emailField: FormControl = new FormControl('', [Validators.email]);
   nameFieldValid: boolean = false;
-  emailFieldValid: boolean = false;
+  emailFieldValid: boolean = true;
 
   constructor(
     private usesase: SalePrimaryInterface,

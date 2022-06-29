@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { TypeDialog } from 'src/app/commons/type-dialogs';
 
 @Component({
   selector: 'app-message-dialog',
@@ -18,6 +19,22 @@ export class MessageDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log(this.data?.type)
+  }
+
+  getTypeInfo(): any {
+    if(this.data?.type === TypeDialog.WARN) {
+      return 'report';
+    }
+    if(this.data?.type === TypeDialog.ERROR) {
+      return 'cancel';
+    }
+    if(this.data?.type === TypeDialog.SUCCESS) {
+      return 'check_circle';
+    }
+    if(this.data?.type === TypeDialog.CONFIRM) {
+      return 'help';
+    }
   }
 
 }
