@@ -13,14 +13,17 @@ import { ProductOrderModel } from '../../../core/domain/order-detail.model';
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
+  regEx = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
   idPedido: number = 0;
   title: string = 'Pedido';
   productsOrder: ProductOrderModel[] = [];
   amount: number = 0;
   nameField: FormControl = new FormControl('', Validators.required);
   emailField: FormControl = new FormControl('', [Validators.email]);
+  phoneField: FormControl = new FormControl('', [Validators.required, Validators.pattern(this.regEx)]);
   nameFieldValid: boolean = false;
   emailFieldValid: boolean = true;
+  phoneFieldValid: boolean = false;
 
   constructor(
     private usesase: SalePrimaryInterface,
@@ -106,6 +109,13 @@ export class OrderComponent implements OnInit {
       this.emailFieldValid = this.emailField.valid ? true : false;
       this.getValidation();
     });
+    this.phoneField.valueChanges.subscribe( () => {
+      console.log(this.phoneField.valid)
+      console.log(this.phoneField.value)
+
+      this.phoneFieldValid = this.phoneField.valid ? true : false;
+      this.getValidation();
+    });
   }
 
   getValidation() {
@@ -113,7 +123,9 @@ export class OrderComponent implements OnInit {
       this.nameFieldValid,
       this.nameField.value,
       this.emailFieldValid,
-      this.emailField.value).subscribe();
+      this.emailField.value,
+      this.phoneFieldValid,
+      this.phoneField.value).subscribe();
   }
 
 }

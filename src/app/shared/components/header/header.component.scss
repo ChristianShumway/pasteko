@@ -14,12 +14,21 @@
     position: relative;
     justify-self: end;
     align-self: center;
-    padding-right: 1rem;
+    padding-right: 2rem;
     p {
+      position: relative;
       color: var(--main-color);
-      font-size: 6rem;
-      margin-bottom: 0;
+      font-size: 5.5rem;
+      margin: 0.5rem 0 0;
       font-family: 'ItcDemi', sans-serif;
+      z-index: 1;
+      &::after {
+        position: absolute;
+        content: url('./../../../../assets/icono-onda.png');
+        right: -20px;
+        top: -57px;
+        z-index: -1;
+      }
     }
   }
 }

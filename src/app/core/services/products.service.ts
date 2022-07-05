@@ -1,12 +1,11 @@
 // import { ProductEntity } from './../dtos/product.entity';
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ProductsMappers } from 'src/app/website/products/adapters/secondary/mappers/products.mapper';
-import { OrderDetailtEntity } from 'src/app/website/orders/adapters/secondary/dtos/order-detail.entity';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { CloseOrderEntity, OrderDetailtEntity } from 'src/app/website/orders/adapters/secondary/dtos/order-detail.entity';
 @Injectable({
   providedIn: 'root'
 })
@@ -54,15 +53,32 @@ export class ProductSharedService {
     );
   }
 
-  validateInputs(nameValid: boolean, name: string, emailValid: boolean, email: string): Observable<boolean> {
-    if(nameValid && emailValid) {
+  validateInputs(
+    nameValid: boolean,
+    name: string,
+    emailValid: boolean,
+    email: string,
+    phoneValid: boolean,
+    phone: string): Observable<boolean> {
+    if(nameValid && emailValid && phoneValid) {
       this.orderReadyStorage.next(true);
-      this.dataPurchaseStorage.next({name, email});
+      this.dataPurchaseStorage.next({name, email, phone});
       return of (true);
     } else {
       this.orderReadyStorage.next(false);
       return of (false);
     }
+  }
+
+  closeOrder(data: CloseOrderEntity): Observable<any> {
+    const headerss = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.post<CloseOrderEntity>(`${environment.apiUrl}/venta/closeVenta`, JSON.stringify(data), {
+      headers: headerss
+    });
+  }
+
+  deleteIdPedido() {
+    sessionStorage.removeItem('idPedido');
   }
 
 }

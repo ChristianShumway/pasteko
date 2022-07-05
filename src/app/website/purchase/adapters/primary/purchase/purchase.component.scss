@@ -35,4 +35,14 @@
       font-size: 4.5rem;
     }
   }
+  .main-button {
+    width: 280px;
+    height: 70px;
+    position: fixed;
+    left: 50%;
+    bottom: 60px;
+    transform: translate(-50%, 0px);
+    z-index: 1;
+  }
 }
+

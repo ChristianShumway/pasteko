@@ -21,7 +21,6 @@ export class ProductOrderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.productOrder)
     this.countProduct = new FormControl(this.productOrder?.cantidad);
     this.countProduct.valueChanges.subscribe({
       next: response  => {
@@ -33,7 +32,6 @@ export class ProductOrderComponent implements OnInit {
 
   deleteProductOrder(product: ProductOrderModel) {
     product.cantidad = 0;
-    console.log(product)
     this.deleteProduct.emit(product);
   }
 

@@ -11,14 +11,17 @@
         <div class="order__products--notfound" *ngIf="productsOrder.length === 0">
           <h1>No se han agregado productos al pedido.</h1>
         </div>
-        <app-product-order
-          *ngFor="let product of productsOrder"
-          (productSelected) = onGetProductSelected($event)
-          (deleteProduct) = onGetProductSelected($event)
-          [product]="product"
-        >
-        </app-product-order>
+        <div class="order__products--detail">
+          <app-product-order
+            *ngFor="let product of productsOrder"
+            (productSelected) = onGetProductSelected($event)
+            (deleteProduct) = onGetProductSelected($event)
+            [product]="product"
+          >
+          </app-product-order>
+        </div>
       </div>
+      <!-- datos cliente -->
       <div class="order__detail" *ngIf="productsOrder.length > 0">
         <div class="detail__total">
           <p>Total <span>{{amount | currency}}</span></p>
@@ -41,7 +44,16 @@
             [formControl] = "emailField"
             placeholder="Correo Electrónico" />
         </div>
+        <div class="detail__phone">
+          <p>Ingresa tu número celular</p>
+          <input
+            type="tel"
+            [ngClass]="{'error' : phoneField?.invalid && phoneField?.touched}"
+            [formControl] = "phoneField"
+            placeholder="Teléfono" />
+        </div>
       </div>
+      <!-- end datos cliente -->
     </div>
   </article>
 </section>

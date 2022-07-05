@@ -29,3 +29,10 @@ export interface ProductOrderEntity {
   viewProducto: ProductEntity;
 }
 
+export interface CloseOrderEntity {
+  idVenta: number;
+  correo: string;
+  telefono: string;
+  nombre: string;
+}
+

@@ -6,6 +6,7 @@ import { ProductsPrimaryInterface } from 'src/app/website/products/core/ports/pr
 import { DialogMessage } from 'src/app/commons/dialog';
 import { ProductSharedService } from 'src/app/core/services/products.service';
 import { forkJoin } from 'rxjs';
+import { CloseOrderEntity } from 'src/app/website/orders/adapters/secondary/dtos/order-detail.entity';
 
 @Component({
   selector: 'app-footer',
@@ -17,7 +18,7 @@ export class FooterComponent implements OnInit {
   total: number = 0;
   totalSession: string | null = null;
   dataOrderValid: boolean = false;
-  dataPurchase: object = {};
+  dataPurchase: any;
 
   constructor(
     private location: Location,
@@ -31,6 +32,7 @@ export class FooterComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrent();
     this.getStatusOrder();
+    this.getIdPedido();
   }
 
   getCurrent() {
@@ -52,28 +54,33 @@ export class FooterComponent implements OnInit {
     this.location.back();
   }
 
+  getIdPedido() {
+    this._ps.getIdPedido().subscribe({
+      next: response => {
+        if(response) this.idPedido = response;
+      },
+      error: error => console.warn(error)
+    });
+    console.log(this.idPedido)
+  }
+
   deleteSale() {
     const dialogRef = this.dialog.showDialogConfirm('¿Estás seguro de eliminar tu pedido?');
     dialogRef.afterClosed().subscribe(
       result => {
         if(result) {
-          this.ppi.getIdPedido().subscribe({
-            next: response => {
-              if(response) this.idPedido = response;
-              console.log(this.idPedido);
-              this.usecase.deleteSale(this.idPedido).subscribe({
-                next: rsp => {
-                  if(rsp.noEstatus === 5) {
-                    this.ppi.deleteIdPedido();
-                    this.router.navigateByUrl('/');
-                    this.dialog.showDialogSuccess('Pedido eliminado correctamente');
-                  } else {
-                    this.dialog.showDialogError('¡Algo salio mal!, consulte a su administrador');
-                  }
-                },
-                error: error => console.warn(error)
-              });
-            }
+          this.getIdPedido();
+          this.usecase.deleteSale(this.idPedido).subscribe({
+            next: rsp => {
+              if(rsp.noEstatus === 5) {
+                this.ppi.deleteIdPedido();
+                this.router.navigateByUrl('/');
+                this.dialog.showDialogSuccess('Pedido eliminado correctamente');
+              } else {
+                this.dialog.showDialogError('¡Algo salio mal!, consulte a su administrador');
+              }
+            },
+            error: error => console.warn(error)
           });
         }
       }
@@ -85,10 +92,27 @@ export class FooterComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         if(result) {
+          this.getIdPedido();
           this._ps.purchase$.subscribe({
             next: response => {
               this.dataPurchase = response;
-              this.router.navigateByUrl('/compra');
+              const dataCustomer: CloseOrderEntity = {
+                idVenta: this.idPedido,
+                correo: this.dataPurchase.mail,
+                telefono: this.dataPurchase.phone,
+                nombre: this.dataPurchase.name
+              };
+              this._ps.closeOrder(dataCustomer).subscribe({
+                next: resp => {
+                  console.log(resp);
+                  if(resp.noEstatus === 5) {
+                    this.router.navigateByUrl('/compra');
+                  } else if (resp.noEstatus === 0) {
+                    this.dialog.showDialogError(resp.mensaje);
+                  }
+                },
+                error: error => console.warn(error)
+              })
             },
             error: error => console.warn(error)
           })

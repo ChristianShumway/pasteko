@@ -44,7 +44,7 @@ export class TimerComponent implements OnInit {
     this._ts.watchTimer().subscribe( time => {
       this.timer = time;
       this.showAlerts();
-      console.log(this.timer)
+      // console.log(this.timer)
     })
   }
 

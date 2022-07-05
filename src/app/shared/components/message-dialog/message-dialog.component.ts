@@ -19,7 +19,6 @@ export class MessageDialogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data?.type)
   }
 
   getTypeInfo(): any {

@@ -55,3 +55,43 @@ body {
 .mat-dialog-container {
   position: relative;
 }
+
+// scroll color
+::-webkit-scrollbar {
+  width: 6px;
+  height: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: #535763;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #323544;
+  border-radius: 6px;
+  height: 20px;
+  &:hover {
+    background: var(--main-color);
+  }
+  &:active {
+    background: var(--main-color);
+  }
+  &:vertical {
+    border-top: solid 4px var(--main-color);
+    border-bottom: solid 4px var(--main-color);
+  }
+}
+
+// ::-webkit-scrollbar-button
+// {
+//   border-style: solid;
+//   height: 8px;
+//   width: 8px;
+// }
+
+::-webkit-scrollbar:window-inactive {
+  display: none;
+}
+// end scroll color
+
