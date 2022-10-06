@@ -1,28 +1,35 @@
 @font-face {
-  font-family: Gotham;
-  src: local("Gotham"),
-  local("GothamBlack"),
-  url('./../fonts/Gotham-Black.otf');
+  font-family: ItcLight;
+  src: local("ItcLight"),
+  local("ItcLight"),
+  url('./../fonts/itc-light.otf');
 }
 
 @font-face {
-  font-family: ItcDemi;
-  src: local("ItcDemi"),
-  local("ITCKabelStd-Demi"),
-  url('./../fonts/ITCKabelStd-Demi.otf');
+  font-family: ItcRegular;
+  src: local("ItcRegular"),
+  local("ItcRegular"),
+  url('./../fonts/itc-regular.TTF');
 }
 
 @font-face {
-  font-family: ItcUltra;
-  src: local("ItcUltra"),
-  local("ITCKabelStd-Ultra"),
-  url('./../fonts/ITCKabelStd-Ultra.otf');
+  font-family: ItcMedium;
+  src: local("ItcMedium"),
+  local("ItcMedium"),
+  url('./../fonts/itc-medium.otf');
 }
 
 @font-face {
   font-family: ItcBold;
   src: local("ItcBold"),
-  local("ITCKabelStd-Bold"),
-  url('./../fonts/ITCKabelStd-Bold.otf');
+  local("ItcBold"),
+  url('./../fonts/itc-bold.TTF');
 }
 
+
+@font-face {
+  font-family: ItcUltraBold;
+  src: local("ItcUltraBold"),
+  local("ItcUltraBold"),
+  url('./../fonts/itc-ultra-bold.TTF');
+}

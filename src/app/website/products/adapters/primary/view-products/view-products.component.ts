@@ -14,6 +14,7 @@ export class ViewProductsComponent implements OnInit {
     }
   }
   @Output() product = new EventEmitter<ProductModel>();
+  @Output() infoProduct = new EventEmitter<ProductModel>();
 
   constructor() { }
 
@@ -22,6 +23,10 @@ export class ViewProductsComponent implements OnInit {
 
   onGetProductSelected(product: ProductModel) {
     this.product.emit(product);
+  }
+
+  onGetInfoProduct(productInfo: ProductModel) {
+    this.infoProduct.emit(productInfo);
   }
 
 }

@@ -1,4 +1,80 @@
 <section class="main-container">
+  <div class="component-container">
+    <div class="order-container">
+      <div class="order__logo">
+        <img src="assets/logo-pasteko.png" alt="logo" />
+      </div>
+      <!-- container con info del detalle de la oden -->
+      <div class="order__detail">
+        <div class="detail__products">
+          <p class="products__title">Detalle de la orden</p>
+          <div class="products__scrollable">
+            <app-product-order
+            *ngFor="let product of productsOrder"
+            (productSelected) = onGetProductSelected($event)
+            (deleteProduct) = onGetProductSelected($event)
+            [product]="product"
+            >
+            </app-product-order>
+          </div>
+          <div class="products__total">
+            <p class="total__text">Total</p>
+            <span class="total__amount">{{amount | currency}}</span>
+          </div>
+        </div>
+        <div class="detail__pay">
+          <div class="method__pay">
+            <p class="method__text">Método de Pago</p>
+            <div class="wrap__methods" [formGroup]="formMetodos">
+              <p>Pago en efectivo<mat-checkbox formControlName="efectivo"></mat-checkbox></p>
+              <p>Pago con tarjeta<mat-checkbox formControlName="tarjeta"></mat-checkbox></p>
+            </div>
+          </div>
+          <div class="method__back">
+            <p class="back__legend">¿Olvidas algo?</p>
+            <button class="back__button btn-pasteko btn-secondary">Continuar comprando</button>
+          </div>
+          <div class="method__continue">
+            <button class="btn-pasteko btn-primary button__continue">Ordenar</button>
+          </div>
+        </div>
+      </div>
+      <!-- container con recomendaciones -->
+      <div class="order__recommendations">
+        <div class="recommendations__scrollable">
+          <div class="wrap__recommendations">
+            <div class="recommendation">
+              <img src="assets/recomendaciones/tamarindo.png" alt="paleta tamarindo" />
+              <button class="btn__add" mat-mini-fab [color]="'primary-pasteko'">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            <div class="recommendation">
+              <img src="assets/recomendaciones/tamarindo.png" alt="paleta tamarindo" />
+              <button class="btn__add" mat-mini-fab [color]="'primary-pasteko'">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            <div class="recommendation">
+              <img src="assets/recomendaciones/tamarindo.png" alt="paleta tamarindo" />
+              <button class="btn__add" mat-mini-fab [color]="'primary-pasteko'">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+            <div class="recommendation">
+              <img src="assets/recomendaciones/tamarindo.png" alt="paleta tamarindo" />
+              <button class="btn__add" mat-mini-fab [color]="'primary-pasteko'">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="main-container">
   <app-header [title]="title"></app-header>
   <article class="wrap__main">
     <div class="wrap__order">
@@ -21,7 +97,6 @@
           </app-product-order>
         </div>
       </div>
-      <!-- datos cliente -->
       <div class="order__detail" *ngIf="productsOrder.length > 0">
         <div class="detail__total">
           <p>Total <span>{{amount | currency}}</span></p>
@@ -53,7 +128,6 @@
             placeholder="Teléfono" />
         </div>
       </div>
-      <!-- end datos cliente -->
     </div>
   </article>
-</section>
+</section> -->

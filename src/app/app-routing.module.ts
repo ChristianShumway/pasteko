@@ -22,11 +22,11 @@ const routes: Routes = [
         path: 'productos',
         loadChildren: () => import('./website/products/adapters/primary/products.module').then(m => m.ProductsModule)
       },
-      {
-        path: 'pedido',
-        loadChildren: () => import('./website/orders/adapters/primary/orders.module').then(m => m.OrdersModule)
-      }
     ],
+  },
+  {
+    path: 'pedido',
+    loadChildren: () => import('./website/orders/adapters/primary/orders.module').then(m => m.OrdersModule)
   },
   {
     path: 'compra',

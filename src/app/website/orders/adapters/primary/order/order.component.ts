@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductSharedService } from 'src/app/core/services/products.service';
 import { SalePrimaryInterface } from 'src/app/website/orders/core/ports/primary/sale.primary.interface';
 import { ProductModel } from 'src/app/website/products/core/domain/product.model';
@@ -18,6 +18,9 @@ export class OrderComponent implements OnInit {
   title: string = 'Pedido';
   productsOrder: ProductOrderModel[] = [];
   amount: number = 0;
+  formMetodos!: FormGroup;
+
+
   nameField: FormControl = new FormControl('', Validators.required);
   emailField: FormControl = new FormControl('', [Validators.email]);
   phoneField: FormControl = new FormControl('', [Validators.required, Validators.pattern(this.regEx)]);
@@ -28,14 +31,23 @@ export class OrderComponent implements OnInit {
   constructor(
     private usesase: SalePrimaryInterface,
     private ppi: ProductsPrimaryInterface,
-    private _ps: ProductSharedService
+    private _ps: ProductSharedService,
+    private _formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.getidPedido();
+    this.eventValuesInputs();
     this.getCurrentSale();
     this.getValidation();
-    this.eventValuesInputs();
+    this.initForm();
+  }
+
+  initForm() {
+    this.formMetodos = this._formBuilder.group({
+      efectivo: true,
+      tarjeta: false
+    });
   }
 
   getidPedido() {

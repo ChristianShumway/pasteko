@@ -5,6 +5,11 @@
   --secondary-color: #59230E;
   --third-color: #E95114;
   --dark-color: #393B48;
+  --font-light: 'ItcLight', sans-serif;
+  --font-regular: 'ItcRegular', sans-serif;
+  --font-medium: 'ItcMedium', sans-serif;
+  --font-bold: 'ItcBold', sans-serif;
+  --font-ultra-bold: 'ItcUltraBold', sans-serif;
 }
 
 html, body { height: 100%; }
@@ -13,35 +18,65 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.btn-primary {
+.btn-pasteko {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: .5rem;
+  font-family: var(--font-light) !important;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 500;
+  text-decoration: none;
+  height: 55px;
+}
+
+.btn-primary {
   background-image: linear-gradient(to top, #FBBC19 0%, #BC7811 100%);
   box-shadow: 0 2px 1px -1px #0003, 0 1px 1px #00000024, 0 1px 3px #0000001f;
-  text-decoration: none;
-  color: #000;
-  font-family: 'Gotham', sans-serif !important;
+  border: 1px solid var(--main-color);
+  color: #FFF;
+}
+
+.btn-secondary {
+  background-image: linear-gradient(to bottom, #6B6B69 0%, #42423e 100%);
+  box-shadow: 0 2px 1px -1px #0003, 0 1px 1px #00000024, 0 1px 3px #0000001f;
+  // background-color: gray;
+  border: 1px solid var(--main-color);
+  color: #FFF;
 }
 
 .main-container {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-image: url('./assets/backgrounds/fondo-paste.jpg');
+  background-image: url('./assets/backgrounds/fondo.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.component-container {
+  border: 1px solid var(--main-color);
+  height: 93vh;
+  border-radius: 1rem;
+  margin: 0;
+  box-sizing: content-box;
+  width: 95%;
 }
 
 .mat-dialog-container {
   background-color: var(--main-color);
   color: var(--secondary-color);
   border-radius: 1rem !important;
+}
+
+.mat-primary-pasteko {
+  background-color: var(--main-color);
+  color: #FFF;
 }
 
 .mat-accept {

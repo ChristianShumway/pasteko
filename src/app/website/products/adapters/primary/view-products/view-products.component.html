@@ -1,19 +1,26 @@
-<article class="wrap-options">
-  <div class="wrap-options__tabs">
-    <div class="tab active">
-      <span>Pastes Salados</span>
+<article class="view-products">
+  <div class="section__products">
+
+    <div class="products__tabs">
+      <div class="tab active">
+        <span>Pastes Salados</span>
+      </div>
+      <div class="tab right inactive">
+        <span>Pastes Dulces</span>
+      </div>
     </div>
-    <!-- <div class="tab right inactive">
-      <span>Pastes Dulces</span>
-    </div> -->
-  </div>
-  <div class="wrap-options__products">
-    <div class="products-grid">
-      <app-product
-        *ngFor="let product of productsList"
-        (productSelected) = onGetProductSelected($event)
-        [product]="product">
-      </app-product>
+    <div class="products__container">
+      <div class="wrap__products">
+        <div class="grid">
+          <app-product
+          *ngFor="let product of productsList"
+          (productSelected) = onGetProductSelected($event)
+          (infoProduct) = onGetInfoProduct($event)
+          [product]="product">
+        </app-product>
+        </div>
+      </div>
     </div>
+
   </div>
 </article>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { OptionMenuEntity, ResponseOptionMenuEntity } from 'src/app/website/home/adapters/secondary/dtos/menu-options.entity';
 import { MenuOptionsMappers } from 'src/app/website/home/adapters/secondary/mappers/menu-options.mapper';
 import { OptionMenuModel } from 'src/app/website/home/core/domain/menu-options.model';
@@ -24,7 +24,10 @@ export class MenuNavService {
 
   getOptionsMenu(): Observable<OptionMenuModel[]> {
     return this.http.get<ResponseOptionMenuEntity>(`${environment.apiUrl}dashboard/getMenu`)
-    .pipe( map(data => this.mappers.mapFromMenuOptions(data.response)));
+    .pipe(
+      map(data => this.mappers.mapFromMenuOptions(data.response)),
+      map( data => [data[0], data[1], data[2], data[3], data[4]])
+    );
   }
 
 }

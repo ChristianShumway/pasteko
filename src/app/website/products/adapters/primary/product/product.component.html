@@ -1,6 +1,14 @@
-<div class="wrap-product__option" >
-  <img class="option__img" src="assets/menu/pastes/1.png" alt="paste" />
-  <p class="option__name">{{productItem?.descripcion | lowercase }}</p>
-  <app-counter [stock]="productItem?.existencia" [formControl]="countProduct" class="option__count"></app-counter>
-  <a class="option__detail position btn-primary"> i </a>
+<div class="wrap-product">
+  <p class="option__name" [ngClass]="{'opacity-product': noExistencias}" >
+    {{productItem?.descripcion | uppercase }}
+    <img
+      (click)="!noExistencias && showInfo(productItem)"
+      class="open-detail"
+      src="assets/icons/info.png"
+      alt="información" />
+  </p>
+  <img class="option__img" [ngClass]="{'opacity-product': noExistencias}"  src="assets/menu/pastes/salado/mole-rojo.png" alt="paste" />
+  <span class="option__price" [ngClass]="{'opacity-product': noExistencias}" >{{productItem?.precio | currency}}</span>
+  <app-counter [stock]="productItem?.existencia" [formControl]="countProduct" class="option__count" [ngClass]="{'opacity-product': noExistencias}" ></app-counter>
+  <div class="legend-no-product" *ngIf="noExistencias">Agotado</div>
 </div>

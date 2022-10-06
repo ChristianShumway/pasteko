@@ -1,8 +1,8 @@
 <div class="option__count">
   <a
-    class="option__count--btn"
+    class="option__count--btn less"
     [ngClass]="{'inactive': currentValue === 0}"
-    (click)=" currentValue > 0 && sub()" > - </a>
+    (click)=" currentValue > 0 && sub()" > -</a>
   <span
     class="option__count--total">
     {{currentValue}}

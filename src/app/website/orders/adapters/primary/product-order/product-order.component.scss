@@ -1,22 +1,28 @@
 .order__products--description {
-  color: var(--main-color);
+  color: #FFF;
   margin-bottom: 1.5rem;
   .td {
-    font-family: "ItcDemi", sans-serif;
-    font-size: 1.2rem;
+    font-family: var(--font-light);
+    font-size: 1.1em;
     align-self: center;
-    text-transform: capitalize;
-    &:first-child {
-      width: 80%;
+    text-transform: uppercase;
+    &.description {
+      display: flex;
+      flex-direction: column;
+      .description__ingredients {
+        font-size: 0.75rem;
+        text-transform: initial;
+      }
     }
+    // &:first-child {
+    //   width: 80%;
+    // }
   }
   .btn-delete {
-    background: #31343D;
-    box-shadow: 4px 4px 8px 0px rgb(0 0 0 / 80%);
+    background-color: transparent;
     border: none;
-    color: var(--main-color);
+    color: #FFF;
     padding: 0.5rem;
-    border-radius: 0.25rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,6 +31,6 @@
 
 .grid-order {
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr 0.5fr;
+  grid-template-columns: 3fr 7fr 2fr 0.5fr;
   gap: 1rem;
 }

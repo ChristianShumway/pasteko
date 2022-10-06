@@ -1,3 +1,176 @@
+.order-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 80px 80vh 1rem;
+  .order__logo {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    img {
+      vertical-align: bottom;
+      max-width: 120px;
+    }
+  }
+  .order__detail {
+    position: relative;
+    border: 1px solid var(--main-color);
+    border-radius: 1rem;
+    grid-column: 1/8;
+    grid-row: 2/2;
+    margin-left: 1rem;
+    padding: 1rem;
+    .detail__products {
+      position: relative;
+      .products__title {
+        color: var(--main-color);
+        margin: 0;
+        font-size: 1.2rem;
+        font-family: var(--font-light);
+        text-transform: uppercase;
+      }
+      .products__scrollable {
+        height: 250px;
+        max-height: 250px;
+        overflow-y: auto;
+        margin-top: 1rem;
+        padding-right: 1rem;
+        padding-bottom: 1rem;
+      }
+      .products__total {
+        width: calc(100% - 2rem);
+        padding: 1rem 0.5rem;
+        border-top: 1px solid var(--main-color);
+        border-bottom: 1px solid var(--main-color);
+        display: grid;
+        grid-template-columns: 73% 27%;
+        align-items: center;
+        .total__text, .total__amount {
+          color: var(--main-color);
+          font-family: var(--font-light);
+          margin: 0;
+          font-size: 1.2rem;
+        }
+      }
+    }
+    .detail__pay {
+      margin: 1rem 0;
+      .method__pay {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        .method__text {
+          color: var(--main-color);
+          font-family: var(--font-light);
+          text-transform: uppercase;
+          font-size: 1.2rem;
+          margin:  0 1rem 0 0;
+        }
+        .wrap__methods {
+          display: flex;
+          align-items: center;
+          p {
+            margin: 0;
+            color: #fff;
+            font-family: var(--font-light);
+            &:first-child {
+              margin-right: 1rem;
+            }
+          }
+        }
+      }
+      .method__back {
+        display: flex;
+        align-items: center;
+        .back__legend {
+          color: var(--main-color);
+          font-family: var(--font-light);
+          text-transform: uppercase;
+          font-size: 1.2rem;
+          margin:  0 1rem 0 0;
+        }
+        .back__button {
+          padding: 0 2rem;
+        }
+      }
+      .method__continue {
+        position: absolute;
+        right: 2rem;
+        bottom: 1rem;
+        .button__continue {
+          padding: 0 3rem;
+        }
+      }
+    }
+  }
+  .order__recommendations {
+    position: relative;
+    border: 1px solid var(--main-color);
+    border-radius: 1rem;
+    grid-column: 8/13;
+    grid-row: 1/3;
+    margin: 1rem 1rem 0;
+    padding: 1rem;
+    .recommendations__scrollable {
+      height: 100%;
+      overflow: auto;
+      padding-right: 1rem;
+      .wrap__recommendations {
+        display: grid;
+        gap: 0.5rem;
+        .recommendation {
+          position: relative;
+          border: 2px solid var(--main-color);
+          border-radius: 2rem;
+          overflow: hidden;
+          img {
+            max-width: 100%;
+            vertical-align: bottom;
+          }
+          .btn__add {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+::ng-deep .mat-checkbox-layout {
+  margin-left: 0.5rem;
+}
+
+::ng-deep .mat-checkbox-checkmark {
+  top: 2px !important;
+  left: 2px !important;
+  width: 85% !important;
+}
+
+::ng-deep .mat-checkbox-checkmark-path {
+  stroke: var(--main-color) !important;
+}
+
+::ng-deep .mat-checkbox-inner-container {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  border-color: var(--main-color);
+  background-color: var(--dark-color) !important;
+  border-radius: 6px !important;
+  border-width: 1px !important;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  border-color: var(--main-color);
+  background-color: transparent !important;
+  color: var(--main-color) !important;
+}
+
 .wrap__main {
   padding: 0 8rem;
   margin: 0;

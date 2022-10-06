@@ -5,6 +5,7 @@ import { ProductsPrimaryInterface } from '../../../core/ports/primary/products.p
 import { ProductModel } from './../../../core/domain/product.model';
 import { SaleProductModel } from './../../../core/domain/sale-product.model';
 import { ProductSharedService } from 'src/app/core/services/products.service';
+import { DialogMessage } from 'src/app/commons/dialog';
 
 @Component({
   selector: 'app-products',
@@ -20,7 +21,8 @@ export class ProductsComponent implements OnInit {
   constructor(
     private usecase: ProductsPrimaryInterface,
     private _ps: ProductSharedService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: DialogMessage,
   ) { }
 
   ngOnInit(): void {
@@ -78,5 +80,17 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  onInfoProductSelected(product: ProductModel) {
+    const dialogRef = this.dialog.showInfoProduct(product, 'individual');
+    dialogRef.afterClosed().subscribe( response => {
+      if(response) {
+        let moreProduct: ProductModel = {
+          ...product,
+          cantidadPedida: product.cantidadPedida + 1
+        }
+        this.onProductSelected(moreProduct);
+      }
+    })
+  }
 
 }

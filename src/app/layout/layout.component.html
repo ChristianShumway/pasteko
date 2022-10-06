@@ -1,5 +1,14 @@
-<app-menu-nav></app-menu-nav>
-<app-loader></app-loader>
-<router-outlet></router-outlet>
-<app-footer></app-footer>
-<app-timer></app-timer>
+<section class="main-container">
+  <div class="component-container grid__layout">
+    <div class="layout__logo">
+      <img src="assets/logo-pasteko.png" alt="logo" />
+    </div>
+    <app-menu-nav class="layout__nav"></app-menu-nav>
+    <app-loader></app-loader>
+    <div class="layout__data">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer class="layout__footer"></app-footer>
+    <!-- <app-timer></app-timer> -->
+  </div>
+</section>

@@ -1,5 +1,25 @@
-<footer class="wrap-footer">
-  <a class="btn btn-primary" (click)="goBack()"><mat-icon aria-hidden="false">arrow_back</mat-icon></a>
+<footer class="footer">
+  <div class="wrap__btn">
+    <span class="btn__text">Limpiar</span>
+    <img
+      (click)="total > 0 && deleteSale()"
+      [ngClass]="{'empty': total === 0}"
+      class="btn__icon btn__icon--delete"
+      src="assets/icons/trash.png"
+      alt="eliminar" />
+  </div>
+  <div class="wrap__btn wrap__btn--pay">
+    <span class="btn__text">Pagar</span>
+    <div class="icon">
+      <div class="bullet design" *ngIf="total > 0">{{this.total}}</div>
+      <img
+        routerLink="/pedido"
+        class="btn__icon btn__icon--pay"
+        src="assets/icons/car.png"
+        alt="pagar" />
+    </div>
+  </div>
+  <!-- <a class="btn btn-primary" (click)="goBack()"><mat-icon aria-hidden="false">arrow_back</mat-icon></a>
   <a
     class="btn btn-primary"
     [ngClass]="{'empty': total === 0}"
@@ -17,5 +37,5 @@
     [ngClass]="{'empty': total === 0 || !dataOrderValid}"
     (click)="(total > 0 && dataOrderValid) && saveOrder()">
     Solicitar Pedido
-  </a>
+  </a> -->
 </footer>

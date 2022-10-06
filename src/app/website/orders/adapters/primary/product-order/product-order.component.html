@@ -2,9 +2,14 @@
   <div class="td">
     <app-counter [stock]="productOrder?.viewProducto?.existencia" [formControl]="countProduct" class="option__count"></app-counter>
   </div>
-  <div class="td">{{productOrder?.viewProducto?.descripcion | lowercase}}</div>
+  <div class="td description">
+    {{productOrder?.viewProducto?.descripcion | lowercase}}
+    <span class="description__ingredients">Esquites, queso cotija y mayonesa</span>
+  </div>
   <div class="td">{{productOrder.precio * productOrder.cantidad | currency}}</div>
-  <div class="td"><button class="btn-delete" (click)="deleteProductOrder(productOrder)">
-    <mat-icon>delete</mat-icon>
-  </button></div>
+  <div class="td">
+    <button class="btn-delete" (click)="deleteProductOrder(productOrder)">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
 </div>

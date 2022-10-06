@@ -1,0 +1,18 @@
+
+<mat-dialog-content class="wrap-product">
+  <p class="product__name" > {{product?.descripcion}} </p>
+  <img class="product__image" src="assets/menu/pastes/salado/mole-rojo.png" alt="producto" />
+  <p class="product__description"> Jamón, Queso oaxaca, Queso cotija, Piña y Salsa italiana</p>
+</mat-dialog-content>
+
+
+<mat-dialog-actions  class="wrap-actions">
+  <a class="button__action" mat-dialog-close="">
+    <mat-icon class="button__action-icon">close</mat-icon>
+    Cerrar
+  </a>
+  <a class="button__action" [mat-dialog-close]="true">
+    <mat-icon class="button__action-icon">add</mat-icon>
+    Agregar
+  </a>
+</mat-dialog-actions>

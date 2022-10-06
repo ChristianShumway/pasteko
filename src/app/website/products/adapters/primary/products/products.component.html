@@ -1,8 +1,9 @@
-<section class="main-container">
-  <app-header [title]="title"></app-header>
+<section class="child-container">
+  <!-- <app-header [title]="title"></app-header> -->
   <app-view-products
     [products]="productsList"
     (product)="onProductSelected($event)"
+    (infoProduct)="onInfoProductSelected($event)"
     *ngIf="idCategoria !== '18'">
   </app-view-products>
   <app-view-packages *ngIf="idCategoria === '18'"></app-view-packages>

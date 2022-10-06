@@ -10,13 +10,14 @@ import { ProductModel } from './../../../core/domain/product.model';
 export class ProductComponent implements OnInit {
   countProduct!: FormControl;
   productItem!: ProductModel;
+  noExistencias: boolean = false;
   @Input() set product (data: ProductModel) {
     if(data) {
       this.productItem = data;
     }
   }
   @Output() productSelected = new EventEmitter<ProductModel>();
-
+  @Output() infoProduct = new EventEmitter<ProductModel>();
 
   constructor() { }
 
@@ -28,6 +29,11 @@ export class ProductComponent implements OnInit {
         this.productSelected.emit(this.productItem);
       }
     });
+    this.noExistencias = this.productItem.existencia === 0 ? true : false;
+  }
+
+  showInfo(product: ProductModel) {
+    this.infoProduct.emit(product);
   }
 
 }

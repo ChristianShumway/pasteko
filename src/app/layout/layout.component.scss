@@ -1,0 +1,28 @@
+.grid__layout {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 80px auto;
+  .layout__logo {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    img {
+      vertical-align: bottom;
+      max-width: 120px;
+    }
+  }
+  .layout__nav {
+    grid-column: 1 / 3;
+    grid-row: 2 / 4;
+  }
+  .layout__data {
+    grid-column: 3 / 13;
+    grid-row: 1 / 3;
+  }
+  .layout__footer {
+    grid-column: 3 / 13;
+    grid-row: 3 / 4;
+  }
+}

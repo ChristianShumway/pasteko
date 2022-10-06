@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { skip, take } from 'rxjs/operators';
 import { MenuNavService } from 'src/app/core/services/menu-nav.service';
 import { OptionMenuModel } from './../../../website/home/core/domain/menu-options.model';
 
@@ -22,9 +23,10 @@ export class MenuNavComponent implements OnInit {
 
 
   getOptionsMenu() {
-    this.navService.getOptionsMenu().subscribe(
+    this.navService.getOptionsMenu().pipe(
+    ).subscribe(
       response => {
-        // console.log(response);
+        console.log(response);
         this.options = response;
       },
       error => console.error(error)
