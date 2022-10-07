@@ -9,6 +9,7 @@ import { ProductSharedService } from 'src/app/core/services/products.service';
 })
 export class PurchaseComponent implements OnInit {
   idPedido: number = 0;
+  showOrderNumber: boolean = true;
 
   constructor(
     private router: Router,
@@ -17,9 +18,8 @@ export class PurchaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIdPedido();
-    setTimeout(() => {
-      this.finallyActions();
-    }, 15000);
+    this.showMessage();
+    this.finallyActions();
   }
 
   getIdPedido() {
@@ -31,9 +31,17 @@ export class PurchaseComponent implements OnInit {
     });
   }
 
+  showMessage() {
+    setTimeout(() => {
+      this.showOrderNumber = false;
+    }, 5000);
+  }
+
   finallyActions() {
-    this.ppi.deleteIdPedido();
-    this.router.navigateByUrl('/home');
+    setTimeout(() => {
+      this.ppi.deleteIdPedido();
+      this.router.navigateByUrl('/home');
+    }, 10000);
   }
 
 }

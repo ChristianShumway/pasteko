@@ -1,13 +1,17 @@
 <section class="main-container">
-  <header>
-    <img src="assets/logo-pasteko.png" alt="pastekos" />
-  </header>
-  <article class="wrap-content">
-    <p class="content__title">- Toma tu ticket -</p>
-    <p class="content__text">Estamos procesando tu orden</p>
-    <h1 class="content__number">- {{idPedido}} -</h1>
-  </article>
-  <a routerLink="menu" (click)="finallyActions()" class="main-button btn-primary">
-    Regresar a Inicio
-  </a>
+  <div class="component-container">
+    <header>
+      <img src="assets/logo-pasteko.png" alt="pastekos" />
+    </header>
+    <article class="wrap-order" [ngClass]="{'wrap-active': showOrderNumber}">
+      <p class="order__text">Tu número de pedido es</p>
+      <div class="order__number">
+        <h1 class="number">{{idPedido}}</h1>
+      </div>
+    </article>
+    <article class="wrap-order" [ngClass]="{'wrap-active': !showOrderNumber}">
+      <img class="order__img" src="assets/icons/reloj.png" alt="reloj" />
+      <p class="order__text thanks">¡Gracias por tu compra!</p>
+    </article>
+  </div>
 </section>

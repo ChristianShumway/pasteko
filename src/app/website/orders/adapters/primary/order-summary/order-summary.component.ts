@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductSharedService } from 'src/app/core/services/products.service';
 import { ProductsPrimaryInterface } from 'src/app/website/products/core/ports/primary/products.primary.interface';
 import { SalePrimaryInterface } from 'src/app/website/orders/core/ports/primary/sale.primary.interface';
 import { ProductOrderModel } from '../../../core/domain/order-detail.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-order-summary',
@@ -29,6 +31,8 @@ export class OrderSummaryComponent implements OnInit {
     private _ps: ProductSharedService,
     private ppi: ProductsPrimaryInterface,
     private usesase: SalePrimaryInterface,
+    private location: Location,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -101,6 +105,14 @@ export class OrderSummaryComponent implements OnInit {
       this.emailField.value,
       this.phoneFieldValid,
       this.phoneField.value).subscribe();
+  }
+
+  saveOrder() {
+    this.router.navigateByUrl('/compra');
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
 }

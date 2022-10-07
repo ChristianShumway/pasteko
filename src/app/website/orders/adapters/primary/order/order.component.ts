@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductSharedService } from 'src/app/core/services/products.service';
@@ -26,7 +27,8 @@ export class OrderComponent implements OnInit {
     private ppi: ProductsPrimaryInterface,
     private _ps: ProductSharedService,
     private _formBuilder: FormBuilder,
-    private _router: Router
+    private _router: Router,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -106,6 +108,10 @@ export class OrderComponent implements OnInit {
 
   goOrderSummary() {
     this._router.navigateByUrl('pedido/resumen');
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
 }
