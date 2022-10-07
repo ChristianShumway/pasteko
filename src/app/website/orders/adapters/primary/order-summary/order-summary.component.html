@@ -1,0 +1,55 @@
+<section class="main-container">
+  <div class="component-container">
+    <div class="summary-container">
+      <div class="summary__logo">
+        <img src="assets/logo-pasteko.png" alt="logo" />
+      </div>
+      <div class="summary__info border__wrap">
+        <div class="title">Mi información</div>
+        <div class="wrap__form-info">
+          <div class="wrap__inputs">
+            <div class="input__summary">
+              <input
+              type="text"
+              [ngClass]="{'error' : nameField?.invalid && nameField?.touched}"
+              [formControl]="nameField"
+              placeholder="Nombre" />
+            </div>
+            <div class="input__summary">
+              <input
+                type="tel"
+                [ngClass]="{'error' : phoneField?.invalid && phoneField?.touched}"
+                [formControl] = "phoneField"
+                placeholder="Teléfono" />
+            </div>
+          </div>
+          <div class="wrap__options" [formGroup]="formOptions">
+            <p class="option">Comer Aquí<mat-checkbox formControlName="aqui"></mat-checkbox></p>
+            <p class="option">Para LLevar<mat-checkbox formControlName="llevar"></mat-checkbox></p>
+          </div>
+        </div>
+      </div>
+      <div class="summary__actions">
+        <button class="btn-pasteko btn-primary button__summary">Pagar</button>
+        <button class="button__summary btn-pasteko btn-secondary">Regresar a mi bolsa</button>
+      </div>
+      <div class="summary__order border__wrap">
+        <div class="title">Mi orden</div>
+        <div class="summary__products" *ngIf="productsOrder.length > 0">
+          <div class="product__wrap" *ngFor="let product of productsOrder">
+            <div class="product__price">{{product?.cantidad}}</div>
+            <div class="product__description">
+              <p>{{product?.viewProducto?.descripcion}}</p>
+              <span>Esquites, queso cotija y mayonesa</span>
+            </div>
+            <div class="product__price">{{product.viewProducto.precio * product.cantidad | currency}}</div>
+          </div>
+        </div>
+        <div class="summary__total">
+          <p class="total__info">Total</p>
+          <p class="total__info">{{amount | currency}} </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

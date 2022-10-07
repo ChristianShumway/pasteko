@@ -12,11 +12,15 @@ import { SaleSecondaryInterface } from '../../core/ports/secondary/sale.secondar
 import { SalesUsecase } from '../../core/usecases/sale.usecase';
 import { SaleService } from '../secondary/apirest/sale.service';
 import { ProductOrderComponent } from './product-order/product-order.component';
+import { ProductRecommendationComponent } from './product-recommendation/product-recommendation.component';
+import { OrderSummaryComponent } from './order-summary/order-summary.component';
 
 @NgModule({
   declarations: [
     OrderComponent,
-    ProductOrderComponent
+    ProductOrderComponent,
+    ProductRecommendationComponent,
+    OrderSummaryComponent
   ],
   imports: [
     CommonModule,

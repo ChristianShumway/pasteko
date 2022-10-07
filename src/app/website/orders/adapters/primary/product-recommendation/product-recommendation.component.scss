@@ -1,0 +1,15 @@
+.recommendation {
+  position: relative;
+  border: 2px solid var(--main-color);
+  border-radius: 2rem;
+  overflow: hidden;
+  img {
+    max-width: 100%;
+    vertical-align: bottom;
+  }
+  .btn__add {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+  }
+}

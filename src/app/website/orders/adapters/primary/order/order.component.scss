@@ -22,6 +22,7 @@
     grid-row: 2/2;
     margin-left: 1rem;
     padding: 1rem;
+    background: rgba(0,0,0, 0.4);
     .detail__products {
       position: relative;
       .products__title {
@@ -113,6 +114,7 @@
     grid-row: 1/3;
     margin: 1rem 1rem 0;
     padding: 1rem;
+    background: rgba(0,0,0, 0.4);
     .recommendations__scrollable {
       height: 100%;
       overflow: auto;
@@ -120,21 +122,6 @@
       .wrap__recommendations {
         display: grid;
         gap: 0.5rem;
-        .recommendation {
-          position: relative;
-          border: 2px solid var(--main-color);
-          border-radius: 2rem;
-          overflow: hidden;
-          img {
-            max-width: 100%;
-            vertical-align: bottom;
-          }
-          .btn__add {
-            position: absolute;
-            bottom: 1rem;
-            left: 1rem;
-          }
-        }
       }
     }
   }

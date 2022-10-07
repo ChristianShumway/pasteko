@@ -35,7 +35,7 @@
             <button class="back__button btn-pasteko btn-secondary">Continuar comprando</button>
           </div>
           <div class="method__continue">
-            <button class="btn-pasteko btn-primary button__continue">Ordenar</button>
+            <button class="btn-pasteko btn-primary button__continue" (click)="goOrderSummary()">Ordenar</button>
           </div>
         </div>
       </div>
@@ -43,30 +43,10 @@
       <div class="order__recommendations">
         <div class="recommendations__scrollable">
           <div class="wrap__recommendations">
-            <div class="recommendation">
-              <img src="assets/recomendaciones/tamarindo.png" alt="paleta tamarindo" />
-              <button class="btn__add" mat-mini-fab [color]="'primary-pasteko'">
-                <mat-icon>add</mat-icon>
-              </button>
-            </div>
-            <div class="recommendation">
-              <img src="assets/recomendaciones/tamarindo.png" alt="paleta tamarindo" />
-              <button class="btn__add" mat-mini-fab [color]="'primary-pasteko'">
-                <mat-icon>add</mat-icon>
-              </button>
-            </div>
-            <div class="recommendation">
-              <img src="assets/recomendaciones/tamarindo.png" alt="paleta tamarindo" />
-              <button class="btn__add" mat-mini-fab [color]="'primary-pasteko'">
-                <mat-icon>add</mat-icon>
-              </button>
-            </div>
-            <div class="recommendation">
-              <img src="assets/recomendaciones/tamarindo.png" alt="paleta tamarindo" />
-              <button class="btn__add" mat-mini-fab [color]="'primary-pasteko'">
-                <mat-icon>add</mat-icon>
-              </button>
-            </div>
+            <app-product-recommendation></app-product-recommendation>
+            <app-product-recommendation></app-product-recommendation>
+            <app-product-recommendation></app-product-recommendation>
+            <app-product-recommendation></app-product-recommendation>
           </div>
         </div>
       </div>
