@@ -1,12 +1,13 @@
+import { CloseOrderEntity } from 'src/app/website/orders/adapters/secondary/dtos/order-detail.entity';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { DialogMessage } from 'src/app/commons/dialog';
 import { ProductSharedService } from 'src/app/core/services/products.service';
 import { ProductsPrimaryInterface } from 'src/app/website/products/core/ports/primary/products.primary.interface';
 import { SalePrimaryInterface } from 'src/app/website/orders/core/ports/primary/sale.primary.interface';
 import { ProductOrderModel } from '../../../core/domain/order-detail.model';
-import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-order-summary',
   templateUrl: './order-summary.component.html',
@@ -25,6 +26,8 @@ export class OrderSummaryComponent implements OnInit {
   nameFieldValid: boolean = false;
   emailFieldValid: boolean = true;
   phoneFieldValid: boolean = false;
+  dataOrderValid: boolean = false;
+  dataPurchase: any;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -32,7 +35,8 @@ export class OrderSummaryComponent implements OnInit {
     private ppi: ProductsPrimaryInterface,
     private usesase: SalePrimaryInterface,
     private location: Location,
-    private router: Router
+    private router: Router,
+    private dialog: DialogMessage,
   ) { }
 
   ngOnInit(): void {
@@ -41,12 +45,23 @@ export class OrderSummaryComponent implements OnInit {
     this.getCurrentSale()
     this.eventValuesInputs();
     this.getValidation();
+    this.getStatusOrder();
   }
 
   initForm() {
     this.formOptions = this._formBuilder.group({
       aqui: true,
       llevar: false
+    });
+    this.comerAquiField?.valueChanges.subscribe( response => {
+      if(response) {
+        this.paraLlevarField?.setValue(false)
+      }
+    });
+    this.paraLlevarField?.valueChanges.subscribe( response => {
+      if(response) {
+        this.comerAquiField?.setValue(false);
+      }
     });
   }
 
@@ -89,9 +104,6 @@ export class OrderSummaryComponent implements OnInit {
       this.getValidation();
     });
     this.phoneField.valueChanges.subscribe( () => {
-      console.log(this.phoneField.valid)
-      console.log(this.phoneField.value)
-
       this.phoneFieldValid = this.phoneField.valid ? true : false;
       this.getValidation();
     });
@@ -107,8 +119,62 @@ export class OrderSummaryComponent implements OnInit {
       this.phoneField.value).subscribe();
   }
 
+  getStatusOrder() {
+    this._ps.watchOrderReadyStorage().subscribe({
+      next: response => this.dataOrderValid = response,
+      error: error => console.warn(error)
+    })
+  }
+
+  get comerAquiField() {
+    return this.formOptions.get('aqui');
+  }
+
+  get paraLlevarField() {
+    return this.formOptions.get('llevar');
+  }
+
   saveOrder() {
-    this.router.navigateByUrl('/compra');
+    if(!this.paraLlevarField?.value && !this.comerAquiField?.value) {
+      this.dialog.showDialogError('¡Selecciona si es para comer aquí o para llevar.!');
+    } else {
+      console.log('termina compra');
+      this.finishOrder();
+    }
+  }
+
+  finishOrder() {
+    const dialogRef = this.dialog.showDialogConfirm('¿Deseas confirmar tu pedido?');
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if(result) {
+          // this.getIdPedido();
+          this._ps.purchase$.subscribe({
+            next: response => {
+              this.dataPurchase = response;
+              const dataCustomer: CloseOrderEntity = {
+                idVenta: this.idPedido,
+                correo: this.dataPurchase.mail,
+                telefono: this.dataPurchase.phone,
+                nombre: this.dataPurchase.name
+              };
+              this._ps.closeOrder(dataCustomer).subscribe({
+                next: resp => {
+                  console.log(resp);
+                  if(resp.noEstatus === 5) {
+                    this.router.navigateByUrl('/compra');
+                  } else if (resp.noEstatus === 0) {
+                    this.dialog.showDialogError(resp.mensaje);
+                  }
+                },
+                error: error => console.warn(error)
+              })
+            },
+            error: error => console.warn(error)
+          })
+        }
+      }
+    )
   }
 
   goBack(): void {

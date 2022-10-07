@@ -52,6 +52,9 @@
       &:first-child {
         margin-bottom: 0.75rem;
       }
+      &.disabled {
+        opacity: .5;
+      }
     }
   }
   .summary__order {

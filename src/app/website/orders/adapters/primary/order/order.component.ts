@@ -128,7 +128,6 @@ export class OrderComponent implements OnInit {
 
   goOrderSummary() {
     if(!this.efectivoField?.value && !this.tarjetaField?.value) {
-      console.log('las dos estan en falsa');
       this.dialog.showDialogError('¡Selecciona primero tu método de pago.!');
     } else {
       if(this.efectivoField?.value) {
