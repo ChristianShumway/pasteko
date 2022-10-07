@@ -40,6 +40,18 @@
         padding-right: 1rem;
         padding-bottom: 1rem;
       }
+      .noproducts {
+        height: 250px;
+        max-height: 250px;
+        overflow: hidden;
+        color: #fff;
+        margin: 0;
+        font-size: 1.2rem;
+        font-family: var(--font-light);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
       .products__total {
         width: calc(100% - 2rem);
         padding: 1rem 0.5rem;
@@ -102,6 +114,9 @@
         bottom: 1rem;
         .button__continue {
           padding: 0 3rem;
+          &.disabled {
+            opacity: .5;
+          }
         }
       }
     }

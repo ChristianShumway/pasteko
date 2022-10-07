@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { DialogMessage } from 'src/app/commons/dialog';
+import { ProductsPrimaryInterface } from 'src/app/website/products/core/ports/primary/products.primary.interface';
+
 import { ProductSharedService } from 'src/app/core/services/products.service';
 import { SalePrimaryInterface } from 'src/app/website/orders/core/ports/primary/sale.primary.interface';
+
 import { ProductModel } from 'src/app/website/products/core/domain/product.model';
 import { SaleProductModel } from 'src/app/website/products/core/domain/sale-product.model';
-import { ProductsPrimaryInterface } from 'src/app/website/products/core/ports/primary/products.primary.interface';
 import { ProductOrderModel } from '../../../core/domain/order-detail.model';
 
 @Component({
@@ -28,7 +32,8 @@ export class OrderComponent implements OnInit {
     private _ps: ProductSharedService,
     private _formBuilder: FormBuilder,
     private _router: Router,
-    private location: Location
+    private location: Location,
+    private dialog: DialogMessage,
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +46,16 @@ export class OrderComponent implements OnInit {
     this.formMetodos = this._formBuilder.group({
       efectivo: true,
       tarjeta: false
+    });
+    this.efectivoField?.valueChanges.subscribe( response => {
+      if(response) {
+        this.tarjetaField?.setValue(false)
+      }
+    });
+    this.tarjetaField?.valueChanges.subscribe( response => {
+      if(response) {
+        this.efectivoField?.setValue(false);
+      }
     });
   }
 
@@ -59,7 +74,6 @@ export class OrderComponent implements OnInit {
         this.productsOrder = response.detalle;
         this.getAmountTotal();
         this.getTotalAcount();
-        // console.log(this.productsOrder);
       },
       error: error => console.warn(error)
     });
@@ -70,7 +84,6 @@ export class OrderComponent implements OnInit {
   }
 
   onGetProductSelected(product: ProductOrderModel) {
-    console.log(product);
     const productToSave: SaleProductModel = {
       idSalida: product.idSalida,
       idVenta: this.idPedido,
@@ -90,7 +103,6 @@ export class OrderComponent implements OnInit {
 
     this.ppi.productSale(productToSave).subscribe({
       next: response => {
-        console.log(response);
         this.idPedido = response?.pk;
         this.getCurrentSale();
       },
@@ -106,8 +118,26 @@ export class OrderComponent implements OnInit {
     });
   }
 
+  get efectivoField() {
+    return this.formMetodos.get('efectivo');
+  }
+
+  get tarjetaField() {
+    return this.formMetodos.get('tarjeta');
+  }
+
   goOrderSummary() {
-    this._router.navigateByUrl('pedido/resumen');
+    if(!this.efectivoField?.value && !this.tarjetaField?.value) {
+      console.log('las dos estan en falsa');
+      this.dialog.showDialogError('¡Selecciona primero tu método de pago.!');
+    } else {
+      if(this.efectivoField?.value) {
+        sessionStorage.setItem('metodo-pago', 'efectivo');
+      } else {
+        sessionStorage.setItem('metodo-pago', 'tarjeta');
+      }
+      this._router.navigateByUrl('pedido/resumen');
+    }
   }
 
   goBack(): void {

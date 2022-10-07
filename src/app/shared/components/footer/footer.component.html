@@ -13,7 +13,7 @@
     <div class="icon">
       <div class="bullet design" *ngIf="total > 0">{{this.total}}</div>
       <img
-        routerLink="/pedido"
+      (click)="total > 0 && continueSale()"
         class="btn__icon btn__icon--pay"
         src="assets/icons/car.png"
         alt="pagar" />

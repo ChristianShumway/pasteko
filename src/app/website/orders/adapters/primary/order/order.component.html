@@ -8,7 +8,7 @@
       <div class="order__detail">
         <div class="detail__products">
           <p class="products__title">Detalle de la orden</p>
-          <div class="products__scrollable">
+          <div class="products__scrollable" *ngIf="productsOrder.length > 0; else noProducts">
             <app-product-order
             *ngFor="let product of productsOrder"
             (productSelected) = onGetProductSelected($event)
@@ -17,6 +17,11 @@
             >
             </app-product-order>
           </div>
+          <ng-template #noProducts>
+            <div class="noproducts">
+              No hay productos agregados a la orden
+            </div>
+          </ng-template>
           <div class="products__total">
             <p class="total__text">Total</p>
             <span class="total__amount">{{amount | currency}}</span>
@@ -35,7 +40,12 @@
             <button class="back__button btn-pasteko btn-secondary" (click)="goBack()">Continuar comprando</button>
           </div>
           <div class="method__continue">
-            <button class="btn-pasteko btn-primary button__continue" (click)="goOrderSummary()">Ordenar</button>
+            <button
+              class="btn-pasteko btn-primary button__continue"
+              [ngClass]="{'disabled': productsOrder.length === 0}"
+              (click)="productsOrder.length > 0 && goOrderSummary()">
+                Ordenar
+            </button>
           </div>
         </div>
       </div>

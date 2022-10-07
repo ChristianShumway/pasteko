@@ -86,6 +86,9 @@ export class FooterComponent implements OnInit {
       }
     );
   }
+  continueSale() {
+    this.router.navigateByUrl('/pedido');
+  }
 
   saveOrder() {
     const dialogRef = this.dialog.showDialogConfirm('¿Deseas confirmar tu pedido?');
