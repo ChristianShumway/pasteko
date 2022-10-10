@@ -17,6 +17,7 @@ import { SaleService } from '../website/orders/adapters/secondary/apirest/sale.s
 import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { InfoProductComponent } from './components/info-product/info-product.component';
+import { AvatarHelpComponent } from './components/avatar-help/avatar-help.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -25,7 +26,8 @@ import { InfoProductComponent } from './components/info-product/info-product.com
     CounterComponent,
     MessageDialogComponent,
     TimerComponent,
-    InfoProductComponent
+    InfoProductComponent,
+    AvatarHelpComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { InfoProductComponent } from './components/info-product/info-product.com
     CounterComponent,
     MessageDialogComponent,
     TimerComponent,
-    InfoProductComponent
+    InfoProductComponent,
+    AvatarHelpComponent
   ],
   providers: [
     { provide: ProductsPrimaryInterface, useClass: ProductsUsecase},

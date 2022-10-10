@@ -1,0 +1,66 @@
+.help__container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgb(0 0 0 / 50%);
+  z-index: 9;
+  .wrap__avatar {
+    margin-bottom: 2rem;
+    .avatar__img {
+      max-width: 125px;
+      vertical-align: bottom;
+    }
+    .dialog__avatar {
+      position: relative;
+      background-color: #FDFFFB;
+      max-width: 150px;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      &::after {
+        position: absolute;
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+        border-top: 30px solid #FDFFFB;
+        bottom: -15px;
+      }
+      .text__dialog {
+        font-family: var(--font-light);
+        font-size: 1rem;
+        text-align: center;
+        line-height: 1.5rem;
+        margin-bottom: 1rem;
+        span {
+          font-family: var(--font-ultra-bold);
+          text-transform: uppercase;
+          font-size: 1.25rem;
+        }
+      }
+      .buttons__dialog {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        .btn__dialog {
+          font-family: var(--font-ultra-bold);
+          font-size: 1.25rem;
+          border: 2px solid var(--main-color);
+          border-radius: 1rem;
+          padding: 0.5rem 1rem;
+          padding: 0.75rem 1rem 0.5rem 1rem;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

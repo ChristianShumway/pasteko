@@ -17,6 +17,7 @@ export class ProductsComponent implements OnInit {
   idCategoria: string | null = null ;
   productsList: ProductModel[] = [];
   idPedido: number = 0;
+  showAvatar: boolean = false;
 
   constructor(
     private usecase: ProductsPrimaryInterface,
@@ -28,6 +29,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.getIdPedido();
     this.getProducts();
+    setTimeout( () => this. showAvatar = true, 5000);
   }
 
   getIdPedido() {
@@ -91,6 +93,11 @@ export class ProductsComponent implements OnInit {
         this.onProductSelected(moreProduct);
       }
     })
+  }
+
+  onResponseCreatePack(response: boolean) {
+    console.log(response);
+    this.showAvatar = false;
   }
 
 }
