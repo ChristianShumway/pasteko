@@ -8,3 +8,9 @@ export interface ProductModel {
   linea: string;
   precio: number;
 }
+
+export interface SubCategoryModel {
+  clave: string;
+  nombre: string;
+  category: string;
+}

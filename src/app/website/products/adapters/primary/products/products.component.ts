@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { ProductsPrimaryInterface } from '../../../core/ports/primary/products.primary.interface';
-import { ProductModel } from './../../../core/domain/product.model';
+import { ProductModel, SubCategoryModel } from './../../../core/domain/product.model';
 import { SaleProductModel } from './../../../core/domain/sale-product.model';
 import { ProductSharedService } from 'src/app/core/services/products.service';
 import { DialogMessage } from 'src/app/commons/dialog';
@@ -14,7 +14,10 @@ import { DialogMessage } from 'src/app/commons/dialog';
 })
 export class ProductsComponent implements OnInit {
   title: string = '';
-  idCategoria: string | null = null ;
+  categoria: string | null = null;
+  claveCategoria: string | null = null;
+  subCategoria: string | null = null;
+  subCategoriasList: SubCategoryModel[] = [];
   productsList: ProductModel[] = [];
   idPedido: number = 0;
   showAvatar: boolean = false;
@@ -43,20 +46,37 @@ export class ProductsComponent implements OnInit {
   getProducts() {
     this.route.paramMap.pipe(
       switchMap( ((params: ParamMap) => {
-        this.idCategoria = params.get('idCategory');
-        this.title = this.idCategoria === '18' ?  'Paquetekos' : 'Menú';
-        return this.usecase.getProducts(this.idCategoria, this.idPedido);
-      }))
+        this.claveCategoria = params.get('clave');
+        this.categoria = params.get('category');
+        return this.usecase.getSubcategories(this.claveCategoria);
+      })),
+      switchMap( response => {
+        this.subCategoriasList = response;
+        this.getSubCategory();
+        return this.usecase.getProducts(this.claveCategoria, this.subCategoria, this.idPedido);
+      })
     ).subscribe(
       response => {
-        // console.log(response);
+        console.log(response);
         this.productsList = response;
+        this.subCategoria = null;
         if(this.idPedido !== 0) {
           this.getTotalAcount();
         }
       },
       error => console.log(error)
     )
+  }
+
+  getSubCategory() {
+    if(this.subCategoriasList.length > 0) {
+      if(!this.subCategoria) {
+        this.subCategoria =  this.subCategoriasList[0].clave;
+      }
+    } else {
+      this.subCategoria = null;
+    }
+    console.log(this.subCategoria);
   }
 
   getTotalAcount() {
@@ -98,6 +118,20 @@ export class ProductsComponent implements OnInit {
   onResponseCreatePack(response: boolean) {
     console.log(response);
     this.showAvatar = false;
+  }
+
+  onChangeSubcategory(clave: any) {
+    this.subCategoria = clave;
+    this.usecase.getProducts(this.claveCategoria, this.subCategoria, this.idPedido).subscribe({
+      next: response  => {
+        this.productsList = response;
+        this.subCategoria = null;
+        if(this.idPedido !== 0) {
+          this.getTotalAcount();
+        }
+      },
+      error: error => console.error(error)
+    })
   }
 
 }

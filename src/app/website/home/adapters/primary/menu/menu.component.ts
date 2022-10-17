@@ -31,7 +31,7 @@ export class MenuComponent implements OnInit {
   }
 
   goToProducts(option: OptionMenuModel) {
-    this.route.navigateByUrl(`/productos/${option.idLinea}`)
+    this.route.navigateByUrl(`/productos/${option.clave}`)
   }
 
 }

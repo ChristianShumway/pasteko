@@ -1,13 +1,24 @@
 <article class="view-products">
   <div class="section__products">
 
-    <div class="products__tabs">
-      <div class="tab active">
-        <span>Pastes Salados</span>
+    <div class="products__tabs" *ngIf="subCategoriesList.length">
+      <div
+        class="tab"
+        *ngFor="let sub of subCategoriesList; let i = index"
+        [ngClass]="{
+          'active': i === tabActive,
+          'inactive': i !== tabActive
+        }">
+        <span (click)="changeTab(i, sub?.clave)">{{sub?.nombre}}
+        </span>
       </div>
-      <div class="tab right inactive">
-        <span>Pastes Dulces</span>
+      <div class="tab-help"></div>
+    </div>
+    <div class="products__tabs no-tabs" *ngIf="subCategoriesList.length === 0">
+      <div class="tab">
+        <span>{{category}}</span>
       </div>
+      <div class="tab-help"></div>
     </div>
     <div class="products__container">
       <div class="wrap__products">

@@ -2,10 +2,10 @@
   <ul>
     <li
     class="wrap-item item"
-    [routerLink]="['/productos', option?.idLinea]"
+    [routerLink]="['/productos', option?.nombre, option?.clave]"
     routerLinkActive="active"
     *ngFor="let option of options">
-      <span class="name">{{option?.descripcion}}</span>
+      <span class="name">{{option?.nombre}}</span>
     </li>
   </ul>
 </nav>

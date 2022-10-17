@@ -26,7 +26,6 @@ export class MenuNavComponent implements OnInit {
     this.navService.getOptionsMenu().pipe(
     ).subscribe(
       response => {
-        console.log(response);
         this.options = response;
       },
       error => console.error(error)

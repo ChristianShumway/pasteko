@@ -4,7 +4,7 @@ import { ProductsComponent } from './products/products.component';
 
 const routes: Routes = [
   {
-    path: ':idCategory',
+    path: ':category/:clave',
     component: ProductsComponent
   }
 ];

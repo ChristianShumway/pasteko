@@ -1,15 +1,18 @@
 <section class="child-container">
   <!-- <app-header [title]="title"></app-header> -->
   <app-view-products
+    [category]="categoria"
     [products]="productsList"
+    [subcategories]="subCategoriasList"
     (product)="onProductSelected($event)"
     (infoProduct)="onInfoProductSelected($event)"
-    *ngIf="idCategoria !== '18'">
+    (claveSubCat)="onChangeSubcategory($event)"
+  >
   </app-view-products>
-  <app-view-packages *ngIf="idCategoria === '18'"></app-view-packages>
-  <app-avatar-help
+  <!-- <app-view-packages *ngIf="idCategoria === '18'"></app-view-packages> -->
+  <!-- <app-avatar-help
     *ngIf="showAvatar"
     (reponsePack)="onResponseCreatePack($event)">
-  </app-avatar-help>
+  </app-avatar-help> -->
 </section>
 

@@ -2,13 +2,36 @@ import { ProductEntity } from './../dtos/product.entity';
 import { Injectable } from '@angular/core';
 import { ProductsSecondaryInterface } from '../../../core/ports/secondary/products.secondary.interface';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { ProductModel } from '../../../core/domain/product.model';
+import { ProductModel, SubCategoryModel } from '../../../core/domain/product.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ProductsMappers } from '../mappers/products.mapper';
 import { ResultProductEntity } from '../dtos/product.entity';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { SaleProductModel, ResponseSaleModel } from '../../../core/domain/sale-product.model';
+
+const SUBCATEGORIES: SubCategoryModel[] = [
+  {
+    clave: 'SAL',
+    nombre: 'Salados',
+    category: 'PAS'
+  },
+  {
+    clave: 'DUL',
+    nombre: 'Dulces',
+    category: 'PAS'
+  },
+  {
+    clave: 'CAL',
+    nombre: 'Calientes',
+    category: 'BEB'
+  },
+  {
+    clave: 'FRI',
+    nombre: 'Frias',
+    category: 'BEB'
+  }
+];
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +50,11 @@ export class ProductsService extends ProductsSecondaryInterface {
     return this.cartStorage.asObservable();
   }
 
+  getSubcategories(claveCategoria: string): Observable<SubCategoryModel[]> {
+    const subCat = SUBCATEGORIES.filter(sub => sub.category === claveCategoria);
+    return of (subCat);
+  }
+
   getIdPedido(): Observable<number | null> {
   const session = sessionStorage.getItem('idPedido')
     if (session) {
@@ -35,11 +63,11 @@ export class ProductsService extends ProductsSecondaryInterface {
     return of (null);
   }
 
-  getProducts(idLinea: string, idPedido: number = 0): Observable<ProductModel[]> {
-    const req = `${environment.apiUrl}/dashboard/getProductoByLinea/${idLinea}/${idPedido}`;
+  getProducts(claveCategoria:string | null, subCategoria: string | null, idVenta: number = 0): Observable<ProductModel[]> {
+    const req = `${environment.apiUrl}/dashboard/getProductoByLinea/${idVenta}?categoria=${claveCategoria}&subCategoria=${subCategoria}`;
     return this.http.get<ResultProductEntity>(req).pipe(
       map( result => {
-        sessionStorage.setItem('idPedido', `${idPedido}`);
+        sessionStorage.setItem('idPedido', `${idVenta}`);
         return this.mappers.mapFromProducts(result?.response);
       })
     );

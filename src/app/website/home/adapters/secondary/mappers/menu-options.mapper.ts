@@ -15,14 +15,8 @@ export class MenuOptionsMappers {
 		const options: OptionMenuModel[] = [];
 		param.forEach((p) => {
 			options.push({
-        idLinea: p.idLinea,
-        descripcion: p.descripcion,
-        descuento: p.descuento,
-        numero: p.numero,
-        rutaNombre: p.rutaNombre,
-        cantAutDeus: p.cantAutDeus,
-        bloqueada: p.bloqueada,
-        impoComision: p.impoComision
+        clave: p.clave,
+        nombre: p.nombre
 			});
 		});
 

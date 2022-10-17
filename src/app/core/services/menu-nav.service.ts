@@ -26,7 +26,6 @@ export class MenuNavService {
     return this.http.get<ResponseOptionMenuEntity>(`${environment.apiUrl}dashboard/getMenu`)
     .pipe(
       map(data => this.mappers.mapFromMenuOptions(data.response)),
-      map( data => [data[0], data[1], data[2], data[3], data[4]])
     );
   }
 
