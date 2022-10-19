@@ -29,6 +29,12 @@ export abstract class ProductsSecondaryInterface {
   abstract getProducts(claveCategoria: string | null, subCategoria: string | null, idVenta?: number): Observable<ProductModel[]>
 
   /**
+    * @param idVenta id de la venta en curso
+    * @returns Array con combos
+  */
+  abstract getCombos(idVenta?: number): Observable<ProductModel[]>
+
+  /**
   * @param objeto con data del producto a agregar, modificar o quitar del pedido
   * @returns pendiente
   */

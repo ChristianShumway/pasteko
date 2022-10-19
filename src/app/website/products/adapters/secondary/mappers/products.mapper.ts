@@ -22,6 +22,7 @@ export class ProductsMappers {
         existencia: p.existencia,
         idSalida: p.idSalida,
         imagen: p.imagen,
+        informacion: p.informacion,
         linea: p.linea,
         precio: p.precio,
       });

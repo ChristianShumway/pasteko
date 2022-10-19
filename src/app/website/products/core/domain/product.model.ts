@@ -5,6 +5,7 @@ export interface ProductModel {
   existencia: number;
   idSalida: number;
   imagen: string;
+  informacion: string;
   linea: string;
   precio: number;
 }

@@ -53,6 +53,10 @@ export class ProductsComponent implements OnInit {
       switchMap( response => {
         this.subCategoriasList = response;
         this.getSubCategory();
+        console.log(this.categoria);
+        if(this.categoria === 'Paquetes') {
+          return this.usecase.getCombos(this.idPedido);
+        }
         return this.usecase.getProducts(this.claveCategoria, this.subCategoria, this.idPedido);
       })
     ).subscribe(

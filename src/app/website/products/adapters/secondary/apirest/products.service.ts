@@ -73,6 +73,16 @@ export class ProductsService extends ProductsSecondaryInterface {
     );
   }
 
+  getCombos(idVenta?: number): Observable<ProductModel[]> {
+    const req = `${environment.apiUrl}/dashboard/getCombos/${idVenta}`;
+    return this.http.get<ResultProductEntity>(req).pipe(
+      map( result => {
+        sessionStorage.setItem('idPedido', `${idVenta}`);
+        return this.mappers.mapFromProducts(result?.response);
+      })
+    );
+  }
+
   productSale(product: SaleProductModel): Observable<ResponseSaleModel> {
     const headerss = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post<ResponseSaleModel>(`${environment.apiUrl}/venta/saveProducto`, JSON.stringify(product), {
