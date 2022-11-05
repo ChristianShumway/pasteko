@@ -1,14 +1,20 @@
-<div class="option__count">
+<div class="option__count" [ngClass]="{ 'is-paquete': type }">
   <a
     class="option__count--btn less"
-    [ngClass]="{'inactive': currentValue === 0}"
+    [ngClass]="{
+      'inactive': currentValue === 0,
+      'is-paquete': type
+    }"
     (click)=" currentValue > 0 && sub()" > -</a>
   <span
-  class="option__count--total">
+  class="option__count--total" [ngClass]="{ 'is-paquete': type }">
     {{currentValue}}
   </span>
   <a
     class="option__count--btn"
-    [ngClass]="{'inactive': _stock === 0 || !canSelected}"
+    [ngClass]="{
+      'inactive': _stock === 0 || !canSelected,
+      'is-paquete': type
+    }"
     (click)=" (_stock !== 0 && canSelected) && add()"> + </a>
 </div>

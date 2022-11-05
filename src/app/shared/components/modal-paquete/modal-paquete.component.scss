@@ -12,6 +12,22 @@
   padding: 1rem;
 }
 
+.grid__noproducts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: inherit;
+  img {
+    max-width: 400px;
+    vertical-align: bottom;
+  }
+  span {
+    font-size: 2rem;
+    font-family: var(--font-medium);
+  }
+}
+
 .wrap-actions {
   position: relative;
   justify-content: space-between;
@@ -39,16 +55,25 @@
     }
   }
   .stepper__container {
-    .title__steps {
+    .title__steps, .subtitle__steps {
       text-transform: uppercase;
       font-family: var(--font-medium);
       font-size: 14px;
+      margin-bottom: 0;
+    }
+    .subtitle__steps {
+      font-family: var(--font-light);
+      font-size: 12px;
       margin-bottom: .5rem;
+      text-align: center;
     }
     .wrap__steps {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      &.one__step {
+        justify-content: center;
+      }
       .step {
         text-align: center;
         .bullet__step {
@@ -75,4 +100,8 @@
       }
     }
   }
+}
+
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
+  background-color: #FF9C00 !important;
 }

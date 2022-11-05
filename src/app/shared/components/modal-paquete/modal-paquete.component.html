@@ -5,7 +5,7 @@
       title="{{sub.clave}}"
       label="{{sub.nombre}}">
       <div class="container__tab">
-        <div class="grid__products">
+        <div class="grid__products" *ngIf="productsCombo.length > 0; else noProducts">
           <app-product-pack
           *ngFor="let product of productsCombo"
           [product]="product"
@@ -14,6 +14,12 @@
           (actionSelected) = onChangeCountTotal($event)
           ></app-product-pack>
         </div>
+        <ng-template #noProducts>
+          <div class="grid__noproducts" *ngIf="notFoundResults">
+            <img src="assets/icons/not-found.png" alt="no se encontro">
+            <span>No se encontraron resultados...</span>
+          </div>
+        </ng-template>
       </div>
     </mat-tab>
   </mat-tab-group>
@@ -36,7 +42,8 @@
   </a>
   <div class="stepper__container">
     <div class="title__steps">Selecciona {{renderingStep.cantidad}} {{getType(renderingStep.categoria, renderingStep.cantidad)}}</div>
-    <div class="wrap__steps">
+    <div class="subtitle__steps">{{renderingStep.cantidadSeleccionada}}  de {{renderingStep.cantidad}} seleccionado(s)</div>
+    <div class="wrap__steps" [ngClass]="{ 'one__step': stepperList.length === 1}">
       <div class="step" *ngFor="let step of stepperList; let i = index">
         <div
         [ngClass]="{'inactive': renderingStep.step !== step.step}"
@@ -49,10 +56,21 @@
   </div>
   <a
     class="button__action"
+    *ngIf="renderingStep.step + 1 !== stepperList.length"
     [ngClass]="{'inactive': canSelected}"
     (click)="!canSelected && changeStep(renderingStep.step + 1)"
   >
     <mat-icon class="button__action--icon">arrow_forward</mat-icon>
     <span class="button__action--text">Siguiente</span>
+  </a>
+
+  <a
+    class="button__action"
+    *ngIf="renderingStep.step + 1 === stepperList.length"
+    [ngClass]="{'inactive': canSelected}"
+    (click)="!canSelected && finishCombo()"
+  >
+    <mat-icon class="button__action--icon">done</mat-icon>
+    <span class="button__action--text">Agregar</span>
   </a>
 </mat-dialog-actions>

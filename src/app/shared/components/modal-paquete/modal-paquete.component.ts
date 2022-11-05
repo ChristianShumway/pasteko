@@ -19,6 +19,7 @@ export class ModalPaqueteComponent implements OnInit {
   productsCombo: ProductModel[] = [];
   canSelected: boolean = true;
   productsToSession: ProductModel[] = [];
+  notFoundResults: boolean = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -50,31 +51,33 @@ export class ModalPaqueteComponent implements OnInit {
   }
 
   getProducts(index: number = 0) {
-    // console.log(index);
+    this.notFoundResults = false
     this.canSelected = this.renderingStep.cantidad === this.renderingStep.cantidadSeleccionada ? false : true;
     const subCatSelected = this.renderingStep.sub.find(sub => sub.index === index);
-    // console.log(subCatSelected);
     this.paquesteService.getCombos(parseInt(this.codigoPaquete), this.idPedido, subCatSelected?.claveCategory, subCatSelected?.clave)
     .subscribe({
       next: response => {
         this.productsCombo = response;
         this.getProductsSessionStorage();
         console.log(response);
+        this.notFoundResults = response.length === 0 ? true : false;
       },
       error: error => console.warn(error)
     });
   }
 
   getProductsSessionStorage() {
-    const session = sessionStorage.getItem('product-list');
+    // const  session = sessionStorage.getItem('product-list');
     console.log(this.productsToSession);
+    this.productsCombo.forEach( producto => {
+      let buscandoProducto = this.productsToSession.find(prod => prod.codigo === producto.codigo);
+      producto.cantidadPedida = buscandoProducto ? buscandoProducto.cantidadPedida : 0;
+    });
   }
 
   onGetProductSelected(product: ProductModel) {
     console.log(product)
-    // const session = sessionStorage.getItem('product-list');
     const indexProdExist = this.productsToSession.findIndex(prod => prod.codigo === product.codigo);
-    const buscandoProducto = this.productsToSession.find(prod => prod.codigo === product.codigo);
     console.log(indexProdExist);
     if(indexProdExist >= 0) {
       if(product.cantidadPedida === 0) {
@@ -85,8 +88,6 @@ export class ModalPaqueteComponent implements OnInit {
       }
     } else {
       this.productsToSession.push(product);
-      // const stringList = JSON.stringify(this.productsToSession)
-      // sessionStorage.setItem('product-list', stringList);
     }
     console.log('lista de producto guardada modificada', this.productsToSession);
   }
@@ -106,13 +107,25 @@ export class ModalPaqueteComponent implements OnInit {
     }
   }
 
+  finishCombo() {
+    const message = `
+    Ya has seleccionado los productos de tu combo,
+    ¿Estás seguro de agregarlo al carrio de compras?`;
+    const dialogRef = this.dialog.showDialogConfirm(message);
+    dialogRef.afterClosed().subscribe(response => {
+      if(response) {
+        this.matdialog.close(this.productsToSession);
+      }
+    });
+  }
+
   cancelCombo() {
     const dialogRef = this.dialog.showDialogConfirm('¿Estás seguro de cancelar tu paquete?');
     dialogRef.afterClosed().subscribe(response => {
       if(response) {
         this.matdialog.close();
       }
-    })
+    });
   }
 
 }
