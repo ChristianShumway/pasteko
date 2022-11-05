@@ -11,7 +11,9 @@ export interface ProductModel {
 }
 
 export interface SubCategoryModel {
+  index: number;
   clave: string;
   nombre: string;
   category: string;
+  claveCategory: string;
 }

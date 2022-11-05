@@ -5,6 +5,7 @@ import { MessageDialogComponent } from '../shared/components/message-dialog/mess
 import { TypeDialog } from './type-dialogs';
 import { InfoProductComponent } from '../shared/components/info-product/info-product.component';
 import { ProductModel } from '../website/products/core/domain/product.model';
+import { ModalPaqueteComponent } from '../shared/components/modal-paquete/modal-paquete.component';
 @Injectable()
 export class DialogMessage {
 
@@ -65,6 +66,15 @@ export class DialogMessage {
       dialog.role = 'alertdialog';
       dialog.width = '50%';
       return this.dialog.open(InfoProductComponent, dialog)
+    }
+
+    showModalPaquete(codigoPaquete: string, steppers: any[], idPedido: number) {
+      let dialog: MatDialogConfig = new MatDialogConfig();
+      dialog.data = {codigoPaquete, steppers, idPedido};
+      dialog.autoFocus = false;
+      dialog.role = 'alertdialog';
+      dialog.width = '80%';
+      return this.dialog.open(ModalPaqueteComponent, dialog)
     }
 
     closeDialog() {

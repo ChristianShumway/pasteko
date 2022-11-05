@@ -17,6 +17,30 @@
   }
 }
 
+.wrap-combo {
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  padding: 1rem;
+  .combo__image {
+    max-width: 230px;
+    vertical-align: bottom;
+  }
+  .combo__detail {
+    display: block;
+    text-align: end;
+    .combo__name {
+      font-family: var(--font-bold);
+      text-transform: uppercase;
+      font-size: 1.5rem;
+    }
+    .combo__description {
+      font-family: var(--font-regular);
+      font-size: 1rem;
+    }
+  }
+}
+
 .wrap-actions {
   justify-content: space-between;
   .button__action {

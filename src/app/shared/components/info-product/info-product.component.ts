@@ -11,6 +11,8 @@ export class InfoProductComponent implements OnInit {
 
   product!: ProductModel;
   type!: string;
+  pathImage: string = 'assets/menu/';
+  noImageProduct: string = 'assets/icons/no-product.png';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -19,6 +21,13 @@ export class InfoProductComponent implements OnInit {
   ngOnInit(): void {
     this.product = this.data.product;
     this.type = this.data.type;
+  }
+
+  getImage(img: string): string {
+    if(img) {
+      return `${this.pathImage}${img}`
+    }
+    return this.noImageProduct;
   }
 
 }

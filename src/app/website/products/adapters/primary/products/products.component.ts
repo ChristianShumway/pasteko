@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute, ParamMap, Params } from '@angular/router';
 import { ProductsPrimaryInterface } from '../../../core/ports/primary/products.primary.interface';
+import { PaquetePrimaryInterface } from '../../../core/ports/primary/paquete.primary.interface';
+import { ProductSharedService } from 'src/app/core/services/products.service';
 import { ProductModel, SubCategoryModel } from './../../../core/domain/product.model';
 import { SaleProductModel } from './../../../core/domain/sale-product.model';
-import { ProductSharedService } from 'src/app/core/services/products.service';
+import { PaqueteModel, StepPaqueteModel } from './../../../core/domain/paquete.model';
 import { DialogMessage } from 'src/app/commons/dialog';
 
 @Component({
@@ -21,9 +23,11 @@ export class ProductsComponent implements OnInit {
   productsList: ProductModel[] = [];
   idPedido: number = 0;
   showAvatar: boolean = false;
+  stepsList: StepPaqueteModel[] = [];
 
   constructor(
     private usecase: ProductsPrimaryInterface,
+    private useCasePaquete: PaquetePrimaryInterface,
     private _ps: ProductSharedService,
     private route: ActivatedRoute,
     private dialog: DialogMessage,
@@ -55,7 +59,7 @@ export class ProductsComponent implements OnInit {
         this.getSubCategory();
         console.log(this.categoria);
         if(this.categoria === 'Paquetes') {
-          return this.usecase.getCombos(this.idPedido);
+          return this.useCasePaquete.getCombos(this.idPedido);
         }
         return this.usecase.getProducts(this.claveCategoria, this.subCategoria, this.idPedido);
       })
@@ -107,7 +111,7 @@ export class ProductsComponent implements OnInit {
   }
 
   onInfoProductSelected(product: ProductModel) {
-    const dialogRef = this.dialog.showInfoProduct(product, 'individual');
+    const dialogRef = this.dialog.showInfoProduct(product, product.linea);
     dialogRef.afterClosed().subscribe( response => {
       if(response) {
         let moreProduct: ProductModel = {
@@ -137,5 +141,43 @@ export class ProductsComponent implements OnInit {
       error: error => console.error(error)
     })
   }
+
+  onComboSelected(codigo: string) {
+    this.useCasePaquete.getDetalleCombo(codigo).subscribe( response => {
+      response.forEach( (step, index) => {
+        this.addSubCategoriesStepper(codigo, step, response.length, index)
+      })
+    });
+  }
+
+  addSubCategoriesStepper(codigo: string, step: PaqueteModel, stepsTotal: number, index: number) {
+    this.usecase.getSubcategories(step.familia).subscribe({
+      next: subcategories =>  {
+        let stepDetail = {
+          step: index,
+          idCombo: step.idCombo,
+          categoria: step.familia,
+          cantidad: step.cantidad,
+          cantidadSeleccionada: 0,
+          sub: subcategories
+        };
+        this.stepsList.push(stepDetail);
+        if(this.stepsList.length === stepsTotal) {
+          this.openModalPack(codigo);
+        }
+      },
+      error: error => console.warn(error)
+    })
+  }
+
+  openModalPack(codigo: string) {
+    const dialogRef = this.dialog.showModalPaquete(codigo, this.stepsList, this.idPedido);
+    dialogRef.disableClose = true;
+    dialogRef.afterClosed().subscribe( response => {
+      console.log(response);
+      this.stepsList = [];
+    });
+  }
+
 
 }

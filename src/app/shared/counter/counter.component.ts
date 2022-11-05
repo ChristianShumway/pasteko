@@ -19,6 +19,9 @@ export class CounterComponent implements OnInit, ControlValueAccessor {
   @Input() set stock(data: number | undefined) {
     this._stock = data;
   }
+  @Input() canSelected!: boolean;
+  @Input() type!: string;
+
   currentValue: number = 0;
   onChange = (_: any) => { };
   onTouch = () => { };
@@ -32,13 +35,13 @@ export class CounterComponent implements OnInit, ControlValueAccessor {
   add() {
     this.currentValue = this.currentValue + 1;
     this.onTouch();
-    this.onChange(this.currentValue);
+    this.onChange({currentValue: this.currentValue, action: 'add'});
   }
 
   sub() {
     this.currentValue = this.currentValue - 1;
     this.onTouch();
-    this.onChange(this.currentValue);
+    this.onChange({currentValue: this.currentValue, action: 'less'});
   }
 
   writeValue(value: number): void {

@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductModel, SubCategoryModel } from '../../domain/product.model';
@@ -27,12 +26,6 @@ export abstract class ProductsSecondaryInterface {
     * @returns Array con productos de la categoría
   */
   abstract getProducts(claveCategoria: string | null, subCategoria: string | null, idVenta?: number): Observable<ProductModel[]>
-
-  /**
-    * @param idVenta id de la venta en curso
-    * @returns Array con combos
-  */
-  abstract getCombos(idVenta?: number): Observable<ProductModel[]>
 
   /**
   * @param objeto con data del producto a agregar, modificar o quitar del pedido

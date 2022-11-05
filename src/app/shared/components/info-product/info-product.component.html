@@ -1,8 +1,22 @@
 
-<mat-dialog-content class="wrap-product">
+<mat-dialog-content class="wrap-product" *ngIf="type !== 'Combos'">
   <p class="product__name" > {{product?.descripcion}} </p>
-  <img class="product__image" src="assets/menu/pastes/salado/mole-rojo.png" alt="producto" />
-  <p class="product__description"> Jamón, Queso oaxaca, Queso cotija, Piña y Salsa italiana</p>
+  <img
+    class="product__image"
+    [src]="getImage(product.imagen)"
+    alt="product?.descripcion" />
+  <p class="product__description">{{product?.informacion || 'Información no disponible'}}</p>
+</mat-dialog-content>
+
+<mat-dialog-content class="wrap-combo" *ngIf="type === 'Combos'">
+  <img
+    class="combo__image"
+    [src]="getImage(product.imagen)"
+    alt="product?.descripcion" />
+    <div class="combo__detail">
+      <p class="combo__name" > {{product?.descripcion}} </p>
+      <p class="combo__description">{{product?.informacion || 'Sin información de productos participantes en este paquete'}}</p>
+    </div>
 </mat-dialog-content>
 
 

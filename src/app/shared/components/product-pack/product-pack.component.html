@@ -1,0 +1,18 @@
+<div class="wrap-product">
+  <p class="option__name">
+    {{product?.descripcion| uppercase }}
+  </p>
+  <img
+    class="option__img"
+    [src]="getImage(product.imagen)"
+    alt="paste" />
+    <app-counter
+      [stock]="product?.existencia"
+      [canSelected]="canSelected"
+      [formControl]="countProduct"
+      [type]="'combo'"
+      class="option__count"
+      [ngClass]="{'opacity-product': noExistencias}" >
+    </app-counter>
+  <!-- <div class="legend-no-product" *ngIf="noExistencias && !isCombo">Agotado</div> -->
+</div>

@@ -1,14 +1,31 @@
 <div class="wrap-product">
-  <p class="option__name" [ngClass]="{'opacity-product': noExistencias}" >
+  <p class="option__name" [ngClass]="{'opacity-product': noExistencias && !isCombo}" >
     {{productItem?.descripcion | uppercase }}
-    <img
-      (click)="!noExistencias && showInfo(productItem)"
-      class="open-detail"
-      src="assets/icons/info.png"
-      alt="información" />
   </p>
-  <img class="option__img" [ngClass]="{'opacity-product': noExistencias}"  src="assets/menu/pastes/salado/mole-rojo.png" alt="paste" />
-  <span class="option__price" [ngClass]="{'opacity-product': noExistencias}" >{{productItem?.precio | currency}}</span>
-  <app-counter [stock]="productItem?.existencia" [formControl]="countProduct" class="option__count" [ngClass]="{'opacity-product': noExistencias}" ></app-counter>
-  <div class="legend-no-product" *ngIf="noExistencias">Agotado</div>
+  <img
+    (click)="(!noExistencias || isCombo) && showInfo(productItem)"
+    class="open-detail"
+    [ngClass]="{'opacity-product': noExistencias && !isCombo}"
+    src="assets/icons/info.png"
+    alt="información" />
+  <img
+    class="option__img"
+    [ngClass]="{'opacity-product': noExistencias && !isCombo}"
+    [src]="getImage(productItem.imagen)"
+    alt="paste" />
+  <span class="option__price" [ngClass]="{'opacity-product': noExistencias && !isCombo}" >{{productItem?.precio | currency}}</span>
+  <app-counter
+    *ngIf="!isCombo"
+    [stock]="productItem?.existencia"
+    [canSelected]="canSelected"
+    [formControl]="countProduct"
+    class="option__count">
+  </app-counter>
+  <button
+    *ngIf="isCombo"
+    class="btn__combo"
+    (click)="quieroElCombo(productItem.codigo)">
+      Lo quiero
+  </button>
+  <div class="legend-no-product" *ngIf="noExistencias && !isCombo">Agotado</div>
 </div>

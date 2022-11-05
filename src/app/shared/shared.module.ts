@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MaterialUiModule } from '../material-ui/material-ui.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { MenuNavComponent } from './components/menu-nav/menu-nav.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -18,6 +19,8 @@ import { MessageDialogComponent } from './components/message-dialog/message-dial
 import { TimerComponent } from './components/timer/timer.component';
 import { InfoProductComponent } from './components/info-product/info-product.component';
 import { AvatarHelpComponent } from './components/avatar-help/avatar-help.component';
+import { ModalPaqueteComponent } from './components/modal-paquete/modal-paquete.component';
+import { ProductPackComponent } from './components/product-pack/product-pack.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -27,12 +30,16 @@ import { AvatarHelpComponent } from './components/avatar-help/avatar-help.compon
     MessageDialogComponent,
     TimerComponent,
     InfoProductComponent,
-    AvatarHelpComponent
+    AvatarHelpComponent,
+    ModalPaqueteComponent,
+    ProductPackComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
-    MaterialUiModule
+    MaterialUiModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     HeaderComponent,

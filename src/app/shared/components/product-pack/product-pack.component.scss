@@ -1,19 +1,20 @@
+
 .wrap-product {
   position: relative;
   display: grid;
-  justify-content: center;
+  justify-items: center;
   align-items: center;
   gap: .5rem;
   .option__name {
     position: relative;
-    color: #FFF;
+    color: var(--secondary-color);
     font-family: var(--font-light);
     font-size: 1rem;
     margin: 0;
     text-align: center;
-    width: 170px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    // width: 190px;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
     overflow: hidden;
   }
   .open-detail {
@@ -59,4 +60,3 @@
     opacity: .4;
   }
 }
-

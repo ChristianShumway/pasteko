@@ -1,7 +1,12 @@
 <article class="view-products">
   <div class="section__products">
 
-    <div class="products__tabs" *ngIf="subCategoriesList.length">
+    <div
+      class="products__tabs"
+      [ngClass]="{
+        'tab__bebs' : category === 'Bebidas'
+      }"
+      *ngIf="subCategoriesList.length">
       <div
         class="tab"
         *ngFor="let sub of subCategoriesList; let i = index"
@@ -26,6 +31,7 @@
           <app-product
           *ngFor="let product of productsList"
           (productSelected) = onGetProductSelected($event)
+          (comboSelected) = onGetComboSelected($event)
           (infoProduct) = onGetInfoProduct($event)
           [product]="product">
         </app-product>

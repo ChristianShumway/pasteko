@@ -42,14 +42,6 @@ export class ProductsUsecase extends ProductsPrimaryInterface {
   }
 
   /**
-    * @param idVenta id de la venta en curso
-    * @returns Array con combos
-  */
-  getCombos(idVenta?: number): Observable<ProductModel[]> {
-    return this.secondary.getCombos(idVenta);
-  }
-
-  /**
   * @param objeto con data del producto a agregar, modificar o quitar del pedido
   * @returns pendiente
   */

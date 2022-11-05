@@ -25,6 +25,7 @@ export class ViewProductsComponent implements OnInit {
   @Output() product = new EventEmitter<ProductModel>();
   @Output() infoProduct = new EventEmitter<ProductModel>();
   @Output() claveSubCat = new EventEmitter<string | undefined>();
+  @Output() codigoCombo = new EventEmitter<string>();
 
   constructor() { }
 
@@ -33,6 +34,10 @@ export class ViewProductsComponent implements OnInit {
 
   onGetProductSelected(product: ProductModel) {
     this.product.emit(product);
+  }
+
+  onGetComboSelected(codigo: string) {
+    this.codigoCombo.emit(codigo);
   }
 
   onGetInfoProduct(productInfo: ProductModel) {

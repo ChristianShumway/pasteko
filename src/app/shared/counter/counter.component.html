@@ -4,11 +4,11 @@
     [ngClass]="{'inactive': currentValue === 0}"
     (click)=" currentValue > 0 && sub()" > -</a>
   <span
-    class="option__count--total">
+  class="option__count--total">
     {{currentValue}}
   </span>
   <a
     class="option__count--btn"
-    [ngClass]="{'inactive': _stock === currentValue}"
-    (click)=" _stock !== currentValue && add()"> + </a>
+    [ngClass]="{'inactive': _stock === 0 || !canSelected}"
+    (click)=" (_stock !== 0 && canSelected) && add()"> + </a>
 </div>

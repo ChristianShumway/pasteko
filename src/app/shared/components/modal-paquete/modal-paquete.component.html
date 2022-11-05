@@ -1,0 +1,58 @@
+<mat-dialog-content>
+  <mat-tab-group mat-align-tabs="center" animationDuration="0ms" (selectedIndexChange)="getProducts($event)">
+    <mat-tab
+      *ngFor="let sub of renderingStep.sub"
+      title="{{sub.clave}}"
+      label="{{sub.nombre}}">
+      <div class="container__tab">
+        <div class="grid__products">
+          <app-product-pack
+          *ngFor="let product of productsCombo"
+          [product]="product"
+          [canSelected]="canSelected"
+          (productSelected) = onGetProductSelected($event)
+          (actionSelected) = onChangeCountTotal($event)
+          ></app-product-pack>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
+<mat-dialog-actions  class="wrap-actions">
+  <!-- mat-dialog-close="" -->
+  <a
+  (click)="cancelCombo()"
+  *ngIf="renderingStep.step === 0"
+  class="button__action" >
+    <mat-icon class="button__action--icon">close</mat-icon>
+    <span class="button__action--text">Cancelar</span>
+  </a>
+  <a
+  (click)="changeStep(renderingStep.step - 1)"
+  *ngIf="renderingStep.step !== 0"
+  class="button__action" >
+    <mat-icon class="button__action--icon">arrow_back</mat-icon>
+    <span class="button__action--text">Regresar</span>
+  </a>
+  <div class="stepper__container">
+    <div class="title__steps">Selecciona {{renderingStep.cantidad}} {{getType(renderingStep.categoria, renderingStep.cantidad)}}</div>
+    <div class="wrap__steps">
+      <div class="step" *ngFor="let step of stepperList; let i = index">
+        <div
+        [ngClass]="{'inactive': renderingStep.step !== step.step}"
+        class="bullet__step">
+          {{i + 1}}
+        </div>
+        <div class="bullet__legend" [ngClass]="{'inactive': renderingStep.step !== step.step}">paso</div>
+      </div>
+    </div>
+  </div>
+  <a
+    class="button__action"
+    [ngClass]="{'inactive': canSelected}"
+    (click)="!canSelected && changeStep(renderingStep.step + 1)"
+  >
+    <mat-icon class="button__action--icon">arrow_forward</mat-icon>
+    <span class="button__action--text">Siguiente</span>
+  </a>
+</mat-dialog-actions>
