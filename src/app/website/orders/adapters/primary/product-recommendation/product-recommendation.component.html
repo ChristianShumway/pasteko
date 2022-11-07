@@ -1,6 +1,6 @@
 <div class="recommendation">
-  <img src="assets/recomendaciones/tamarindo.png" alt="paleta tamarindo" />
-  <button class="btn__add" mat-mini-fab [color]="'primary-pasteko'">
+  <img [src]="srcImage" [alt]="recomendacion.imagen" />
+  <button class="btn__add" mat-mini-fab [color]="'primary-pasteko'" (click)="addToCart(recomendacion.producto)">
     <mat-icon>add</mat-icon>
   </button>
 </div>

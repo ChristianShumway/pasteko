@@ -8,6 +8,7 @@ export interface ProductModel {
   informacion: string;
   linea: string;
   precio: number;
+  idCombo: number;
 }
 
 export interface SubCategoryModel {

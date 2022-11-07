@@ -26,6 +26,7 @@ export interface ProductOrderEntity {
   idVenta: number;
   impuesto: number;
   precio: number;
+  idCombo: number;
   viewProducto: ProductEntity;
 }
 

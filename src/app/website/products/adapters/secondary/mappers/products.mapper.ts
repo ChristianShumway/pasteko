@@ -25,6 +25,7 @@ export class ProductsMappers {
         informacion: p.informacion,
         linea: p.linea,
         precio: p.precio,
+        idCombo: p.idCombo
       });
     });
 

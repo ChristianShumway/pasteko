@@ -96,6 +96,7 @@ export class ProductsComponent implements OnInit {
       idSalida: product.idSalida,
       idVenta: this.idPedido,
       codigo: product.codigo,
+      idCombo: product.idCombo,
       viewProducto: product,
       cantidad: product.cantidadPedida
     };

@@ -8,6 +8,7 @@ export interface ProductEntity {
   informacion: string;
   linea: string;
   precio: number;
+  idCombo: number;
 }
 
 export interface ResultProductEntity {

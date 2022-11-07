@@ -9,6 +9,7 @@ export interface SaleProductModel {
   descuento?: number;
   impuesto?: number;
   costo?: number;
+  idCombo: number;
   viewProducto: ProductModel;
 }
 

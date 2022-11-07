@@ -12,6 +12,7 @@ import { SalePrimaryInterface } from 'src/app/website/orders/core/ports/primary/
 import { ProductModel } from 'src/app/website/products/core/domain/product.model';
 import { SaleProductModel } from 'src/app/website/products/core/domain/sale-product.model';
 import { ProductOrderModel } from '../../../core/domain/order-detail.model';
+import { ProductoRecomendacionModel } from './../../../core/domain/producto-recomendacion.model';
 
 @Component({
   selector: 'app-order',
@@ -25,6 +26,7 @@ export class OrderComponent implements OnInit {
   productsOrder: ProductOrderModel[] = [];
   amount: number = 0;
   formMetodos!: FormGroup;
+  recomendacionesList: ProductoRecomendacionModel[] = [];
 
   constructor(
     private usesase: SalePrimaryInterface,
@@ -39,6 +41,7 @@ export class OrderComponent implements OnInit {
   ngOnInit(): void {
     this.getidPedido();
     this.getCurrentSale();
+    this.getRecomendaciones();
     this.initForm();
   }
 
@@ -79,6 +82,13 @@ export class OrderComponent implements OnInit {
     });
   }
 
+  getRecomendaciones() {
+    this.usesase.getRecomendaciones(this.idPedido).subscribe({
+      next:  response => this.recomendacionesList = response,
+      error: error => console.warn(error)
+    });
+  }
+
   getTotalAcount() {
     return this._ps.getTotalProducts(this.idPedido).subscribe();
   }
@@ -89,6 +99,7 @@ export class OrderComponent implements OnInit {
       idVenta: this.idPedido,
       codigo: product.codigo,
       cantidad: product.cantidad,
+      idCombo: product.idCombo,
       viewProducto: {
         cantidadPedida: product.cantidad,
         codigo: product.codigo,
@@ -98,7 +109,8 @@ export class OrderComponent implements OnInit {
         imagen: product?.viewProducto?.imagen,
         informacion: product?.viewProducto?.informacion,
         linea: product.codigo,
-        precio: product.precio
+        precio: product.precio,
+        idCombo: product.idCombo
       },
     };
 
@@ -106,6 +118,7 @@ export class OrderComponent implements OnInit {
       next: response => {
         this.idPedido = response?.pk;
         this.getCurrentSale();
+        this.getRecomendaciones();
       },
       error: error => console.warn(error)
     });
@@ -140,8 +153,39 @@ export class OrderComponent implements OnInit {
     }
   }
 
+  onAddProductSelected(producto: ProductModel) {
+    producto.cantidadPedida = 1;
+    const productToOrder: ProductOrderModel = {
+      cantidad: producto.cantidadPedida,
+      codigo: producto.codigo,
+      costo: producto.precio,
+      descuento: 0,
+      idVenta: this.idPedido,
+      idSalida: producto.idSalida,
+      impuesto: 0,
+      precio: producto.precio,
+      idCombo: producto.idCombo,
+      viewProducto: producto
+    };
+    this.onGetProductSelected(productToOrder);
+  }
+
   goBack(): void {
     this.location.back();
   }
 
 }
+
+
+// export interface ProductOrderModel {
+//   cantidad: number;
+//   codigo: string;
+//   costo: number;
+//   descuento: number;
+//   idSalida: number;
+//   idVenta: number;
+//   impuesto: number;
+//   precio: number;
+//   idCombo: number;
+//   viewProducto: ProductModel;
+// }

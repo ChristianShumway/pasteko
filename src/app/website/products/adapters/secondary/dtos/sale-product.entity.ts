@@ -9,5 +9,6 @@ export interface SaleProductEntity {
   descuento?: number;
   impuesto?: number;
   costo?: number;
+  idCombo: number;
   viewProducto: ProductEntity[];
 }

@@ -26,5 +26,6 @@ export interface ProductOrderModel {
   idVenta: number;
   impuesto: number;
   precio: number;
+  idCombo: number;
   viewProducto: ProductModel;
 }

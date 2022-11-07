@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { ResponseOrderDetailtModel } from '../domain/order-detail.model';
+import { ProductoRecomendacionModel } from '../domain/producto-recomendacion.model';
 import { SalePrimaryInterface } from '../ports/primary/sale.primary.interface';
 import { SaleSecondaryInterface } from '../ports/secondary/sale.secondary.interface';
 
@@ -16,19 +17,27 @@ export class SalesUsecase extends SalePrimaryInterface {
 	}
 
   /**
-  * @param id del pedido
-  * @returns mensaje de confirmación
+    * @param id del pedido
+    * @returns mensaje de confirmación
   */
   deleteSale(idPedido: number): Observable<any> {
     return this.secondary.deleteSale(idPedido);
   }
 
   /**
-  * @params id del pedido
-  * @returns datos del pedido
+    * @params id del pedido
+    * @returns datos del pedido
   */
   getCurrentSale(idPedido: number): Observable<ResponseOrderDetailtModel> {
     return this.secondary.getCurrentSale(idPedido);
+  }
+
+  /**
+    * @params id del pedido
+    * @returns array productos recomendación venta
+  */
+  getRecomendaciones(idPedido: number): Observable<ProductoRecomendacionModel[]> {
+    return this.secondary.getRecomendaciones(idPedido);
   }
 
 }

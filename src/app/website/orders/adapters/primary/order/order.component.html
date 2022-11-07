@@ -52,11 +52,12 @@
       <!-- container con recomendaciones -->
       <div class="order__recommendations">
         <div class="recommendations__scrollable">
-          <div class="wrap__recommendations">
-            <app-product-recommendation></app-product-recommendation>
-            <app-product-recommendation></app-product-recommendation>
-            <app-product-recommendation></app-product-recommendation>
-            <app-product-recommendation></app-product-recommendation>
+          <div class="wrap__recommendations" *ngIf="recomendacionesList.length > 0">
+            <app-product-recommendation
+              *ngFor="let recomendacion of recomendacionesList"
+              [recomendacion]="recomendacion"
+              (productoSelected)="onAddProductSelected($event)">
+            </app-product-recommendation>
           </div>
         </div>
       </div>

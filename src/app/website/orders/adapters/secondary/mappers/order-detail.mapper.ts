@@ -24,6 +24,7 @@ export class OrderDetailMappers {
         idVenta: p.idVenta,
         impuesto: p.impuesto,
         precio: p.precio,
+        idCombo: p.idCombo,
         viewProducto: p.viewProducto
       });
     });
