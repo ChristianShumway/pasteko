@@ -42,12 +42,20 @@
         <div class="title">Mi orden</div>
         <div class="summary__products" *ngIf="productsOrder.length > 0">
           <div class="product__wrap" *ngFor="let product of productsOrder">
-            <div class="product__price">{{product?.cantidad}}</div>
-            <div class="product__description">
+            <div class="product__price" *ngIf="!product?.detalle">{{product?.cantidad}}</div>
+            <div class="product__price" *ngIf="product?.detalle">1</div>
+
+            <div class="product__description" *ngIf="!product?.detalle">
               <p>{{product?.viewProducto?.descripcion}}</p>
-              <span>Esquites, queso cotija y mayonesa</span>
+              <span>{{product?.viewProducto?.informacion || 'No se tiene información del producto'}}</span>
             </div>
-            <div class="product__price">{{product.viewProducto.precio * product.cantidad | currency}}</div>
+            <div class="product__description" *ngIf="product?.detalle">
+              <p>{{product?.descripcion}}</p>
+              <span>{{getContenido(product?.detalle)}}</span>
+            </div>
+
+            <div class="product__price" *ngIf="!product?.detalle">{{product.viewProducto.precio * product.cantidad | currency}}</div>
+            <div class="product__price" *ngIf="product?.detalle">{{product.precio | currency}}</div>
           </div>
         </div>
         <div class="summary__total">

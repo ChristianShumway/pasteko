@@ -1,15 +1,36 @@
 <div class="order__products--description grid-order">
-  <div class="td">
-    <app-counter [stock]="productOrder?.viewProducto?.existencia" [formControl]="countProduct" class="option__count"></app-counter>
+  <div class="td" *ngIf="!this.productOrder.detalle">
+    <app-counter
+      [stock]="productOrder?.viewProducto?.existencia"
+      [canSelected]="canSelected"
+      [formControl]="countProduct" class="option__count">
+    </app-counter>
   </div>
-  <div class="td description">
-    {{productOrder?.viewProducto?.descripcion | lowercase}}
-    <span class="description__ingredients">Esquites, queso cotija y mayonesa</span>
+  <div class="td" *ngIf="this.productOrder.detalle">
+    <app-counter
+    [stock]="0"
+    [canSelected]="!canSelected"
+    [formControl]="countProduct" class="option__count">
+  </app-counter>
   </div>
-  <div class="td">{{productOrder.precio * productOrder.cantidad | currency}}</div>
+
+  <div class="td description" *ngIf="!this.productOrder.detalle">
+    {{productOrder?.viewProducto?.descripcion  | lowercase}}
+    <span class="description__ingredients">{{productOrder?.viewProducto?.informacion || 'No se tiene información del producto'}}</span>
+  </div>
+  <div class="td description" *ngIf="this.productOrder.detalle">
+    {{productOrder?.descripcion | lowercase}}
+    <span class="description__ingredients">{{getContenido(productOrder?.detalle)}}</span>
+  </div>
+
+  <div class="td" *ngIf="!this.productOrder.detalle">{{productOrder.precio * productOrder.cantidad | currency}}</div>
+  <div class="td" *ngIf="this.productOrder.detalle">{{productOrder.precio | currency}}</div>
+
   <div class="td">
     <button class="btn-delete" (click)="deleteProductOrder(productOrder)">
       <mat-icon>delete</mat-icon>
     </button>
   </div>
 </div>
+
+

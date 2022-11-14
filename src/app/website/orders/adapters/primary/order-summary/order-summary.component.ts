@@ -16,7 +16,7 @@ import { ProductOrderModel } from '../../../core/domain/order-detail.model';
 export class OrderSummaryComponent implements OnInit {
 
   idPedido: number = 0;
-  productsOrder: ProductOrderModel[] = [];
+  productsOrder: any[] = [];
   formOptions!: FormGroup;
   amount: number = 0;
   regEx = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
@@ -86,11 +86,28 @@ export class OrderSummaryComponent implements OnInit {
     });
   }
 
+
+  // getAmountTotal() {
+  //   this.amount = 0;
+  //   this.productsOrder.forEach(product => {
+  //     const amountProduct = product.cantidad * product.precio;
+  //     this.amount += amountProduct;
+  //   });
+  // }
+
   getAmountTotal() {
     this.amount = 0;
+    let amountProduct = 0;
     this.productsOrder.forEach(product => {
-      const amountProduct = product.cantidad * product.precio;
-      this.amount += amountProduct;
+      if(!product.detalle) {
+        amountProduct = product.cantidad * product.precio;
+        this.amount += amountProduct;
+      } else {
+        product.detalle.forEach( (productoCombo: ProductOrderModel) => {
+          amountProduct = productoCombo.cantidad * productoCombo.precio;
+          this.amount += amountProduct;
+        })
+      }
     });
   }
 
@@ -179,6 +196,15 @@ export class OrderSummaryComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  getContenido(contenidoCombo: ProductOrderModel[]) {
+    let productText = ''
+    contenidoCombo.forEach( (product, i) => {
+      productText += ` ${product.viewProducto.descripcion.toLowerCase()}, `;
+      productText = contenidoCombo.length === i+1 ? productText.substring(0, productText.length - 2) : productText;
+    });
+    return productText;
   }
 
 }

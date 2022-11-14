@@ -11,7 +11,7 @@ import { SalePrimaryInterface } from 'src/app/website/orders/core/ports/primary/
 
 import { ProductModel } from 'src/app/website/products/core/domain/product.model';
 import { SaleProductModel } from 'src/app/website/products/core/domain/sale-product.model';
-import { ProductOrderModel } from '../../../core/domain/order-detail.model';
+import { ComboOrderModel, ProductOrderModel } from '../../../core/domain/order-detail.model';
 import { ProductoRecomendacionModel } from './../../../core/domain/producto-recomendacion.model';
 
 @Component({
@@ -23,7 +23,8 @@ export class OrderComponent implements OnInit {
 
   idPedido: number = 0;
   title: string = 'Pedido';
-  productsOrder: ProductOrderModel[] = [];
+  productsOrder: any[] = [];
+  combosOrder: ComboOrderModel[] = [];
   amount: number = 0;
   formMetodos!: FormGroup;
   recomendacionesList: ProductoRecomendacionModel[] = [];
@@ -74,7 +75,12 @@ export class OrderComponent implements OnInit {
   getCurrentSale() {
     this.usesase.getCurrentSale(this.idPedido).subscribe({
       next: response => {
+        console.log(response)
+        // response.detalle.forEach( data => {
+        //   if (data?.detalle){}
+        // })
         this.productsOrder = response.detalle;
+        console.log(this.productsOrder);
         this.getAmountTotal();
         this.getTotalAcount();
       },
@@ -126,9 +132,17 @@ export class OrderComponent implements OnInit {
 
   getAmountTotal() {
     this.amount = 0;
+    let amountProduct = 0;
     this.productsOrder.forEach(product => {
-      const amountProduct = product.cantidad * product.precio;
-      this.amount += amountProduct;
+      if(!product.detalle) {
+        amountProduct = product.cantidad * product.precio;
+        this.amount += amountProduct;
+      } else {
+        product.detalle.forEach( (productoCombo: ProductOrderModel) => {
+          amountProduct = productoCombo.cantidad * productoCombo.precio;
+          this.amount += amountProduct;
+        })
+      }
     });
   }
 
@@ -170,22 +184,39 @@ export class OrderComponent implements OnInit {
     this.onGetProductSelected(productToOrder);
   }
 
+  onDeleteProductSelected(product: any) {
+    const dialogRef = this.dialog.showDialogConfirm('¿Estás seguro de eliminar el producto de tu orden?');
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if(result) {
+          console.log(product)
+          if(!product.detalle) {
+            this.usesase.deleteProductOrder(this.idPedido, product.idSalida).subscribe({
+              next: () => this.getCurrentSale(),
+              error: error => console.warn(error)
+            });
+          } else {
+            this.usesase.deleteProductOrder(this.idPedido, product.detalle[0].idSalida).subscribe({
+              next: () => this.getCurrentSale(),
+              error: error => console.warn(error)
+            });
+            // product.detalle.forEach((prod:ProductModel, i: number) => {
+            //   this.usesase.deleteProductOrder(this.idPedido, prod.idSalida).subscribe({
+            //     next: () => {
+            //       if(product.detalle.lenngth === i+1) {
+            //         this.getCurrentSale();
+            //       }
+            //     },
+            //     error: error => console.warn(error)
+            //   });
+            // });
+          }
+        }
+    });
+  }
+
   goBack(): void {
     this.location.back();
   }
 
 }
-
-
-// export interface ProductOrderModel {
-//   cantidad: number;
-//   codigo: string;
-//   costo: number;
-//   descuento: number;
-//   idSalida: number;
-//   idVenta: number;
-//   impuesto: number;
-//   precio: number;
-//   idCombo: number;
-//   viewProducto: ProductModel;
-// }

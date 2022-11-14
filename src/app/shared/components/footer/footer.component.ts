@@ -38,7 +38,10 @@ export class FooterComponent implements OnInit {
   getCurrent() {
     this._ps.watchStorage()
     .subscribe({
-      next: response => this.total = response,
+      next: response => {
+        console.log(response)
+        this.total = response
+      },
       error: error => console.warn(error)
     });
   }

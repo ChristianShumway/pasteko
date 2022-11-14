@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ProductsMappers } from 'src/app/website/products/adapters/secondary/mappers/products.mapper';
 import { CloseOrderEntity, OrderDetailtEntity } from 'src/app/website/orders/adapters/secondary/dtos/order-detail.entity';
@@ -39,12 +39,15 @@ export class ProductSharedService {
 
   getTotalProducts(idPedido: number = 0): Observable<number> {
     const req = `${environment.apiUrl}/venta/getVentaByIdVenta/${idPedido}`;
-    return this.http.get<OrderDetailtEntity>(req).pipe(
+    return this.http.get<any>(req).pipe(
+      distinctUntilChanged(),
       map( result => {
         let total = 0;
-        result?.response?.detalle.forEach( product => {
-          if(product?.cantidad > 0) {
+        result?.response?.detalle.forEach( (product: any) => {
+          if(!product.detalle) {
             total +=  product?.cantidad;
+          } else {
+            total += 1;
           }
         })
         this.cartStorage.next(total);

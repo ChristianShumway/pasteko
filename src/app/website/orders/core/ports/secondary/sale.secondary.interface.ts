@@ -26,4 +26,10 @@ export abstract class SaleSecondaryInterface {
   */
   abstract getRecomendaciones(idPedido: number): Observable<ProductoRecomendacionModel[]>
 
+  /**
+    * @params id del pedido e id de salida
+    * @returns undefinded
+  */
+  abstract deleteProductOrder(idPedido: number, idSalida: number): Observable<any>
+
 }

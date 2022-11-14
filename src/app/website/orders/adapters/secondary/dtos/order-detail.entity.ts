@@ -8,13 +8,17 @@ export interface OrderDetailtEntity {
 }
 
 export interface ResponseOrderDetailtEntity {
-  detalle: ProductOrderEntity[];
-  estado: string;
-  fechaEmision: string;
   idVenta: number;
   ocupado: number;
-  serie: string;
   tipoDocumento: string;
+  serie: string;
+  fechaEmision: string;
+  estado: string;
+  telfono: string;
+  correo: string;
+  nombre: string;
+  noReferencia: number;
+  detalle: ProductOrderEntity[] | ComboOrderEntity[];
 }
 
 export interface ProductOrderEntity {
@@ -28,6 +32,13 @@ export interface ProductOrderEntity {
   precio: number;
   idCombo: number;
   viewProducto: ProductEntity;
+}
+
+export  interface ComboOrderEntity {
+  idCombo: number;
+  descripcion: string;
+  precio: number;
+  detalle: ProductOrderEntity[]
 }
 
 export interface CloseOrderEntity {

@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PaqueteMappers } from '../mappers/paquete.mapper';
 import { ProductsMappers } from '../mappers/products.mapper';
 import { ResultProductEntity } from '../dtos/product.entity';
-import { map } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { SaleProductModel, ResponseSaleModel } from '../../../core/domain/sale-product.model';
 import { PaqueteSecondaryInterface } from '../../../core/ports/secondary/paquete.secondary.interface';
@@ -41,6 +41,7 @@ export class PaqueteService extends PaqueteSecondaryInterface {
   getDetalleCombo(codigoPaquete: string): Observable<PaqueteModel[]> {
     const req = `${environment.apiUrl}/dashboard/getDetalleCombo/${codigoPaquete}`;
     return this.http.get<ResultPaqueteEntity>(req).pipe(
+      distinctUntilChanged(),
       map( result => {
         // sessionStorage.setItem('idPedido', `${idVenta}`);
         return this.mappers.mapFromDetallePaquete(result?.response);

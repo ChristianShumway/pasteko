@@ -12,7 +12,7 @@
             <app-product-order
             *ngFor="let product of productsOrder"
             (productSelected) = onGetProductSelected($event)
-            (deleteProduct) = onGetProductSelected($event)
+            (deleteProduct) = onDeleteProductSelected($event)
             [product]="product"
             >
             </app-product-order>

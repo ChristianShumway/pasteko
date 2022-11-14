@@ -8,13 +8,17 @@ export interface OrderDetailtModel {
 }
 
 export interface ResponseOrderDetailtModel {
-  detalle: ProductOrderModel[];
-  estado: string;
-  fechaEmision: string;
-  ocupado: number;
   idVenta: number;
-  serie: string;
+  ocupado: number;
   tipoDocumento: string;
+  serie: string;
+  fechaEmision: string;
+  estado: string;
+  telfono: string;
+  correo: string;
+  nombre: string;
+  noReferencia: number;
+  detalle: ProductOrderModel[] | ComboOrderModel[];
 }
 
 export interface ProductOrderModel {
@@ -28,4 +32,11 @@ export interface ProductOrderModel {
   precio: number;
   idCombo: number;
   viewProducto: ProductModel;
+}
+
+export  interface ComboOrderModel {
+  idCombo: number;
+  descripcion: string;
+  precio: number;
+  detalle: ProductOrderModel[]
 }

@@ -51,6 +51,7 @@ export class ModalPaqueteComponent implements OnInit {
   }
 
   getProducts(index: number = 0) {
+    console.log('index actual', index)
     this.notFoundResults = false
     this.canSelected = this.renderingStep.cantidad === this.renderingStep.cantidadSeleccionada ? false : true;
     const subCatSelected = this.renderingStep.sub.find(sub => sub.index === index);
@@ -78,7 +79,7 @@ export class ModalPaqueteComponent implements OnInit {
   onGetProductSelected(product: ProductModel) {
     console.log(product)
     const indexProdExist = this.productsToSession.findIndex(prod => prod.codigo === product.codigo);
-    console.log(indexProdExist);
+    // console.log(indexProdExist);
     if(indexProdExist >= 0) {
       if(product.cantidadPedida === 0) {
         console.log('va a eliminar de la lista')

@@ -40,4 +40,12 @@ export class SalesUsecase extends SalePrimaryInterface {
     return this.secondary.getRecomendaciones(idPedido);
   }
 
+  /**
+    * @params id del pedido e id de salida
+    * @returns undefinded
+  */
+  deleteProductOrder(idPedido: number, idSalida: number): Observable<any> {
+    return this.secondary.deleteProductOrder(idPedido, idSalida)
+  }
+
 }

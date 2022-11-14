@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { SaleSecondaryInterface } from '../../../core/ports/secondary/sale.secondary.interface';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ResponseOrderDetailtModel } from '../../../core/domain/order-detail.model';
 import { OrderDetailtEntity } from '../dtos/order-detail.entity';
-import { OrderDetailMappers } from '../mappers/order-detail.mapper';
+// import { OrderDetailMappers } from '../mappers/order-detail.mapper';
 import { ProductoRecomendacionModel } from '../../../core/domain/producto-recomendacion.model';
 import { ResultRecomendacionEntity } from '../dtos/producto.recomentacion.entity';
 import { ProductsMappers } from 'src/app/website/products/adapters/secondary/mappers/products.mapper';
@@ -17,7 +17,7 @@ import { RecomendacionesMappers } from '../mappers/producto-recomendacion.mapper
 })
 export class SaleService extends SaleSecondaryInterface {
 
-  private mappers = new OrderDetailMappers();
+  // private mappers = new OrderDetailMappers();
   private recomendacionMapper = new  RecomendacionesMappers();
   constructor(
     private http: HttpClient
@@ -32,7 +32,9 @@ export class SaleService extends SaleSecondaryInterface {
   getCurrentSale(idPedido: number): Observable<ResponseOrderDetailtModel> {
     return this.http.get<OrderDetailtEntity>(`${environment.apiUrl}/venta/getVentaByIdVenta/${idPedido}`)
     .pipe(
-      map( data => this.mappers.mapFromProducts(data.response))
+      distinctUntilChanged(),
+      // map( data => this.mappers.mapFromProducts(data.response))
+      map( data => data.response)
     );
   }
 
@@ -42,8 +44,15 @@ export class SaleService extends SaleSecondaryInterface {
       map( data => this.recomendacionMapper.mapFromRecomendaciones(data.response) )
     );
   }
+
+  deleteProductOrder(idPedido: number, idSalida: number): Observable<any> {
+    const url = `${environment.apiUrl}/venta/deleteDetVenta/${idPedido}/${idSalida}`;
+    return this.http.get<any>(url);
+  }
+
 }
 
+// delezteDetVenta/{idVenta}/{idSalida} cree ese servcio
 
 
 
