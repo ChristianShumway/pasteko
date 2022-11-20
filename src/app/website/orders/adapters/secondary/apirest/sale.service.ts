@@ -52,8 +52,5 @@ export class SaleService extends SaleSecondaryInterface {
 
 }
 
-// delezteDetVenta/{idVenta}/{idSalida} cree ese servcio
-
-
 
 

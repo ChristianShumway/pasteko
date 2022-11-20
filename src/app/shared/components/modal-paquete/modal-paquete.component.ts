@@ -69,6 +69,9 @@ export class ModalPaqueteComponent implements OnInit {
     this.productsCombo.forEach( producto => {
       let buscandoProducto = this.productsToSession.find(prod => prod.codigo === producto.codigo);
       producto.cantidadPedida = buscandoProducto ? buscandoProducto.cantidadPedida : 0;
+      if(buscandoProducto) {
+        buscandoProducto.idSalida = producto.idSalida;
+      }
     });
   }
 
@@ -134,7 +137,7 @@ export class ModalPaqueteComponent implements OnInit {
     const dialogRef = this.dialog.showDialogConfirm(message);
     dialogRef.afterClosed().subscribe(response => {
       if(response) {
-        this.matdialog.close(this.productsToSession);
+        this.matdialog.close({ alert:'exito', data: null });
       }
     });
   }
@@ -142,7 +145,23 @@ export class ModalPaqueteComponent implements OnInit {
   cancelCombo() {
     const dialogRef = this.dialog.showDialogConfirm('¿Estás seguro de cancelar tu paquete?');
     dialogRef.afterClosed().subscribe(response => {
-      if(response) {
+      // if(response) {
+      //   this.matdialog.close({ alert: 'eliminar', data: this.productsToSession});
+      // }
+      if(response && this.productsToSession.length > 0) {
+        console.log(this.productsToSession);
+        this.paquesteService.deleteProductOrder(this.idPedido, this.productsToSession[0].idSalida).subscribe({
+          next: response => {
+            if(response.noEstatus === 5) {
+              this.matdialog.close();
+            }
+          },
+          error: error => {
+            console.warn(error);
+            this.matdialog.close();
+          }
+        })
+      } else {
         this.matdialog.close();
       }
     });

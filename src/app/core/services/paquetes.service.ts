@@ -37,4 +37,9 @@ export class PaquetesService {
     );
   }
 
+  deleteProductOrder(idPedido: number, idSalida: number): Observable<any> {
+    const url = `${environment.apiUrl}/venta/deleteDetVenta/${idPedido}/${idSalida}`;
+    return this.http.get<any>(url);
+  }
+
 }

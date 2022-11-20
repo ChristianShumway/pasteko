@@ -178,13 +178,12 @@ export class ProductsComponent implements OnInit {
   openModalPack(codigo: string) {
     const dialogRef = this.dialog.showModalPaquete(codigo, this.stepsList, this.idPedido, this.noComboAgregado);
     dialogRef.disableClose = true;
-    dialogRef.afterClosed().subscribe( (response: ProductModel[]) => {
+    dialogRef.afterClosed().subscribe( (response: any) => {
       console.log(response);
       this.stepsList = [];
-      if(response) {
+      if(response?.alert === 'exito') {
         this.getIdPedido();
         this.getProducts();
-        // response.forEach(product => this.onProductSelected(product));
       }
     });
   }
