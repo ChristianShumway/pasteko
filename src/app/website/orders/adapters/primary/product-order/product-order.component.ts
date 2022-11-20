@@ -14,6 +14,7 @@ export class ProductOrderComponent implements OnInit {
       this.productOrder = data;
     }
   }
+  @Input() edit!: boolean;
   @Output() productSelected = new EventEmitter<ProductOrderModel>();
   @Output() deleteProduct = new EventEmitter<ProductOrderModel>();
   @Output() deleteCombo = new EventEmitter<ComboDescripcionModel>();

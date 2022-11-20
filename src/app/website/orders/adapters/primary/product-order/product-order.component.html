@@ -1,10 +1,12 @@
-<div class="order__products--description grid-order">
+<div class="order__products--description grid-order" [ngClass]="{'is-resumen': !edit}">
   <div class="td" *ngIf="!this.productOrder.detalle">
     <app-counter
+      *ngIf="edit"
       [stock]="productOrder?.viewProducto?.existencia"
       [canSelected]="canSelected"
       [formControl]="countProduct" class="option__count">
     </app-counter>
+    <p *ngIf="!edit" class="paquete__count">{{ productOrder?.cantidad }}</p>
   </div>
   <div class="td" [ngClass]="{'is-paquete': this.productOrder.detalle }" *ngIf="this.productOrder.detalle">
     <p class="paquete__count">{{ combosSeccionados.length }}</p>
@@ -21,7 +23,7 @@
         <p class="paquete__title"> Combo No. {{combo.noCombo}}</p>
         <span class="paquete__descripcion">{{ getContenido(combo.descripcion) }}</span>
       </div>
-      <button class="btn-delete" (click)="deleteComboOrder(combo)">
+      <button class="btn-delete" (click)="deleteComboOrder(combo)" *ngIf="edit">
         <mat-icon>delete</mat-icon>
       </button>
     </div>
@@ -30,7 +32,7 @@
   <div class="td" *ngIf="!this.productOrder.detalle">{{productOrder.precio * productOrder.cantidad | currency}}</div>
   <div class="td" [ngClass]="{'is-paquete': this.productOrder.detalle }" *ngIf="this.productOrder.detalle">{{productOrder.precio | currency}}</div>
 
-  <div class="td">
+  <div class="td" *ngIf="edit">
     <button class="btn-delete" (click)="deleteProductOrder(productOrder)" *ngIf="!this.productOrder.detalle">
       <mat-icon>delete</mat-icon>
     </button>

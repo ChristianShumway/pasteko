@@ -41,7 +41,7 @@
       <div class="summary__order border__wrap">
         <div class="title">Mi orden</div>
         <div class="summary__products" *ngIf="productsOrder.length > 0">
-          <div class="product__wrap" *ngFor="let product of productsOrder">
+          <!-- <div class="product__wrap" *ngFor="let product of productsOrder">
             <div class="product__price" *ngIf="!product?.detalle">{{product?.cantidad}}</div>
             <div class="product__price" *ngIf="product?.detalle">1</div>
 
@@ -56,7 +56,13 @@
 
             <div class="product__price" *ngIf="!product?.detalle">{{product.viewProducto.precio * product.cantidad | currency}}</div>
             <div class="product__price" *ngIf="product?.detalle">{{product.precio | currency}}</div>
-          </div>
+          </div> -->
+          <app-product-order
+            *ngFor="let product of productsOrder"
+            [product]="product"
+            [edit]="false"
+            >
+            </app-product-order>
         </div>
         <div class="summary__total">
           <p class="total__info">Total</p>
