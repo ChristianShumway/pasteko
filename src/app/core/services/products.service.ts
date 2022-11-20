@@ -47,7 +47,14 @@ export class ProductSharedService {
           if(!product.detalle) {
             total +=  product?.cantidad;
           } else {
-            total += 1;
+            let noCombosList: number[] = [];
+            product?.detalle?.forEach((p:any) => {
+              const existe = noCombosList.find(noCombo => noCombo === p.noCombo);
+              if(!existe) {
+                noCombosList.push(p.noCombo);
+              }
+            });
+            total += noCombosList.length;
           }
         })
         this.cartStorage.next(total);

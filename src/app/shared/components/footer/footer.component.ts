@@ -39,7 +39,6 @@ export class FooterComponent implements OnInit {
     this._ps.watchStorage()
     .subscribe({
       next: response => {
-        console.log(response)
         this.total = response
       },
       error: error => console.warn(error)
@@ -64,7 +63,6 @@ export class FooterComponent implements OnInit {
       },
       error: error => console.warn(error)
     });
-    console.log(this.idPedido)
   }
 
   deleteSale() {

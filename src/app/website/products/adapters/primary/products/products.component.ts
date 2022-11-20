@@ -150,7 +150,7 @@ export class ProductsComponent implements OnInit {
     ).subscribe( response => {
       this.noComboAgregado = response[1];
       response[0].forEach( (step, index) => {
-        this.addSubCategoriesStepper(codigo, step, response.length, index)
+        this.addSubCategoriesStepper(codigo, step, response[0].length, index)
       });
     });
   }
