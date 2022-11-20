@@ -8,6 +8,7 @@ import { ProductModel, SubCategoryModel } from './../../../core/domain/product.m
 import { SaleProductModel } from './../../../core/domain/sale-product.model';
 import { PaqueteModel, StepPaqueteModel } from './../../../core/domain/paquete.model';
 import { DialogMessage } from 'src/app/commons/dialog';
+import { zip } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -24,6 +25,7 @@ export class ProductsComponent implements OnInit {
   idPedido: number = 0;
   showAvatar: boolean = false;
   stepsList: StepPaqueteModel[] = [];
+  noComboAgregado!: number;
 
   constructor(
     private usecase: ProductsPrimaryInterface,
@@ -57,22 +59,20 @@ export class ProductsComponent implements OnInit {
       switchMap( response => {
         this.subCategoriasList = response;
         this.getSubCategory();
-        console.log(this.categoria);
-        if(this.categoria === 'Paquetes') {
+        if(this.categoria === 'PAQUETES') {
           return this.useCasePaquete.getCombos(this.idPedido);
         }
         return this.usecase.getProducts(this.claveCategoria, this.subCategoria, this.idPedido);
       })
     ).subscribe(
       response => {
-        console.log(response);
         this.productsList = response;
         this.subCategoria = null;
         if(this.idPedido !== 0) {
           this.getTotalAcount();
         }
       },
-      error => console.log(error)
+      error => console.warn(error)
     )
   }
 
@@ -84,7 +84,6 @@ export class ProductsComponent implements OnInit {
     } else {
       this.subCategoria = null;
     }
-    console.log(this.subCategoria);
   }
 
   getTotalAcount() {
@@ -98,7 +97,8 @@ export class ProductsComponent implements OnInit {
       codigo: product.codigo,
       idCombo: product.idCombo,
       viewProducto: product,
-      cantidad: product.cantidadPedida
+      cantidad: product.cantidadPedida,
+      noCombo: 0
     };
 
     this.usecase.productSale(productToSave).subscribe({
@@ -144,10 +144,14 @@ export class ProductsComponent implements OnInit {
   }
 
   onComboSelected(codigo: string) {
-    this.useCasePaquete.getDetalleCombo(codigo).subscribe( response => {
-      response.forEach( (step, index) => {
+    zip(
+      this.useCasePaquete.getDetalleCombo(codigo),
+      this.useCasePaquete.getNumeroCombo(this.idPedido, codigo)
+    ).subscribe( response => {
+      this.noComboAgregado = response[1];
+      response[0].forEach( (step, index) => {
         this.addSubCategoriesStepper(codigo, step, response.length, index)
-      })
+      });
     });
   }
 
@@ -172,13 +176,15 @@ export class ProductsComponent implements OnInit {
   }
 
   openModalPack(codigo: string) {
-    const dialogRef = this.dialog.showModalPaquete(codigo, this.stepsList, this.idPedido);
+    const dialogRef = this.dialog.showModalPaquete(codigo, this.stepsList, this.idPedido, this.noComboAgregado);
     dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe( (response: ProductModel[]) => {
       console.log(response);
       this.stepsList = [];
       if(response) {
-        response.forEach(product => this.onProductSelected(product));
+        this.getIdPedido();
+        this.getProducts();
+        // response.forEach(product => this.onProductSelected(product));
       }
     });
   }

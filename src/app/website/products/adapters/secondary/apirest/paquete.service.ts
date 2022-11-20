@@ -49,5 +49,11 @@ export class PaqueteService extends PaqueteSecondaryInterface {
     );
   }
 
+  getNumeroCombo(idVenta: number, noCombo: string): Observable<number> {
+    const req = `${environment.apiUrl}/venta/getNoComboEnVenta/${idVenta}/${noCombo}`;
+    return this.http.get<any>(req).pipe(
+      map( data => data.response)
+    );
+  }
 
 }

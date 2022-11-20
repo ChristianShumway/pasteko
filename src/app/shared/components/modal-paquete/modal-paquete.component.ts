@@ -4,6 +4,7 @@ import { StepPaqueteModel } from './../../../website/products/core/domain/paquet
 import { PaquetesService } from './../../../core/services/paquetes.service';
 import { ProductModel } from 'src/app/website/products/core/domain/product.model';
 import { DialogMessage } from 'src/app/commons/dialog';
+import { SaleProductModel } from 'src/app/website/products/core/domain/sale-product.model';
 
 @Component({
   selector: 'app-modal-paquete',
@@ -20,6 +21,8 @@ export class ModalPaqueteComponent implements OnInit {
   canSelected: boolean = true;
   productsToSession: ProductModel[] = [];
   notFoundResults: boolean = false;
+  noComboTrabajando!: number;
+  indexTab: number = 0;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -30,36 +33,31 @@ export class ModalPaqueteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.codigoPaquete = this.data.codigoPaquete;
-    this.stepperList = this.data.steppers;
-    this.idPedido = this.data.idPedido;
+    this.codigoPaquete = this.data?.codigoPaquete;
+    this.stepperList = this.data?.steppers;
+    this.idPedido = this.data?.idPedido;
+    this.noComboTrabajando = this.data?.noComboAgregado;
     this.renderingStep = this.stepperList[0];
     console.log(this.stepperList);
-    this.getProducts();
+    this.getProductsCombo(this.indexTab);
   }
 
   ngAfterViewInit(): void {
     this.cdRef.detectChanges();
   }
 
-  getType(clave: string, cantidad: number) {
-    if(clave === 'BEB') {
-      return cantidad === 1 ? 'Bebida' : 'Bebidas';
-    } else if(clave === 'PAS') {
-      return cantidad === 1 ? 'Paste' : 'Pastes';
-    } return
-  }
-
-  getProducts(index: number = 0) {
-    console.log('index actual', index)
-    this.notFoundResults = false
+  getProductsCombo(index: number) {
+    console.log('index actual', index);
+    this.indexTab = index;
+    console.log('index tab', index);
+    this.notFoundResults = false;
     this.canSelected = this.renderingStep.cantidad === this.renderingStep.cantidadSeleccionada ? false : true;
     const subCatSelected = this.renderingStep.sub.find(sub => sub.index === index);
-    this.paquesteService.getCombos(parseInt(this.codigoPaquete), this.idPedido, subCatSelected?.claveCategory, subCatSelected?.clave)
+    this.paquesteService.getProductsCombo(parseInt(this.codigoPaquete), this.idPedido, subCatSelected?.claveCategory, subCatSelected?.clave)
     .subscribe({
       next: response => {
         this.productsCombo = response;
-        this.getProductsSessionStorage();
+        this.editValuesProductsToCombo();
         console.log(response);
         this.notFoundResults = response.length === 0 ? true : false;
       },
@@ -67,9 +65,7 @@ export class ModalPaqueteComponent implements OnInit {
     });
   }
 
-  getProductsSessionStorage() {
-    // const  session = sessionStorage.getItem('product-list');
-    console.log(this.productsToSession);
+  editValuesProductsToCombo() {
     this.productsCombo.forEach( producto => {
       let buscandoProducto = this.productsToSession.find(prod => prod.codigo === producto.codigo);
       producto.cantidadPedida = buscandoProducto ? buscandoProducto.cantidadPedida : 0;
@@ -78,11 +74,33 @@ export class ModalPaqueteComponent implements OnInit {
 
   onGetProductSelected(product: ProductModel) {
     console.log(product)
+
     const indexProdExist = this.productsToSession.findIndex(prod => prod.codigo === product.codigo);
-    // console.log(indexProdExist);
+    const productToSave: SaleProductModel = {
+      idSalida: product.idSalida,
+      idVenta: this.idPedido,
+      codigo: product.codigo,
+      idCombo: product.idCombo,
+      viewProducto: product,
+      cantidad: product.cantidadPedida,
+      noCombo: this.noComboTrabajando
+    };
+
+    this.paquesteService.productSale(productToSave).subscribe({
+      next: response => {
+        console.log(response);
+        this.idPedido = response?.pk;
+        this.carritoTemporal(indexProdExist, product);
+        this.getProductsCombo(this.indexTab);
+      },
+      error: error => console.warn(error)
+    });
+
+  }
+
+  carritoTemporal(indexProdExist: number, product: ProductModel) {
     if(indexProdExist >= 0) {
       if(product.cantidadPedida === 0) {
-        console.log('va a eliminar de la lista')
         this.productsToSession.splice(indexProdExist, 1)
       } else {
         this.productsToSession[indexProdExist] = product;
@@ -96,14 +114,15 @@ export class ModalPaqueteComponent implements OnInit {
   onChangeCountTotal(accion: string) {
     this.renderingStep.cantidadSeleccionada = accion === 'add' ?  this.renderingStep.cantidadSeleccionada + 1 :  this.renderingStep.cantidadSeleccionada - 1;
     this.canSelected = this.renderingStep.cantidad === this.renderingStep.cantidadSeleccionada ? false : true;
-    console.log(this.stepperList);
+    // console.log(this.stepperList);
   }
 
   changeStep(index: number) {
+    this.indexTab = 0;
     this.renderingStep = this.stepperList[index];
     console.log(this.renderingStep);
     if(this.renderingStep) {
-      this.getProducts();
+      this.getProductsCombo(this.indexTab);
       // this.canSelected = true;
     }
   }
@@ -127,6 +146,14 @@ export class ModalPaqueteComponent implements OnInit {
         this.matdialog.close();
       }
     });
+  }
+
+  getType(clave: string, cantidad: number) {
+    if(clave === 'BEB') {
+      return cantidad === 1 ? 'Bebida' : 'Bebidas';
+    } else if(clave === 'PAS') {
+      return cantidad === 1 ? 'Paste' : 'Pastes';
+    } return
   }
 
 }

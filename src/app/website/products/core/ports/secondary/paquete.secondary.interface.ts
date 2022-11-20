@@ -20,4 +20,11 @@ export abstract class PaqueteSecondaryInterface {
   */
   abstract getDetalleCombo(codigoPaquete: string): Observable<PaqueteModel[]>
 
+  /**
+    * @param  id de la venta actual
+    * @params no combo seleccionado
+    * @returns El número del combo
+  */
+  abstract getNumeroCombo(idVenta: number, noCombo: string): Observable<number>
+
 }

@@ -31,6 +31,7 @@ export interface ProductOrderModel {
   impuesto: number;
   precio: number;
   idCombo: number;
+  noCombo: number;
   viewProducto: ProductModel;
 }
 
@@ -39,4 +40,10 @@ export  interface ComboOrderModel {
   descripcion: string;
   precio: number;
   detalle: ProductOrderModel[]
+}
+
+export interface ComboDescripcionModel {
+  noCombo: number;
+  descripcion: string;
+  idSalida: number;
 }

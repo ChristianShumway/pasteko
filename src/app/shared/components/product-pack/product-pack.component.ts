@@ -23,11 +23,9 @@ export class ProductPackComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.canSelected);
     this.countProduct = new FormControl(this.product?.cantidadPedida, [Validators.minLength(0)])
     this.countProduct.valueChanges.subscribe({
       next: response  => {
-        console.log(response);
         this.product.cantidadPedida = response.currentValue;
         this.productSelected.emit(this.product);
         this.actionSelected.emit(response.action)

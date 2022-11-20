@@ -10,5 +10,6 @@ export interface SaleProductEntity {
   impuesto?: number;
   costo?: number;
   idCombo: number;
+  noCombo: number;
   viewProducto: ProductEntity[];
 }

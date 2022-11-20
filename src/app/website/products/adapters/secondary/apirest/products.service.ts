@@ -66,7 +66,6 @@ export class ProductsService extends ProductsSecondaryInterface {
   }
 
   getSubcategories(claveCategoria: string): Observable<SubCategoryModel[]> {
-    console.log(claveCategoria)
     const subCat = SUBCATEGORIES.filter(sub => sub.claveCategory === claveCategoria || sub.category === claveCategoria.toLowerCase());
     return of (subCat);
   }

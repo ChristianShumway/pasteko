@@ -68,9 +68,9 @@ export class DialogMessage {
       return this.dialog.open(InfoProductComponent, dialog)
     }
 
-    showModalPaquete(codigoPaquete: string, steppers: any[], idPedido: number) {
+    showModalPaquete(codigoPaquete: string, steppers: any[], idPedido: number, noComboAgregado: number) {
       let dialog: MatDialogConfig = new MatDialogConfig();
-      dialog.data = {codigoPaquete, steppers, idPedido};
+      dialog.data = {codigoPaquete, steppers, idPedido, noComboAgregado};
       dialog.autoFocus = false;
       dialog.role = 'alertdialog';
       dialog.width = '80%';

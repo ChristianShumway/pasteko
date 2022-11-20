@@ -29,7 +29,8 @@ export class RecomendacionesMappers {
           cantidadPedida: p.producto.cantidadPedida,
           idSalida: p.producto.idSalida,
           informacion: p.producto.informacion,
-          idCombo: p.producto.idCombo
+          idCombo: p.producto.idCombo,
+          noCombo: p.producto.noCombo
         }
       });
     });
