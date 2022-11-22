@@ -31,4 +31,13 @@ export class PaquetesUsecase extends PaquetePrimaryInterface {
     return this.secondary.getDetalleCombo(codigoPaquete);
   }
 
+  /**
+    * @param  id de la venta actual
+    * @params no combo seleccionado
+    * @returns El número del combo
+  */
+  getNumeroCombo(idVenta: number, noCombo: string): Observable<number> {
+    return this.secondary.getNumeroCombo(idVenta, noCombo);
+  }
+
 }

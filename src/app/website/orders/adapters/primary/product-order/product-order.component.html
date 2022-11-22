@@ -1,17 +1,15 @@
-<div class="order__products--description grid-order">
+<div class="order__products--description grid-order" [ngClass]="{'is-resumen': !edit}">
   <div class="td" *ngIf="!this.productOrder.detalle">
     <app-counter
+      *ngIf="edit"
       [stock]="productOrder?.viewProducto?.existencia"
       [canSelected]="canSelected"
       [formControl]="countProduct" class="option__count">
     </app-counter>
+    <p *ngIf="!edit" class="paquete__count">{{ productOrder?.cantidad }}</p>
   </div>
-  <div class="td" *ngIf="this.productOrder.detalle">
-    <app-counter
-    [stock]="0"
-    [canSelected]="!canSelected"
-    [formControl]="countProduct" class="option__count">
-  </app-counter>
+  <div class="td" [ngClass]="{'is-paquete': this.productOrder.detalle }" *ngIf="this.productOrder.detalle">
+    <p class="paquete__count">{{ combosSeccionados.length }}</p>
   </div>
 
   <div class="td description" *ngIf="!this.productOrder.detalle">
@@ -19,15 +17,23 @@
     <span class="description__ingredients">{{productOrder?.viewProducto?.informacion || 'No se tiene información del producto'}}</span>
   </div>
   <div class="td description" *ngIf="this.productOrder.detalle">
-    {{productOrder?.descripcion | lowercase}}
-    <span class="description__ingredients">{{getContenido(productOrder?.detalle)}}</span>
+    <div class="paquete__name"> {{productOrder?.descripcion | lowercase}}</div>
+    <div class="wrap__paquetes" *ngFor="let combo of combosSeccionados">
+      <div class="paquete__detail">
+        <p class="paquete__title"> Combo No. {{combo.noCombo}}</p>
+        <span class="paquete__descripcion">{{ getContenido(combo.descripcion) }}</span>
+      </div>
+      <button class="btn-delete" (click)="deleteComboOrder(combo)" *ngIf="edit">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </div>
 
   <div class="td" *ngIf="!this.productOrder.detalle">{{productOrder.precio * productOrder.cantidad | currency}}</div>
-  <div class="td" *ngIf="this.productOrder.detalle">{{productOrder.precio | currency}}</div>
+  <div class="td" [ngClass]="{'is-paquete': this.productOrder.detalle }" *ngIf="this.productOrder.detalle">{{productOrder.precio | currency}}</div>
 
-  <div class="td">
-    <button class="btn-delete" (click)="deleteProductOrder(productOrder)">
+  <div class="td" *ngIf="edit">
+    <button class="btn-delete" (click)="deleteProductOrder(productOrder)" *ngIf="!this.productOrder.detalle">
       <mat-icon>delete</mat-icon>
     </button>
   </div>

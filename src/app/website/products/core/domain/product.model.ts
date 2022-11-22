@@ -9,6 +9,7 @@ export interface ProductModel {
   linea: string;
   precio: number;
   idCombo: number;
+  noCombo: number;
 }
 
 export interface SubCategoryModel {

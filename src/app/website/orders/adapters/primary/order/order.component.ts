@@ -11,7 +11,7 @@ import { SalePrimaryInterface } from 'src/app/website/orders/core/ports/primary/
 
 import { ProductModel } from 'src/app/website/products/core/domain/product.model';
 import { SaleProductModel } from 'src/app/website/products/core/domain/sale-product.model';
-import { ComboOrderModel, ProductOrderModel } from '../../../core/domain/order-detail.model';
+import { ComboDescripcionModel, ComboOrderModel, ProductOrderModel } from '../../../core/domain/order-detail.model';
 import { ProductoRecomendacionModel } from './../../../core/domain/producto-recomendacion.model';
 
 @Component({
@@ -106,6 +106,7 @@ export class OrderComponent implements OnInit {
       codigo: product.codigo,
       cantidad: product.cantidad,
       idCombo: product.idCombo,
+      noCombo: product.noCombo,
       viewProducto: {
         cantidadPedida: product.cantidad,
         codigo: product.codigo,
@@ -116,7 +117,8 @@ export class OrderComponent implements OnInit {
         informacion: product?.viewProducto?.informacion,
         linea: product.codigo,
         precio: product.precio,
-        idCombo: product.idCombo
+        idCombo: product.idCombo,
+        noCombo: product.noCombo
       },
     };
 
@@ -138,10 +140,7 @@ export class OrderComponent implements OnInit {
         amountProduct = product.cantidad * product.precio;
         this.amount += amountProduct;
       } else {
-        product.detalle.forEach( (productoCombo: ProductOrderModel) => {
-          amountProduct = productoCombo.cantidad * productoCombo.precio;
-          this.amount += amountProduct;
-        })
+        this.amount += product.precio;
       }
     });
   }
@@ -179,6 +178,7 @@ export class OrderComponent implements OnInit {
       impuesto: 0,
       precio: producto.precio,
       idCombo: producto.idCombo,
+      noCombo: producto.noCombo,
       viewProducto: producto
     };
     this.onGetProductSelected(productToOrder);
@@ -213,6 +213,20 @@ export class OrderComponent implements OnInit {
           }
         }
     });
+  }
+
+  onDeleteComboSelected(combo: ComboDescripcionModel) {
+    const dialogRef = this.dialog.showDialogConfirm(`¿Estás seguro de eliminar el combo no. ${combo.noCombo}?`);
+    dialogRef.afterClosed().subscribe(
+      result => {
+        if(result) {
+          this.usesase.deleteProductOrder(this.idPedido, combo.idSalida).subscribe({
+            next: () => this.getCurrentSale(),
+            error: error => console.warn(error)
+          });
+        }
+      }
+    );
   }
 
   goBack(): void {

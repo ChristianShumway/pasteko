@@ -86,15 +86,6 @@ export class OrderSummaryComponent implements OnInit {
     });
   }
 
-
-  // getAmountTotal() {
-  //   this.amount = 0;
-  //   this.productsOrder.forEach(product => {
-  //     const amountProduct = product.cantidad * product.precio;
-  //     this.amount += amountProduct;
-  //   });
-  // }
-
   getAmountTotal() {
     this.amount = 0;
     let amountProduct = 0;
@@ -103,10 +94,11 @@ export class OrderSummaryComponent implements OnInit {
         amountProduct = product.cantidad * product.precio;
         this.amount += amountProduct;
       } else {
-        product.detalle.forEach( (productoCombo: ProductOrderModel) => {
-          amountProduct = productoCombo.cantidad * productoCombo.precio;
-          this.amount += amountProduct;
-        })
+        this.amount += product.precio;
+        // product.detalle.forEach( (productoCombo: ProductOrderModel) => {
+        //   amountProduct = productoCombo.cantidad * productoCombo.precio;
+        //   this.amount += amountProduct;
+        // });
       }
     });
   }
