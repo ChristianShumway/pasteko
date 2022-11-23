@@ -50,6 +50,7 @@ export class ProductsComponent implements OnInit {
   }
 
   getProducts() {
+    this.subCategoria = null;
     this.route.paramMap.pipe(
       switchMap( ((params: ParamMap) => {
         this.claveCategoria = params.get('clave');
@@ -79,7 +80,11 @@ export class ProductsComponent implements OnInit {
   getSubCategory() {
     if(this.subCategoriasList.length > 0) {
       if(!this.subCategoria) {
+        // console.log('no tengo subcategoria la cambio')
         this.subCategoria =  this.subCategoriasList[0].clave;
+      } else {
+        // console.log('si traigo subcatego')
+        this.subCategoria = null;
       }
     } else {
       this.subCategoria = null;
@@ -105,7 +110,8 @@ export class ProductsComponent implements OnInit {
       next: response => {
         console.log(response);
         this.idPedido = response?.pk;
-        this.getProducts();
+        // this.getProducts();
+        this.onChangeSubcategory(this.subCategoria);
       },
       error: error => console.warn(error)
     });
@@ -134,13 +140,13 @@ export class ProductsComponent implements OnInit {
     this.usecase.getProducts(this.claveCategoria, this.subCategoria, this.idPedido).subscribe({
       next: response  => {
         this.productsList = response;
-        this.subCategoria = null;
+        //this.subCategoria = null;
         if(this.idPedido !== 0) {
           this.getTotalAcount();
         }
       },
       error: error => console.error(error)
-    })
+    });
   }
 
   onComboSelected(codigo: string) {

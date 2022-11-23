@@ -31,7 +31,6 @@ export class CounterComponent implements OnInit, ControlValueAccessor {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.disponible)
   }
 
   add() {
