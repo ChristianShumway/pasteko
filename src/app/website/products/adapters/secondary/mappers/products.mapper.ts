@@ -20,6 +20,7 @@ export class ProductsMappers {
         codigo: p.codigo,
         descripcion: p.descripcion,
         existencia: p.existencia,
+        disponible: p.disponible,
         idSalida: p.idSalida,
         imagen: p.imagen,
         informacion: p.informacion,

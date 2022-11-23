@@ -8,11 +8,12 @@
     alt="paste" />
     <app-counter
       [stock]="product?.existencia"
+      [disponible]="product.disponible"
       [canSelected]="canSelected"
       [formControl]="countProduct"
       [type]="'combo'"
       class="option__count"
-      [ngClass]="{'opacity-product': noExistencias}" >
+      [ngClass]="{'opacity-product': noExistencias && !product.disponible}" >
     </app-counter>
   <!-- <div class="legend-no-product" *ngIf="noExistencias && !isCombo">Agotado</div> -->
 </div>

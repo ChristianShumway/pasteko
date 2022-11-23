@@ -26,6 +26,7 @@ export class RecomendacionesMappers {
           imagen: p.producto.imagen,
           precio: p.producto.precio,
           existencia: p.producto.existencia,
+          disponible: p.producto.disponible,
           cantidadPedida: p.producto.cantidadPedida,
           idSalida: p.producto.idSalida,
           informacion: p.producto.informacion,

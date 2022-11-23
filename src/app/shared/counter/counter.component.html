@@ -13,8 +13,8 @@
   <a
     class="option__count--btn"
     [ngClass]="{
-      'inactive': _stock === 0 || !canSelected,
+      'inactive': (_stock === 0 && !disponible) || !canSelected,
       'is-paquete': type
     }"
-    (click)=" (_stock !== 0 && canSelected) && add()"> + </a>
+    (click)=" ((_stock !== 0 || disponible) && canSelected) && add()"> + </a>
 </div>

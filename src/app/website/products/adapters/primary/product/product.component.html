@@ -1,22 +1,23 @@
 <div class="wrap-product">
-  <p class="option__name" [ngClass]="{'opacity-product': noExistencias && !isCombo}" >
+  <p class="option__name" [ngClass]="{'opacity-product': noExistencias &&  !productItem.disponible && !isCombo}" >
     {{productItem?.descripcion | uppercase }}
   </p>
   <img
-    (click)="(!noExistencias || isCombo) && showInfo(productItem)"
+    (click)="(!noExistencias || productItem.disponible || isCombo) && showInfo(productItem)"
     class="open-detail"
-    [ngClass]="{'opacity-product': noExistencias && !isCombo}"
+    [ngClass]="{'opacity-product': noExistencias && !productItem.disponible && !isCombo}"
     src="assets/icons/info.png"
     alt="información" />
   <img
     class="option__img"
-    [ngClass]="{'opacity-product': noExistencias && !isCombo}"
+    [ngClass]="{'opacity-product': noExistencias  && !productItem.disponible && !isCombo}"
     [src]="getImage(productItem.imagen)"
     alt="paste" />
-  <span class="option__price" [ngClass]="{'opacity-product': noExistencias && !isCombo}" >{{productItem?.precio | currency}}</span>
+  <span class="option__price" [ngClass]="{'opacity-product': noExistencias &&  !productItem.disponible && !isCombo}" >{{productItem?.precio | currency}}</span>
   <app-counter
     *ngIf="!isCombo"
     [stock]="productItem?.existencia"
+    [disponible]="productItem.disponible"
     [canSelected]="canSelected"
     [formControl]="countProduct"
     class="option__count">
@@ -27,5 +28,5 @@
     (click)="quieroElCombo(productItem.codigo)">
       Lo quiero
   </button>
-  <div class="legend-no-product" *ngIf="noExistencias && !isCombo">Agotado</div>
+  <div class="legend-no-product" *ngIf="noExistencias &&  productItem.disponible === false && !isCombo">Agotado</div>
 </div>

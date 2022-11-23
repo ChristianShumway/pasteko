@@ -26,13 +26,13 @@ export class ProductOrderComponent implements OnInit {
 
   ngOnInit(): void {
     if(!this.productOrder.detalle) {
-      this.canSelected = this.productOrder.viewProducto.existencia > 0 ? true : false;
+      this.canSelected = this.productOrder.viewProducto.existencia > 0  || this.productOrder.viewProducto.disponible ? true : false;
       this.countProduct = new FormControl(this.productOrder?.cantidad);
       this.countProduct.valueChanges.subscribe({
         next: response  => {
           this.productOrder.cantidad = response.currentValue;
           this.productSelected.emit(this.productOrder);
-          this.canSelected = this.productOrder.viewProducto.existencia > 0 ? true : false;
+          this.canSelected = this.productOrder.viewProducto.existencia > 0 || this.productOrder.viewProducto.disponible ? true : false;
         }
       });
     } else {

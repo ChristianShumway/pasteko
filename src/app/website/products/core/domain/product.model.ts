@@ -3,6 +3,7 @@ export interface ProductModel {
   codigo: string;
   descripcion: string;
   existencia: number;
+  disponible: boolean;
   idSalida: number;
   imagen: string;
   informacion: string;

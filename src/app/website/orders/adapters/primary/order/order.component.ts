@@ -112,6 +112,7 @@ export class OrderComponent implements OnInit {
         codigo: product.codigo,
         descripcion: product.viewProducto?.descripcion,
         existencia: product.viewProducto?.existencia,
+        disponible: product.viewProducto?.disponible,
         idSalida: product.idSalida,
         imagen: product?.viewProducto?.imagen,
         informacion: product?.viewProducto?.informacion,

@@ -29,11 +29,12 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.countProduct = new FormControl(this.productItem?.cantidadPedida, [Validators.minLength(0)]);
-    this.canSelected = this.productItem.existencia > 0 ? true : false;
+    this.canSelected = this.productItem.existencia > 0 || this.productItem.disponible ? true : false;
     this.countProduct.valueChanges.subscribe({
       next: response  => {
+        console.log(response)
         this.productItem.cantidadPedida = response.currentValue;
-        this.canSelected = this.productItem.existencia > 0 ? true : false;
+        this.canSelected = this.productItem.existencia > 0 || this.productItem.disponible ? true : false;
         this.productSelected.emit(this.productItem);
       }
     });

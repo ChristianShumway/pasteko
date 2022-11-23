@@ -3,6 +3,7 @@
     <app-counter
       *ngIf="edit"
       [stock]="productOrder?.viewProducto?.existencia"
+      [disponible]="productOrder.viewProducto.disponible"
       [canSelected]="canSelected"
       [formControl]="countProduct" class="option__count">
     </app-counter>

@@ -21,6 +21,7 @@ export class CounterComponent implements OnInit, ControlValueAccessor {
   }
   @Input() canSelected!: boolean;
   @Input() type!: string;
+  @Input() disponible!: boolean;
 
   currentValue: number = 0;
   onChange = (_: any) => { };
@@ -30,6 +31,7 @@ export class CounterComponent implements OnInit, ControlValueAccessor {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.disponible)
   }
 
   add() {
