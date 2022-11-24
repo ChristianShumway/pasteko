@@ -79,13 +79,16 @@ export class ProductsComponent implements OnInit {
 
   getSubCategory() {
     if(this.subCategoriasList.length > 0) {
-      if(!this.subCategoria) {
-        // console.log('no tengo subcategoria la cambio')
-        this.subCategoria =  this.subCategoriasList[0].clave;
-      } else {
-        // console.log('si traigo subcatego')
-        this.subCategoria = null;
-      }
+      // if(!this.subCategoria) {
+      //   // console.log('no tengo subcategoria la cambio')
+      //   this.subCategoria =  this.subCategoriasList[0].clave;
+      // } else {
+      //   this.subCategoria =  this.subCategoriasList[0].clave;
+      //   console.log('si traigo subcatego');
+      //   console.log(this.subCategoria)
+      //   // this.subCategoria = null;
+      // }
+      this.subCategoria =  this.subCategoriasList[0].clave;
     } else {
       this.subCategoria = null;
     }
