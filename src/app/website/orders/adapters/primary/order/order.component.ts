@@ -138,7 +138,7 @@ export class OrderComponent implements OnInit {
     let amountProduct = 0;
     this.productsOrder.forEach(product => {
       if(!product.detalle) {
-        amountProduct = product.cantidad * product.precio;
+        amountProduct = product.cantidad * product.viewProducto.precio;
         this.amount += amountProduct;
       } else {
         this.amount += product.precio;
