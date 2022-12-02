@@ -63,4 +63,8 @@ export class ProductsUsecase extends ProductsPrimaryInterface {
     return this.secondary.watchStorage();
   }
 
+  getImage(imgUrl: string): Observable<Blob> {
+    return this.secondary.getImage(imgUrl);
+  }
+
 }

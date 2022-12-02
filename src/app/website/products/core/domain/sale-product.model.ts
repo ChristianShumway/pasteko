@@ -11,6 +11,8 @@ export interface SaleProductModel {
   costo?: number;
   idCombo: number;
   noCombo: number;
+  caja: string;
+  estacion: string;
   viewProducto: ProductModel;
 }
 

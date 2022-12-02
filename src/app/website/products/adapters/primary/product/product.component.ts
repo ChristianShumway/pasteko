@@ -1,7 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ProductModel } from './../../../core/domain/product.model';
+import { ProductsPrimaryInterface } from '../../../core/ports/primary/products.primary.interface';
 
+declare var configuraciones: any;
+let pathImg = configuraciones.pathImg;
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -11,10 +14,11 @@ export class ProductComponent implements OnInit {
   countProduct!: FormControl;
   productItem!: ProductModel;
   noExistencias: boolean = false;
-  pathImage: string = 'assets/menu/';
-  noImageProduct: string = 'assets/icons/no-product.png';
+  noImageProduct: string = 'no-product.png';
   isCombo: boolean = false;
   canSelected: boolean = true;
+  imageToShow: any;
+  isImageLoading: boolean = false;
   @Input() set product (data: ProductModel) {
     if(data) {
       this.productItem = data;
@@ -25,10 +29,13 @@ export class ProductComponent implements OnInit {
   @Output() infoProduct = new EventEmitter<ProductModel>();
   @Output() comboSelected = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(
+    private usecase: ProductsPrimaryInterface
+  ) { }
 
   ngOnInit(): void {
-    this.countProduct = new FormControl(this.productItem?.cantidadPedida, [Validators.minLength(0)]);
+    this.getImageFromService();
+    this.countProduct = new FormControl((this.productItem?.cantidadPedida), [Validators.minLength(0)]);
     this.canSelected = this.productItem.existencia > 0 || this.productItem.disponible ? true : false;
     this.countProduct.valueChanges.subscribe({
       next: response  => {
@@ -45,15 +52,33 @@ export class ProductComponent implements OnInit {
     this.infoProduct.emit(product);
   }
 
-  getImage(img: string): string {
-    if(img) {
-      return `${this.pathImage}${img}`
-    }
-    return this.noImageProduct;
-  }
-
   quieroElCombo(codigo: string) {
     this.comboSelected.emit(codigo)
+  }
+
+  getImageFromService() {
+    this.isImageLoading = true;
+    let img = this.productItem.imagen ? this.productItem.imagen : this.noImageProduct;
+    const urlImg = `${pathImg}${img}`;
+    // const urlImg = `${pathImg}0101.png`;
+    this.usecase.getImage(urlImg).subscribe(data => {
+      this.createImageFromBlob(data);
+      this.isImageLoading = false;
+    }, error => {
+      this.imageToShow = 'assets/icons/no-product.png';
+      this.isImageLoading = false;
+      console.log(error);
+    });
+  }
+
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+        this.imageToShow = reader.result ? reader.result : 'assets/icons/no-product.png';
+    }, false);
+    if (image) {
+        reader.readAsDataURL(image);
+    }
   }
 
 }

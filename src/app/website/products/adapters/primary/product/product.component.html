@@ -8,11 +8,16 @@
     [ngClass]="{'opacity-product': noExistencias && !productItem.disponible && !isCombo}"
     src="assets/icons/info.png"
     alt="información" />
+
   <img
     class="option__img"
     [ngClass]="{'opacity-product': noExistencias  && !productItem.disponible && !isCombo}"
-    [src]="getImage(productItem.imagen)"
-    alt="paste" />
+    [src]="imageToShow"
+    alt="producto"
+    *ngIf="!isImageLoading; else noImageFound">
+  <ng-template #noImageFound>
+    <img src="assets/icons/no-product.png" alt="no producto" class="option__img" />
+  </ng-template>
   <span class="option__price" [ngClass]="{'opacity-product': noExistencias &&  !productItem.disponible && !isCombo}" >{{productItem?.precio | currency}}</span>
   <app-counter
     *ngIf="!isCombo"

@@ -14,6 +14,8 @@ import { SaleProductModel } from 'src/app/website/products/core/domain/sale-prod
 import { ComboDescripcionModel, ComboOrderModel, ProductOrderModel } from '../../../core/domain/order-detail.model';
 import { ProductoRecomendacionModel } from './../../../core/domain/producto-recomendacion.model';
 
+declare var configuraciones: any;
+let estacion = configuraciones.estacion;
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
@@ -107,8 +109,11 @@ export class OrderComponent implements OnInit {
       cantidad: product.cantidad,
       idCombo: product.idCombo,
       noCombo: product.noCombo,
+      caja: estacion,
+      estacion: estacion,
       viewProducto: {
         cantidadPedida: product.cantidad,
+        cantidadCombo: product.viewProducto?.cantidadCombo,
         codigo: product.codigo,
         descripcion: product.viewProducto?.descripcion,
         existencia: product.viewProducto?.existencia,

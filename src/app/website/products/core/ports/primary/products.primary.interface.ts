@@ -43,4 +43,7 @@ export abstract class ProductsPrimaryInterface {
   */
   abstract watchStorage(): Observable<any>;
 
+
+  abstract getImage(imgUrl: string): Observable<Blob>;
+
 }

@@ -10,6 +10,8 @@ import { PaqueteModel, StepPaqueteModel } from './../../../core/domain/paquete.m
 import { DialogMessage } from 'src/app/commons/dialog';
 import { zip } from 'rxjs';
 
+declare var configuraciones: any;
+let estacion = configuraciones.estacion;
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -106,7 +108,9 @@ export class ProductsComponent implements OnInit {
       idCombo: product.idCombo,
       viewProducto: product,
       cantidad: product.cantidadPedida,
-      noCombo: 0
+      noCombo: 0,
+      caja: estacion,
+      estacion: estacion
     };
 
     this.usecase.productSale(productToSave).subscribe({
@@ -114,7 +118,19 @@ export class ProductsComponent implements OnInit {
         console.log(response);
         this.idPedido = response?.pk;
         // this.getProducts();
-        this.onChangeSubcategory(this.subCategoria);
+        sessionStorage.setItem('idPedido', `${this.idPedido}`);
+        console.log(this.productsList)
+        const indexProd = this.productsList.findIndex( producto => producto.codigo === response.response.codigo);
+        console.log(indexProd);
+        this.productsList[indexProd].cantidadCombo = response.response.cantidadCombo;
+        this.productsList[indexProd].cantidadPedida = response.response.cantidadPedida;
+        this.productsList[indexProd].existencia = response.response.existencia;
+        this.productsList[indexProd].idSalida = response.response.idSalida;
+        this.productsList[indexProd].disponible = response.response.disponible;
+        if(this.idPedido !== 0) {
+          this.getTotalAcount();
+        }
+        // this.onChangeSubcategory(this.subCategoria);
       },
       error: error => console.warn(error)
     });

@@ -8,5 +8,10 @@
     "target": "http://74.208.16.29:8080/pasteco-web/",
     "secure": false,
     "logLevel": "debug"
+  },
+  "/files/*": {
+    "target": "http://74.208.16.29:8080/pasteco-web/",
+    "secure": false,
+    "logLevel": "debug"
   }
 }

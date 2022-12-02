@@ -2,10 +2,18 @@
   <p class="option__name">
     {{product?.descripcion| uppercase }}
   </p>
-  <img
+  <!-- <img
     class="option__img"
     [src]="getImage(product.imagen)"
-    alt="paste" />
+    alt="paste" /> -->
+  <img
+    class="option__img"
+    [src]="imageToShow"
+    alt="producto"
+    *ngIf="!isImageLoading; else noImageFound">
+  <ng-template #noImageFound>
+    <img src="assets/icons/no-product.png" alt="no producto" class="option__img" />
+  </ng-template>
     <app-counter
       [stock]="product?.existencia"
       [disponible]="product.disponible"

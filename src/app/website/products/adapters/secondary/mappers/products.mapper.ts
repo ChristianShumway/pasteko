@@ -17,6 +17,7 @@ export class ProductsMappers {
     params.forEach( p => {
       products.push({
         cantidadPedida: p.cantidadPedida,
+        cantidadCombo: p.cantidadCombo,
         codigo: p.codigo,
         descripcion: p.descripcion,
         existencia: p.existencia,

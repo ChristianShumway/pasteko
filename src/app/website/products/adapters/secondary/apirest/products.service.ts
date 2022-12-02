@@ -104,4 +104,9 @@ export class ProductsService extends ProductsSecondaryInterface {
     sessionStorage.removeItem('idPedido');
   }
 
+  getImage(imgUrl:string): Observable<Blob> {
+    const req = `${environment.apiUrl}/files/${imgUrl}`;
+    return this.http.get(req, { responseType: 'blob'});
+  }
+
 }

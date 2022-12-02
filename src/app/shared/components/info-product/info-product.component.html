@@ -1,22 +1,38 @@
 
 <mat-dialog-content class="wrap-product" *ngIf="type !== 'Combos'">
   <p class="product__name" > {{product?.descripcion}} </p>
-  <img
+  <!-- <img
     class="product__image"
     [src]="getImage(product.imagen)"
-    alt="product?.descripcion" />
+    alt="product?.descripcion" /> -->
+  <img
+    class="product__image"
+    [src]="imageToShow"
+    alt="producto"
+    *ngIf="!isImageLoading; else noImageFound">
+  <ng-template #noImageFound>
+    <img src="assets/icons/no-product.png" alt="no producto" class="option__img" />
+  </ng-template>
   <p class="product__description">{{product?.informacion || 'Información no disponible'}}</p>
 </mat-dialog-content>
 
 <mat-dialog-content class="wrap-combo" *ngIf="type === 'Combos'">
-  <img
+  <!-- <img
     class="combo__image"
     [src]="getImage(product.imagen)"
-    alt="product?.descripcion" />
-    <div class="combo__detail">
-      <p class="combo__name" > {{product?.descripcion}} </p>
-      <p class="combo__description">{{product?.informacion || 'Sin información de productos participantes en este paquete'}}</p>
-    </div>
+    alt="product?.descripcion" /> -->
+  <img
+    class="combo__image"
+    [src]="imageToShow"
+    alt="producto"
+    *ngIf="!isImageLoading; else noImageFound">
+  <ng-template #noImageFound>
+    <img src="assets/icons/no-product.png" alt="no producto" class="option__img" />
+  </ng-template>
+  <div class="combo__detail">
+    <p class="combo__name" > {{product?.descripcion}} </p>
+    <p class="combo__description">{{product?.informacion || 'Sin información de productos participantes en este paquete'}}</p>
+  </div>
 </mat-dialog-content>
 
 

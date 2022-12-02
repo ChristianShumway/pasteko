@@ -28,6 +28,7 @@ export class RecomendacionesMappers {
           existencia: p.producto.existencia,
           disponible: p.producto.disponible,
           cantidadPedida: p.producto.cantidadPedida,
+          cantidadCombo: p.producto.cantidadCombo,
           idSalida: p.producto.idSalida,
           informacion: p.producto.informacion,
           idCombo: p.producto.idCombo,

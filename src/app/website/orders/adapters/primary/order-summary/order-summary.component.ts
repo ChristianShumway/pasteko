@@ -1,5 +1,5 @@
 import { CloseOrderEntity } from 'src/app/website/orders/adapters/secondary/dtos/order-detail.entity';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -8,10 +8,12 @@ import { ProductSharedService } from 'src/app/core/services/products.service';
 import { ProductsPrimaryInterface } from 'src/app/website/products/core/ports/primary/products.primary.interface';
 import { SalePrimaryInterface } from 'src/app/website/orders/core/ports/primary/sale.primary.interface';
 import { ProductOrderModel } from '../../../core/domain/order-detail.model';
+import Keyboard from "simple-keyboard";
 @Component({
   selector: 'app-order-summary',
   templateUrl: './order-summary.component.html',
-  styleUrls: ['./order-summary.component.scss']
+  styleUrls: ['./order-summary.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class OrderSummaryComponent implements OnInit {
 
@@ -28,6 +30,14 @@ export class OrderSummaryComponent implements OnInit {
   phoneFieldValid: boolean = false;
   dataOrderValid: boolean = false;
   dataPurchase: any;
+  keyboard!: Keyboard;
+  keyFocus: string = "";
+  keyboardActive: boolean = false;
+  inputName = "nameField";
+  inputs: any = {
+    nameField: this.nameField.value,
+    phoneField: this.phoneField.value
+  };
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -198,5 +208,87 @@ export class OrderSummaryComponent implements OnInit {
     });
     return productText;
   }
+
+  ngAfterViewInit() {
+    this.keyboard = new Keyboard({
+      debug: true,
+      inputName: this.inputName,
+      onChange: (input) => this.onChange(input),
+      onKeyPress: (button: any) => this.onKeyPress(button),
+      preventMouseDownDefault: false // If you want to keep focus on input
+    });
+
+    /**
+     * Since we have default values for our inputs,
+     * we must sync them with simple-keyboard
+     */
+    this.keyboard.replaceInput(this.inputs);
+  }
+
+  onInputFocus = (event: any) => {
+    this.inputName = event.target.id;
+    this.keyboardActive = this.inputName === 'nameField' || this.inputName === 'phoneField' ? true : false;
+    // this.handleShift()
+    // console.log('mostrar teclado', this.keyboardActive);
+    console.log("Focused input", this.inputName);
+
+    this.keyboard.setOptions({
+      inputName: event.target.id
+    });
+  };
+
+  setInputCaretPosition = (elem: any, pos: number) => {
+    if (elem.setSelectionRange) {
+      elem.focus();
+      elem.setSelectionRange(pos, pos);
+    }
+  };
+
+  onInputChange = (event: any) => {
+    this.keyboard.setInput(event.target.value, event.target.id);
+  };
+
+  onChange = (input: string) => {
+    if(this.inputName === 'nameField') {
+      this.nameField.setValue(input)
+    } else  if(this.inputName === 'phoneField') {
+      this.phoneField.setValue(input)
+    }
+    // this.inputs[this.inputName] = input;
+    // console.log("Input changed", input);
+
+    /**
+     * Synchronizing input caret position
+     * This part is optional and only relevant if using the option "preventMouseDownDefault: true"
+     */
+    let caretPosition = this.keyboard.caretPosition;
+
+    if (caretPosition !== null)
+      this.setInputCaretPosition(
+        document.querySelector(`#${this.inputName}`),
+        caretPosition
+      );
+
+    // console.log("caretPosition", caretPosition);
+  };
+
+  onKeyPress = (button: string) => {
+    // console.log("Button pressed", button);
+
+    /**
+     * If you want to handle the shift and caps lock buttons
+     */
+    if (button === "{shift}" || button === "{lock}") this.handleShift();
+    if(button === '{enter}') this.keyboardActive = false;
+  };
+
+  handleShift = () => {
+    let currentLayout = this.keyboard.options.layoutName;
+    let shiftToggle = currentLayout === "default" ? "shift" : "default";
+
+    this.keyboard.setOptions({
+      layoutName: shiftToggle
+    });
+  };
 
 }

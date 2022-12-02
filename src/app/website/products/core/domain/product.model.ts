@@ -1,5 +1,6 @@
 export interface ProductModel {
   cantidadPedida: number;
+  cantidadCombo: number;
   codigo: string;
   descripcion: string;
   existencia: number;

@@ -1,5 +1,5 @@
 <section class="main-container">
-  <div class="component-container">
+  <div class="component-container" (click)="onInputFocus($event)">
     <div class="summary-container">
       <div class="summary__logo">
         <img src="assets/logo-pasteko.png" alt="logo" />
@@ -11,6 +11,10 @@
             <div class="input__summary">
               <input
               type="text"
+              (change)="onInputChange($event)"
+              (focus)="onInputFocus($event)"
+              class="input"
+              id="nameField"
               [ngClass]="{'error' : nameField?.invalid && nameField?.touched}"
               [formControl]="nameField"
               placeholder="Nombre" />
@@ -18,6 +22,10 @@
             <div class="input__summary">
               <input
                 type="tel"
+                (change)="onInputChange($event)"
+                (focus)="onInputFocus($event)"
+                class="input"
+                id="phoneField"
                 [ngClass]="{'error' : phoneField?.invalid && phoneField?.touched}"
                 [formControl] = "phoneField"
                 placeholder="Teléfono" />
@@ -41,22 +49,6 @@
       <div class="summary__order border__wrap">
         <div class="title">Mi orden</div>
         <div class="summary__products" *ngIf="productsOrder.length > 0">
-          <!-- <div class="product__wrap" *ngFor="let product of productsOrder">
-            <div class="product__price" *ngIf="!product?.detalle">{{product?.cantidad}}</div>
-            <div class="product__price" *ngIf="product?.detalle">1</div>
-
-            <div class="product__description" *ngIf="!product?.detalle">
-              <p>{{product?.viewProducto?.descripcion}}</p>
-              <span>{{product?.viewProducto?.informacion || 'No se tiene información del producto'}}</span>
-            </div>
-            <div class="product__description" *ngIf="product?.detalle">
-              <p>{{product?.descripcion}}</p>
-              <span>{{getContenido(product?.detalle)}}</span>
-            </div>
-
-            <div class="product__price" *ngIf="!product?.detalle">{{product.viewProducto.precio * product.cantidad | currency}}</div>
-            <div class="product__price" *ngIf="product?.detalle">{{product.precio | currency}}</div>
-          </div> -->
           <app-product-order
             *ngFor="let product of productsOrder"
             [product]="product"
@@ -71,4 +63,11 @@
       </div>
     </div>
   </div>
+  <div class="overlay-keyboard" [ngClass]="{'keyboard-active': keyboardActive}">
+    <div class="simple-keyboard"></div>
+  </div>
 </section>
+
+<!-- <div style="text-align:center">
+	<input (input)="onInputChange($event)" class="input" value={{value}} placeholder="Tap on the virtual keyboard to start" />
+</div> -->

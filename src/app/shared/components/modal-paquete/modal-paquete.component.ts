@@ -6,6 +6,8 @@ import { ProductModel } from 'src/app/website/products/core/domain/product.model
 import { DialogMessage } from 'src/app/commons/dialog';
 import { SaleProductModel } from 'src/app/website/products/core/domain/sale-product.model';
 
+declare var configuraciones: any;
+let estacion = configuraciones.estacion;
 @Component({
   selector: 'app-modal-paquete',
   templateUrl: './modal-paquete.component.html',
@@ -86,15 +88,29 @@ export class ModalPaqueteComponent implements OnInit {
       idCombo: product.idCombo,
       viewProducto: product,
       cantidad: product.cantidadPedida,
-      noCombo: this.noComboTrabajando
+      noCombo: this.noComboTrabajando,
+      caja: estacion,
+      estacion: estacion
     };
 
     this.paquesteService.productSale(productToSave).subscribe({
       next: response => {
         console.log(response);
+        console.log(this.productsCombo)
         this.idPedido = response?.pk;
         this.carritoTemporal(indexProdExist, product);
-        this.getProductsCombo(this.indexTab);
+        // this.getProductsCombo(this.indexTab);
+        sessionStorage.setItem('idPedido', `${this.idPedido}`);
+        const indexProd = this.productsCombo.findIndex( producto => producto.codigo === response.response.codigo);
+        console.log(indexProd);
+        this.productsCombo[indexProd].cantidadCombo = response.response.cantidadCombo;
+        this.productsCombo[indexProd].cantidadPedida = response.response.cantidadPedida;
+        this.productsCombo[indexProd].existencia = response.response.existencia;
+        this.productsCombo[indexProd].idSalida = response.response.idSalida;
+        this.productsCombo[indexProd].disponible = response.response.disponible;
+        this.editValuesProductsToCombo();
+        // console.log(response);
+        // this.notFoundResults = response.length === 0 ? true : false;
       },
       error: error => console.warn(error)
     });
