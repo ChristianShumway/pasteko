@@ -206,3 +206,25 @@ input[type="tel"] {
   // display: none;
   z-index: 9;
 }
+
+.button__close {
+  position: absolute;
+  bottom: 240px;
+  right: 1rem;
+  padding: 1rem;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-size: 2rem;
+  background-color: white;
+  color: var(--main-color);
+  font-family: var(--font-light);
+}
+
+
+::ng-deep .hg-theme-default .hg-button {
+  background: #ff4081 !important;
+}

@@ -26,6 +26,10 @@
   }
   .option__img {
     max-width: 150px;
+    width: auto;
+    height: 110px;
+    object-fit: contain;
+    justify-self: center;
     vertical-align: bottom;
   }
   .option__price {

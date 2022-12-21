@@ -157,10 +157,16 @@ export class OrderSummaryComponent implements OnInit {
     if(!this.paraLlevarField?.value && !this.comerAquiField?.value) {
       this.dialog.showDialogError('¡Selecciona si es para comer aquí o para llevar.!');
     } else {
+      if(this.comerAquiField?.value) {
+        sessionStorage.setItem('tipo-atencion', 'aquí');
+      } else {
+        sessionStorage.setItem('tipo-atencion', 'llevar');
+      }
       console.log('termina compra');
       this.finishOrder();
     }
   }
+
 
   finishOrder() {
     const dialogRef = this.dialog.showDialogConfirm('¿Deseas confirmar tu pedido?');

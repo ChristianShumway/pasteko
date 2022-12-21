@@ -138,6 +138,7 @@ export class ProductsComponent implements OnInit {
 
   onInfoProductSelected(product: ProductModel) {
     const dialogRef = this.dialog.showInfoProduct(product, product.linea);
+    dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe( response => {
       if(response) {
         let moreProduct: ProductModel = {

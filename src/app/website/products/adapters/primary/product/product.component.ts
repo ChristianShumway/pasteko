@@ -67,7 +67,6 @@ export class ProductComponent implements OnInit {
     }, error => {
       this.imageToShow = 'assets/icons/no-product.png';
       this.isImageLoading = false;
-      console.log(error);
     });
   }
 

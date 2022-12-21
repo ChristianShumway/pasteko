@@ -64,7 +64,7 @@ export class DialogMessage {
       dialog.data = { product, type };
       dialog.autoFocus = false;
       dialog.role = 'alertdialog';
-      dialog.width = '50%';
+      dialog.width = '40%';
       return this.dialog.open(InfoProductComponent, dialog)
     }
 

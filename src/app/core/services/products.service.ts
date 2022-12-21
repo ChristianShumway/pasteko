@@ -89,6 +89,8 @@ export class ProductSharedService {
 
   deleteIdPedido() {
     sessionStorage.removeItem('idPedido');
+    sessionStorage.removeItem('tipo-atencion');
+    sessionStorage.removeItem('metodo-pago');
   }
 
 }

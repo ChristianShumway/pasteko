@@ -21,7 +21,7 @@ export class ModalPaqueteComponent implements OnInit {
   idPedido: number = 0;
   productsCombo: ProductModel[] = [];
   canSelected: boolean = true;
-  productsToSession: ProductModel[] = [];
+  productsToSession: SaleProductModel[] = [];
   notFoundResults: boolean = false;
   noComboTrabajando!: number;
   indexTab: number = 0;
@@ -68,9 +68,11 @@ export class ModalPaqueteComponent implements OnInit {
   }
 
   editValuesProductsToCombo() {
+    console.log(this.productsToSession);
     this.productsCombo.forEach( producto => {
       let buscandoProducto = this.productsToSession.find(prod => prod.codigo === producto.codigo);
-      producto.cantidadPedida = buscandoProducto ? buscandoProducto.cantidadPedida : 0;
+      console.log(buscandoProducto);
+      producto.cantidadPedida = buscandoProducto ? buscandoProducto.cantidad : 0;
       if(buscandoProducto) {
         buscandoProducto.idSalida = producto.idSalida;
       }
@@ -98,7 +100,7 @@ export class ModalPaqueteComponent implements OnInit {
         console.log(response);
         console.log(this.productsCombo)
         this.idPedido = response?.pk;
-        this.carritoTemporal(indexProdExist, product);
+        this.carritoTemporal(indexProdExist, productToSave);
         // this.getProductsCombo(this.indexTab);
         sessionStorage.setItem('idPedido', `${this.idPedido}`);
         const indexProd = this.productsCombo.findIndex( producto => producto.codigo === response.response.codigo);
@@ -117,9 +119,9 @@ export class ModalPaqueteComponent implements OnInit {
 
   }
 
-  carritoTemporal(indexProdExist: number, product: ProductModel) {
+  carritoTemporal(indexProdExist: number, product: SaleProductModel) {
     if(indexProdExist >= 0) {
-      if(product.cantidadPedida === 0) {
+      if(product.cantidad === 0) {
         this.productsToSession.splice(indexProdExist, 1)
       } else {
         this.productsToSession[indexProdExist] = product;

@@ -64,6 +64,7 @@
     </div>
   </div>
   <div class="overlay-keyboard" [ngClass]="{'keyboard-active': keyboardActive}">
+    <div class="button__close" (click)="onKeyPress('{enter}')">x</div>
     <div class="simple-keyboard"></div>
   </div>
 </section>

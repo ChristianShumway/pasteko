@@ -24,7 +24,11 @@
     top: -4px;
   }
   .option__img {
+    justify-self: center;
     max-width: 150px;
+    width: auto;
+    height: 110px;
+    object-fit: contain;
     vertical-align: bottom;
   }
   .option__price {

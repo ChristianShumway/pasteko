@@ -60,7 +60,6 @@ export class ProductPackComponent implements OnInit {
     }, error => {
       this.imageToShow = this.noImageProduct;
       this.isImageLoading = false;
-      console.log(error);
     });
   }
 
