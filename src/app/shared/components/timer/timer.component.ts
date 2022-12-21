@@ -44,15 +44,15 @@ export class TimerComponent implements OnInit {
     this._ts.watchTimer().subscribe( time => {
       this.timer = time;
       this.showAlerts();
-      // console.log(this.timer)
+      console.log(this.timer)
     })
   }
 
   showAlerts() {
-    if(this.timer === 0) {
-      this.dialog.showDialogWarn('Tienes 5 minutos para realizar tu pedido');
-      this.closeDialog();
-    }
+    // if(this.timer === 0) {
+    //   this.dialog.showDialogWarn('Tienes 5 minutos para realizar tu pedido');
+    //   this.closeDialog();
+    // }
     if(this.timer === this.timeLimit - 10) {
       this.confirmAddTime();
     }

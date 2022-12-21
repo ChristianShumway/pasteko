@@ -13,16 +13,16 @@ export class TimerService {
   }
 
   getTime(timeLimit: number) {
-    // if(this.counter === 0) {
-    //   timer(1000, 1000) //Initial delay 1 seconds and interval countdown also 1 second
-    //   .pipe(
-    //     takeWhile( () => this.counter < timeLimit ),
-    //     tap(() => this.counter++)
-    //   )
-    //   .subscribe( () => {
-    //     this.timerSubject.next(this.counter);
-    //   });
-    // }
+    if(this.counter === 0) {
+      timer(1000, 1000) //Initial delay 1 seconds and interval countdown also 1 second
+      .pipe(
+        takeWhile( () => this.counter < timeLimit ),
+        tap(() => this.counter++)
+      )
+      .subscribe( () => {
+        this.timerSubject.next(this.counter);
+      });
+    }
   }
 
   addTime(time: number) {
