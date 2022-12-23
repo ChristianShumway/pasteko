@@ -20,8 +20,7 @@
       [canSelected]="canSelected"
       [formControl]="countProduct"
       [type]="'combo'"
-      class="option__count"
-      [ngClass]="{'opacity-product': noExistencias && !product.disponible}" >
+      class="option__count" >
     </app-counter>
-  <!-- <div class="legend-no-product" *ngIf="noExistencias && !isCombo">Agotado</div> -->
+  <div class="legend-no-product" *ngIf="noExistencias && !product.disponible">Agotado</div>
 </div>

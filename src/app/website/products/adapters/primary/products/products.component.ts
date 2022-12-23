@@ -119,14 +119,14 @@ export class ProductsComponent implements OnInit {
         this.idPedido = response?.pk;
         // this.getProducts();
         sessionStorage.setItem('idPedido', `${this.idPedido}`);
-        console.log(this.productsList)
+        // console.log(this.productsList)
         const indexProd = this.productsList.findIndex( producto => producto.codigo === response.response.codigo);
-        console.log(indexProd);
-        this.productsList[indexProd].cantidadCombo = response.response.cantidadCombo;
-        this.productsList[indexProd].cantidadPedida = response.response.cantidadPedida;
-        this.productsList[indexProd].existencia = response.response.existencia;
-        this.productsList[indexProd].idSalida = response.response.idSalida;
-        this.productsList[indexProd].disponible = response.response.disponible;
+        // this.productsList[indexProd].cantidadCombo = response.response.cantidadCombo;
+        // this.productsList[indexProd].cantidadPedida = response.response.cantidadPedida;
+        // this.productsList[indexProd].existencia = response.response.existencia;
+        // this.productsList[indexProd].idSalida = response.response.idSalida;
+        // this.productsList[indexProd].disponible = response.response.disponible;
+        this.productsList[indexProd] = response.response;
         if(this.idPedido !== 0) {
           this.getTotalAcount();
         }

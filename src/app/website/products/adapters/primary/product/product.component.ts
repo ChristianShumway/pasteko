@@ -23,6 +23,7 @@ export class ProductComponent implements OnInit {
     if(data) {
       this.productItem = data;
       this.isCombo = this.productItem.linea === 'Combos' ? true : false;
+      console.log('en onchange', this.productItem.existencia);
     }
   }
   @Output() productSelected = new EventEmitter<ProductModel>();
@@ -36,16 +37,18 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
     this.getImageFromService();
     this.countProduct = new FormControl((this.productItem?.cantidadPedida), [Validators.minLength(0)]);
-    this.canSelected = this.productItem.existencia > 0 || this.productItem.disponible ? true : false;
+    this.canSelected = this.productItem.disponible ? true : false;
     this.countProduct.valueChanges.subscribe({
       next: response  => {
-        console.log(response)
+        console.log(response);
         this.productItem.cantidadPedida = response.currentValue;
-        this.canSelected = this.productItem.existencia > 0 || this.productItem.disponible ? true : false;
+        this.canSelected = this.productItem.disponible ? true : false;
         this.productSelected.emit(this.productItem);
+        console.log('esto es canselected', this.canSelected);
       }
     });
     this.noExistencias = this.productItem.existencia === 0 ? true : false;
+    console.log('esto es canselected', this.canSelected);
   }
 
   showInfo(product: ProductModel) {

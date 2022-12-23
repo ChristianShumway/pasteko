@@ -105,11 +105,13 @@ export class ModalPaqueteComponent implements OnInit {
         sessionStorage.setItem('idPedido', `${this.idPedido}`);
         const indexProd = this.productsCombo.findIndex( producto => producto.codigo === response.response.codigo);
         console.log(indexProd);
-        this.productsCombo[indexProd].cantidadCombo = response.response.cantidadCombo;
-        this.productsCombo[indexProd].cantidadPedida = response.response.cantidadPedida;
-        this.productsCombo[indexProd].existencia = response.response.existencia;
-        this.productsCombo[indexProd].idSalida = response.response.idSalida;
-        this.productsCombo[indexProd].disponible = response.response.disponible;
+        // this.productsCombo[indexProd].cantidadCombo = response.response.cantidadCombo;
+        // this.productsCombo[indexProd].cantidadPedida = response.response.cantidadPedida;
+        // this.productsCombo[indexProd].existencia = response.response.existencia;
+        // this.productsCombo[indexProd].idSalida = response.response.idSalida;
+        // this.productsCombo[indexProd].disponible = response.response.disponible;
+        this.productsCombo[indexProd] = response.response;
+
         this.editValuesProductsToCombo();
         // console.log(response);
         // this.notFoundResults = response.length === 0 ? true : false;
